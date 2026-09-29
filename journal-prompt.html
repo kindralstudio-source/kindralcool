@@ -1,0 +1,22 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<style>
+html,body{margin:0;height:100%;background:#F5EEE6;}
+body{font-family:Georgia,"Times New Roman",serif;color:#6F4E37;display:flex;align-items:center;justify-content:center;}
+.c{text-align:center;padding:16px;max-width:420px}
+.k{font-size:12px;letter-spacing:3px;text-transform:uppercase;opacity:.7}
+.p{font-style:italic;font-size:20px;line-height:1.45;margin:10px 0 14px}
+button{font-family:inherit;font-size:13px;border:1px solid #C8A98B;background:#FFF9F3;color:#6F4E37;border-radius:20px;padding:6px 14px;cursor:pointer}
+</style></head>
+<body><div class="c">
+<div class="k">today&#39;s prompt</div>
+<div class="p" id="p"></div>
+<button onclick="next()">another one</button>
+</div>
+<script>
+var P=["What made you smile today, even for a second?","What is one thing you want to let go of this week?","Describe your perfect slow Sunday.","What are you proud of that nobody saw?","What would you do if you knew you could not fail?","Write a thank you note to your body.","What does future you need you to start today?","Which friendship makes you feel most like yourself, and why?","What drained you today? What filled you back up?","Describe a small moment you want to remember forever.","What are three things you love about your home?","What boundary do you need to set, kindly?","If today had a soundtrack, what would it be?","What is a fear that has been quietly running your choices?","What does a good life look like, in one paragraph?","Write about a version of you from five years ago. What would you tell her?","What are you waiting for permission to do?","What is working well right now?","Where did you feel most at peace this week?","What is one habit that would change everything if you kept it?","List ten things that are going right.","What do you want more of this season?","Who inspired you lately and what did they do?","What would make tomorrow ten percent better?","What does rest actually look like for you?","What is a compliment you have trouble believing?","Write about a place that feels like home.","What is on your mind that you have not said out loud?","What did you learn about yourself this month?","What are you ready to begin?"];
+var s=new Date(),d=Math.floor((s-new Date(s.getFullYear(),0,0))/864e5),i=d%P.length;
+function show(){document.getElementById("p").textContent=P[i];}
+function next(){i=(i+1)%P.length;show();}
+show();
+</script></body></html>
