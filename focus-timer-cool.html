@@ -1,0 +1,35 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<style>
+html,body{margin:0;height:100%;background:#F5EEE6;}
+body{font-family:Georgia,"Times New Roman",serif;color:#6F4E37;display:flex;align-items:center;justify-content:center;}
+.c{text-align:center;padding:14px}
+.l{font-style:italic;font-size:15px;opacity:.85}
+.t{font-size:52px;margin:4px 0 10px}
+button{font-family:inherit;font-size:14px;border:1px solid #C8A98B;background:#FFF9F3;color:#6F4E37;border-radius:20px;padding:6px 14px;margin:3px;cursor:pointer}
+button.on{background:#B08968;color:#fff;border-color:#B08968}
+.m{font-size:12px;letter-spacing:2px;text-transform:lowercase;opacity:.7;margin-top:10px}
+</style></head>
+<body><div class="c">
+<div class="l" id="l">focus time, lovely</div>
+<div class="t" id="t">25:00</div>
+<div>
+<button id="f" class="on" onclick="setMode(25,'focus time, lovely',this)">focus 25</button>
+<button id="s" onclick="setMode(5,'little break',this)">break 5</button>
+<button id="b" onclick="setMode(15,'long break',this)">break 15</button>
+</div>
+<div><button id="go" onclick="toggle()">start</button><button onclick="reset()">reset</button></div>
+<div class="m" id="m">sessions today: 0</div>
+</div>
+<script>
+var len=25*60,left=len,run=false,iv=null,done=0,mode=25;
+function show(){var m=Math.floor(left/60),s=left%60;document.getElementById("t").textContent=(m<10?"0":"")+m+":"+(s<10?"0":"")+s;}
+function setMode(n,label,el){mode=n;len=n*60;left=len;stop();document.getElementById("l").textContent=label;
+["f","s","b"].forEach(function(i){document.getElementById(i).className="";});el.className="on";show();}
+function stop(){run=false;clearInterval(iv);document.getElementById("go").textContent="start";}
+function toggle(){if(run){stop();return;}run=true;document.getElementById("go").textContent="pause";
+iv=setInterval(function(){left--;show();if(left<=0){stop();if(mode==25){done++;document.getElementById("m").textContent="sessions today: "+done;}
+document.getElementById("l").textContent=mode==25?"well done. take a breath.":"back to it, gently.";left=len;show();}},1000);}
+function reset(){stop();left=len;show();}
+show();
+</script></body></html>
