@@ -1,0 +1,25 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<style>
+html,body{margin:0;height:100%;background:#F5EEE6;}
+body{font-family:Georgia,"Times New Roman",serif;color:#6F4E37;display:flex;align-items:center;justify-content:center;}
+.c{text-align:center;padding:14px}
+.ring{width:150px;height:150px;margin:6px auto 12px;border-radius:50%;background:#E3CDB8;display:flex;align-items:center;justify-content:center;transition:transform 4s ease-in-out}
+.dot{width:70px;height:70px;border-radius:50%;background:#B08968}
+.l{font-style:italic;font-size:20px;min-height:26px}
+.s{font-size:12px;letter-spacing:2px;text-transform:lowercase;opacity:.7;margin-top:6px}
+button{font-family:inherit;font-size:14px;border:1px solid #C8A98B;background:#FFF9F3;color:#6F4E37;border-radius:20px;padding:6px 16px;margin-top:10px;cursor:pointer}
+</style></head>
+<body><div class="c">
+<div class="ring" id="r"><div class="dot"></div></div>
+<div class="l" id="l">one minute, just for you</div>
+<div class="s" id="s">box breathing · 4 in · 4 hold · 4 out · 4 hold</div>
+<button id="b" onclick="go()">begin</button>
+</div>
+<script>
+var steps=[["breathe in",1.35],["hold",1.35],["breathe out",1],["hold",1]],i=0,t=null,rounds=0;
+function tick(){var s=steps[i];document.getElementById("l").textContent=s[0];document.getElementById("r").style.transform="scale("+s[1]+")";
+i=(i+1)%4;if(i==0){rounds++;if(rounds>=4){stop();document.getElementById("l").textContent="lovely. carry that calm with you.";return;}}}
+function go(){if(t){stop();return;}rounds=0;i=0;tick();t=setInterval(tick,4000);document.getElementById("b").textContent="stop";}
+function stop(){clearInterval(t);t=null;document.getElementById("b").textContent="begin";document.getElementById("r").style.transform="scale(1)";}
+</script></body></html>
