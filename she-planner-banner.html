@@ -1,0 +1,48 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>aesthetic life planner</title>
+<style>
+:root{--bg:#F5EEE6;--light:#E3CDB8;--mid:#C8A98B;--accent:#B08968;--text:#6F4E37;--sub:#9C6644}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;background:var(--bg);overflow:hidden}
+a.wrap{display:flex;align-items:stretch;height:100%;min-height:220px;text-decoration:none;color:var(--text);font-family:Georgia,"Times New Roman",serif}
+.art{position:relative;flex:1.35;overflow:hidden;border-radius:18px;margin:10px 0 10px 10px;background:var(--light)}
+.blur{position:absolute;inset:-20px;background:url("https://public-files.gumroad.com/4gy8tlx9tm499c5a8gaw80znsaq4") center/cover no-repeat;filter:blur(18px) saturate(.9);opacity:.55}
+.img{position:absolute;inset:0;background:url("https://public-files.gumroad.com/4gy8tlx9tm499c5a8gaw80znsaq4") center/contain no-repeat;animation:drift 16s ease-in-out infinite,breathe 8s ease-in-out infinite}
+@keyframes drift{0%{transform:scale(1) translate(0,0)}50%{transform:scale(1.07) translate(-1.5%,-1%)}100%{transform:scale(1) translate(0,0)}}
+@keyframes breathe{0%,100%{opacity:1}50%{opacity:.78}}
+.sheen{position:absolute;inset:0;background:linear-gradient(110deg,transparent 30%,rgba(255,249,243,.35) 50%,transparent 70%);background-size:250% 100%;animation:sheen 7s ease-in-out infinite}
+@keyframes sheen{0%{background-position:120% 0}60%,100%{background-position:-60% 0}}
+.copy{flex:1;display:flex;flex-direction:column;justify-content:center;padding:18px 26px;text-align:left;animation:fadein 1.4s ease both}
+@keyframes fadein{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.k{font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--sub);opacity:.85}
+.t{font-style:italic;font-size:clamp(22px,3.2vw,34px);line-height:1.15;margin:8px 0 6px}
+.s{font-size:14px;line-height:1.5;opacity:.85;max-width:340px}
+.line{width:44px;height:1px;background:var(--mid);margin:12px 0}
+.btn{display:inline-block;align-self:flex-start;background:var(--accent);color:#FFF9F3;border-radius:22px;padding:9px 20px;font-size:14px;letter-spacing:.5px;transition:transform .3s,background .3s}
+a.wrap:hover .btn{background:var(--text);transform:translateY(-1px)}
+.code{font-size:12px;margin-top:8px;color:var(--sub)}
+.spark{position:absolute;color:#FFF9F3;font-size:14px;animation:tw 3s ease-in-out infinite}
+@keyframes tw{0%,100%{opacity:.2}50%{opacity:1}}
+@media (max-width:560px){a.wrap{flex-direction:column}.art{margin:10px 10px 0;min-height:170px}.copy{padding:14px 18px 18px;text-align:center;align-items:center}.btn{align-self:center}.line{margin:10px auto}}
+@media (prefers-reduced-motion:reduce){.img,.sheen,.spark,.copy{animation:none}}
+</style></head>
+<body>
+<a class="wrap" href="https://kindral.gumroad.com/l/aesthetic-life-planner-for-girls" target="_blank" rel="noopener">
+  <div class="art">
+    <div class="blur"></div>
+    <div class="img"></div>
+    <div class="sheen"></div>
+    <span class="spark" style="top:12%;left:8%">✦</span>
+    <span class="spark" style="bottom:14%;right:9%;animation-delay:1.4s">✦</span>
+  </div>
+  <div class="copy">
+    <div class="k">the full planner</div>
+    <div class="t">my life, beautifully planned.</div>
+    <div class="s">Planner, journal, wellness, money, glow up, goals and more, in this same soft brown style.</div>
+    <div class="line"></div>
+    <span class="btn">get the planner ✨</span>
+    <div class="code">launch price with code LOVELY</div>
+  </div>
+</a>
+</body></html>
