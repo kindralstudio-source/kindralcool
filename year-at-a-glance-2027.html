@@ -1,0 +1,57 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;1,400&display=swap" rel="stylesheet">
+<style>
+:root{--g:#448361;--gl:#DBEDDB;--ink:#37352F;--mute:#787774;--faint:rgba(55,53,47,.35);--line:rgba(55,53,47,.16);--sun:rgba(68,131,97,.09)}
+@media (prefers-color-scheme:dark){:root{--g:#6FAF8A;--gl:#2B3A30;--ink:#E3E2E0;--mute:#9B9A97;--faint:rgba(255,255,255,.3);--line:rgba(255,255,255,.14);--sun:rgba(111,175,138,.12)}}
+html,body{margin:0;background:transparent;color:var(--ink)}
+body{font-family:ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;padding:14px 16px}
+.top{display:flex;justify-content:space-between;align-items:baseline;border-bottom:1px solid var(--line);padding-bottom:8px;margin-bottom:14px;gap:10px;flex-wrap:wrap}
+.yr{font-family:"Playfair Display",Georgia,serif;font-weight:500;font-size:36px;color:var(--ink)}
+.tag{font-family:"Playfair Display",Georgia,serif;font-style:italic;font-size:15px;color:var(--g)}
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px 22px}
+@media(max-width:760px){.grid{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:520px){.grid{grid-template-columns:repeat(2,1fr)}}
+.mh{display:flex;justify-content:space-between;align-items:baseline;border-bottom:1px solid var(--line);margin-bottom:4px}
+.mn{font-family:"Playfair Display",Georgia,serif;font-style:italic;font-size:16px}
+.mi{font-size:9px;letter-spacing:2px;color:var(--mute)}
+table{width:100%;border-collapse:collapse;table-layout:fixed}
+th{font-weight:400;font-size:9px;color:var(--mute);padding:2px 0}
+td{text-align:center;font-size:11px;padding:1px 0;height:19px}
+td span{display:inline-block;width:19px;line-height:19px;border-radius:50%;cursor:pointer;user-select:none}
+td span:hover{outline:1px solid var(--g)}
+td.su span{background:var(--sun)}
+td.past span{color:var(--faint)}
+td.mk span{background:var(--gl);color:var(--g);font-weight:600}
+td.today span{background:var(--g);color:#fff;font-weight:600}
+.foot{margin-top:12px;font-size:10px;letter-spacing:2px;color:var(--mute);text-transform:uppercase;display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.foot b{color:var(--g);font-weight:600}
+</style></head>
+<body>
+<div class="top"><div class="yr">2027</div><div class="tag">the whole year, at a glance</div></div>
+<div class="grid" id="g"></div>
+<div class="foot"><span>tap a day to mark it · saved on this device</span><span><b id="c">0</b> days marked</span></div>
+<script>
+var Y=2027,N=["january","february","march","april","may","june","july","august","september","october","november","december"],K="nm2027-marked";
+function load(){try{return JSON.parse(localStorage.getItem(K)||"{}")}catch(e){return {}}}
+function save(o){try{localStorage.setItem(K,JSON.stringify(o))}catch(e){}}
+var mk=load();
+function p(n){return n<10?"0"+n:n}
+function draw(){
+var now=new Date(),t0=new Date(now.getFullYear(),now.getMonth(),now.getDate()),h="";
+for(var m=0;m<12;m++){
+ var first=new Date(Y,m,1),days=new Date(Y,m+1,0).getDate(),off=(first.getDay()+6)%7;
+ h+='<div><div class="mh"><span class="mn">'+N[m]+'</span><span class="mi">'+p(m+1)+'</span></div><table><tr>';
+ ["M","T","W","T","F","S","S"].forEach(function(d){h+='<th>'+d+'</th>'});h+='</tr><tr>';
+ for(var i=0;i<off;i++)h+='<td></td>';
+ for(var d=1;d<=days;d++){var c=(off+d-1)%7,dt=new Date(Y,m,d),id=Y+"-"+p(m+1)+"-"+p(d),cls=[];
+  if(c==6)cls.push("su");
+  if(dt.getTime()==t0.getTime())cls.push("today");else if(mk[id])cls.push("mk");else if(dt<t0)cls.push("past");
+  h+='<td class="'+cls.join(" ")+'"><span data-d="'+id+'" title="'+id+'">'+d+'</span></td>';if(c==6&&d<days)h+='</tr><tr>';}
+ h+='</tr></table></div>';}
+document.getElementById("g").innerHTML=h;
+document.getElementById("c").textContent=Object.keys(mk).length;}
+document.getElementById("g").addEventListener("click",function(e){var d=e.target.getAttribute&&e.target.getAttribute("data-d");if(!d)return;
+if(mk[d])delete mk[d];else mk[d]=1;save(mk);draw();});
+draw();setInterval(draw,3600000);
+</script></body></html>

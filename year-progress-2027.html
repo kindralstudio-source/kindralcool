@@ -1,0 +1,57 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;1,400&display=swap" rel="stylesheet">
+<style>
+:root{--g:#448361;--gl:#DBEDDB;--ink:#37352F;--mute:#787774;--track:rgba(55,53,47,.09);--field:rgba(68,131,97,.08)}
+@media (prefers-color-scheme:dark){:root{--g:#6FAF8A;--gl:#2B3A30;--ink:#E3E2E0;--mute:#9B9A97;--track:rgba(255,255,255,.1);--field:rgba(111,175,138,.12)}}
+html,body{margin:0;height:100%;background:transparent}
+body{font-family:ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;color:var(--ink);display:flex;align-items:center;justify-content:center}
+.c{text-align:center;padding:14px;width:100%;max-width:420px}
+.k{font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--mute)}
+.big{font-family:"Playfair Display",Georgia,serif;font-size:40px;color:var(--ink);margin:4px 0 2px}
+.big i{font-size:20px;color:var(--g)}
+.bar{display:flex;gap:4px;margin:14px 0 6px}
+.m{flex:1;height:10px;border-radius:5px;background:var(--track);overflow:hidden}
+.m span{display:block;height:100%;background:var(--g);border-radius:5px}
+.lab{display:flex;gap:4px;font-size:9px;letter-spacing:1px;color:var(--mute)}
+.lab div{flex:1}
+.s{font-family:"Playfair Display",Georgia,serif;font-style:italic;font-size:15px;color:var(--g);margin-top:12px}
+.w{margin-top:12px;display:flex;align-items:center;gap:8px;background:var(--field);border-radius:8px;padding:7px 10px}
+.w span{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--g);white-space:nowrap}
+.w input{flex:1;border:none;background:transparent;font-family:"Playfair Display",Georgia,serif;font-style:italic;font-size:16px;color:var(--ink);outline:none;min-width:0}
+.w input::placeholder{color:var(--mute)}
+.saved{font-size:10px;color:var(--mute);height:12px;margin-top:4px;letter-spacing:1px}
+</style></head>
+<body><div class="c">
+<div class="k" id="k">2027 so far</div>
+<div class="big" id="big"></div>
+<div class="bar" id="bar"></div>
+<div class="lab" id="lab"></div>
+<div class="s" id="s"></div>
+<div class="w"><span>my word</span><input id="w" placeholder="calm, brave, rooted..." maxlength="30" aria-label="My word for 2027"></div>
+<div class="saved" id="sv"></div>
+</div>
+<script>
+var Y=2027,M=["J","F","M","A","M","J","J","A","S","O","N","D"];
+function get(k){try{return localStorage.getItem(k)}catch(e){return null}}
+function put(k,v){try{localStorage.setItem(k,v);var s=document.getElementById("sv");s.textContent="saved on this device";setTimeout(function(){s.textContent=""},1500)}catch(e){}}
+var w=document.getElementById("w");w.value=get("nm2027-word")||"";
+w.addEventListener("change",function(){put("nm2027-word",w.value.trim())});
+function draw(){
+var n=new Date(),start=new Date(Y,0,1),end=new Date(Y+1,0,1),day=864e5;
+var total=Math.round((end-start)/day),bar=document.getElementById("bar"),lab=document.getElementById("lab"),hb="",hl="";
+for(var m=0;m<12;m++){var ms=new Date(Y,m,1),me=new Date(Y,m+1,1),f=0;
+if(n>=me)f=1;else if(n>ms)f=(n-ms)/(me-ms);
+hb+='<div class="m"><span style="width:'+(f*100).toFixed(1)+'%"></span></div>';hl+='<div>'+M[m]+'</div>';}
+bar.innerHTML=hb;lab.innerHTML=hl;
+if(n<start){var left=Math.ceil((start-n)/day);
+document.getElementById("k").textContent="counting down";
+document.getElementById("big").innerHTML=left+" <i>days to 2027</i>";
+document.getElementById("s").textContent="Set your goals now. January you will thank you.";return;}
+if(n>=end){document.getElementById("big").innerHTML="100% <i>done</i>";
+document.getElementById("s").textContent="What a year. Time to open your letter.";return;}
+var d=Math.floor((n-start)/day)+1,pct=Math.floor(d/total*100),wk=Math.ceil((total-d)/7);
+document.getElementById("big").innerHTML=pct+"% <i>of 2027 done</i>";
+document.getElementById("s").textContent="Day "+d+" of "+total+" · "+wk+" weeks left to make it count";}
+draw();setInterval(draw,600000);
+</script></body></html>

@@ -1,0 +1,51 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;1,400&display=swap" rel="stylesheet">
+<style>
+:root{--g:#448361;--gl:#DBEDDB;--ink:#37352F;--mute:#787774;--line:rgba(55,53,47,.16);--field:rgba(68,131,97,.08)}
+@media (prefers-color-scheme:dark){:root{--g:#6FAF8A;--gl:#2B3A30;--ink:#E3E2E0;--mute:#9B9A97;--line:rgba(255,255,255,.14);--field:rgba(111,175,138,.12)}}
+html,body{margin:0;height:100%;background:transparent}
+body{font-family:ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;color:var(--ink);display:flex;align-items:center;justify-content:center}
+.card{text-align:center;padding:14px 12px;width:100%;max-width:420px}
+.g{font-family:"Playfair Display",Georgia,serif;font-style:italic;font-size:19px;color:var(--g)}
+.name{border:none;background:transparent;font:inherit;color:inherit;width:auto;min-width:40px;text-align:left;padding:0;outline:none;border-bottom:1px dashed transparent}
+.name:hover,.name:focus{border-bottom-color:var(--g)}
+.t{font-family:"Playfair Display",Georgia,serif;font-size:44px;margin:2px 0;color:var(--ink)}
+.d{font-size:11px;text-transform:uppercase;letter-spacing:3px;color:var(--mute)}
+.line{width:36px;height:2px;border-radius:2px;background:var(--g);margin:12px auto;opacity:.6}
+.a{font-family:"Playfair Display",Georgia,serif;font-style:italic;font-size:15px;color:var(--g);line-height:1.45}
+.int{margin-top:12px;display:flex;align-items:center;gap:8px;background:var(--field);border-radius:8px;padding:7px 10px}
+.int span{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--g);white-space:nowrap}
+.int input{flex:1;border:none;background:transparent;font:inherit;font-size:14px;color:var(--ink);outline:none;min-width:0}
+.int input::placeholder{color:var(--mute)}
+.saved{font-size:10px;color:var(--mute);height:12px;margin-top:4px;letter-spacing:1px}
+</style></head>
+<body><div class="card">
+<div class="g"><span id="g"></span>, <input class="name" id="n" placeholder="you" maxlength="24" aria-label="Your name"></div>
+<div class="t" id="t"></div>
+<div class="d" id="d"></div>
+<div class="line"></div>
+<div class="a" id="a"></div>
+<div class="int"><span>today</span><input id="i" placeholder="one thing that would make today good" maxlength="80" aria-label="Today's intention"></div>
+<div class="saved" id="s"></div>
+</div>
+<script>
+var A=["Small steps still move you forward.","You do not have to do it all today.","A calm week is a good week.","Start where you are.","Progress over perfect.","Missed a week? Just begin again.","Protect your mornings.","One thing at a time.","Rest is part of the plan.","Make it simple, then make it happen.","The year is built one ordinary day at a time.","Keep the promises you make to yourself.","Less, but better.","Plan the week, live the year.","Good days are made, not found.","Be proud of quiet progress.","You are allowed to change the plan.","Focus on what you can control.","Do the next right thing.","Slow is smooth, smooth is steady.","Today counts, even if it is small.","Write it down, then let it go.","Choose what matters, skip the rest.","A little every day beats a lot someday.","Show up, even for five minutes.","Your pace is the right pace.","Collect moments, not just tasks.","Begin again as many times as you need.","Clear space, clear mind.","This is your year. Take it gently."];
+function get(k){try{return localStorage.getItem(k)}catch(e){return null}}
+function put(k,v){try{localStorage.setItem(k,v);flash()}catch(e){}}
+var st;function flash(){var s=document.getElementById("s");s.textContent="saved on this device";clearTimeout(st);st=setTimeout(function(){s.textContent=""},1500)}
+function p(n){return n<10?"0"+n:n}
+function key(){var n=new Date();return "nm2027-intent-"+n.getFullYear()+"-"+p(n.getMonth()+1)+"-"+p(n.getDate())}
+var nm=document.getElementById("n"),it=document.getElementById("i");
+nm.value=get("nm2027-name")||"";
+function fit(){nm.style.width=Math.max(3,(nm.value||nm.placeholder).length+1)+"ch"}fit();
+nm.addEventListener("input",fit);nm.addEventListener("change",function(){put("nm2027-name",nm.value.trim())});
+it.value=get(key())||"";it.addEventListener("change",function(){put(key(),it.value.trim())});
+function tick(){var n=new Date(),h=n.getHours();
+document.getElementById("g").textContent=h<12?"good morning":h<17?"good afternoon":"good evening";
+var hh=h%12||12;document.getElementById("t").textContent=hh+":"+p(n.getMinutes())+(h<12?" am":" pm");
+document.getElementById("d").textContent=n.toLocaleDateString(undefined,{weekday:"long",month:"long",day:"numeric"});
+var s=new Date(n.getFullYear(),0,0),doy=Math.floor((n-s)/864e5);
+document.getElementById("a").textContent="“"+A[doy%A.length]+"”";}
+tick();setInterval(tick,10000);
+</script></body></html>
