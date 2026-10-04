@@ -1,0 +1,83 @@
+<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Right Now</title><style>:root{--ink:#3B2A5A;--deep:#5B3E8E;--acc:#8E6CC9;--mid:#C3ADE6;--soft:#E3D6F5;--bg:#F7F2FD;--mute:#6E5A93}
+*{box-sizing:border-box}html,body{margin:0;height:100%;background:var(--bg)}
+body{font-family:Georgia,"Times New Roman",serif;color:var(--ink);display:flex;align-items:center;justify-content:center;-webkit-font-smoothing:antialiased}
+.c{text-align:center;padding:16px;width:100%;max-width:420px}
+.k{font-family:system-ui,-apple-system,"Segoe UI",sans-serif;font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--acc)}
+.s{font-family:system-ui,-apple-system,"Segoe UI",sans-serif;font-size:13px;color:var(--mute);line-height:1.45}
+.xs{font-family:system-ui,-apple-system,"Segoe UI",sans-serif;font-size:11px;color:var(--mute);opacity:.8}
+button{font-family:system-ui,-apple-system,"Segoe UI",sans-serif;font-size:12px;border:1px solid var(--mid);background:#fff;color:var(--deep);border-radius:20px;padding:5px 12px;margin:3px;cursor:pointer}
+button.on{background:var(--acc);color:#fff;border-color:var(--acc)}button:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
+.line{width:40px;height:1px;background:var(--mid);margin:10px auto}
+
+.g{font-style:italic;font-size:18px;cursor:pointer}.t{font-size:46px;margin:2px 0;cursor:pointer;letter-spacing:.5px}.mrow{display:flex;align-items:center;justify-content:center;gap:10px;margin-top:2px}
+input{font-family:Georgia,serif;font-size:15px;border:1px solid var(--mid);border-radius:20px;padding:5px 12px;color:var(--ink);text-align:center;width:180px}
+</style></head><body><div class="c"><div class="g" id="g" title="Click to add your name"></div><div id="ed" style="display:none"><input id="nm" maxlength="24" placeholder="your name"><button onclick="saveName()">save</button></div>
+<div class="t" id="t" title="Click to switch 12 / 24 hour"></div><div class="k" id="d"></div><div class="line"></div>
+<div class="mrow"><span id="mi"></span><span class="s" id="m"></span></div><div class="s" id="z" style="margin-top:4px"></div></div>
+<script>/* Astrology OS sky engine. Pure math, no network, works in any time zone. Meeus algorithms. */
+var SKY=(function(){
+var R=Math.PI/180;function n(a){a%=360;return a<0?a+360:a}function s(x){return Math.sin(x*R)}function c(x){return Math.cos(x*R)}
+function jd(ms){return ms/864e5+2440587.5}
+function dT(y){var t=y-2000;return 62.92+0.32217*t+0.005589*t*t}
+function T(ms){var y=new Date(ms).getUTCFullYear();return (jd(ms)+dT(y)/86400-2451545)/36525}
+function sunLon(ms){var t=T(ms),L0=280.46646+36000.76983*t+0.0003032*t*t,M=357.52911+35999.05029*t-0.0001537*t*t,
+C=(1.914602-0.004817*t-0.000014*t*t)*s(M)+(0.019993-0.000101*t)*s(2*M)+0.000289*s(3*M),O=125.04-1934.136*t;
+return n(L0+C-0.00569-0.00478*s(O))}
+var ML=[[0,0,1,0,6288774],[2,0,-1,0,1274027],[2,0,0,0,658314],[0,0,2,0,213618],[0,1,0,0,-185116],[0,0,0,2,-114332],[2,0,-2,0,58793],[2,-1,-1,0,57066],[2,0,1,0,53322],[2,-1,0,0,45758],[0,1,-1,0,-40923],[1,0,0,0,-34720],[0,1,1,0,-30383],[2,0,0,-2,15327],[0,0,1,2,-12528],[0,0,1,-2,10980],[4,0,-1,0,10675],[0,0,3,0,10034],[4,0,-2,0,8548],[2,1,-1,0,-7888],[2,1,0,0,-6766],[1,0,-1,0,-5163],[1,1,0,0,4987],[2,-1,1,0,4036],[2,0,2,0,3994],[4,0,0,0,3861],[2,0,-3,0,3665],[0,1,-2,0,-2689],[2,0,-1,2,-2602],[2,-1,-2,0,2390],[1,0,1,0,-2348],[2,-2,0,0,2236],[0,1,2,0,-2120],[0,2,0,0,-2069],[2,-2,-1,0,2048],[2,0,1,-2,-1773],[2,0,0,2,-1595],[4,-1,-1,0,1215],[0,0,2,2,-1110],[3,0,-1,0,-892],[2,1,1,0,-810],[4,-1,-2,0,759],[0,2,-1,0,-713],[2,2,-1,0,-700],[2,1,-2,0,691],[2,-1,0,-2,596],[4,0,1,0,549],[0,0,4,0,537],[4,-1,0,0,520],[1,0,-2,0,-487]];
+function moonLon(ms){var t=T(ms),Lp=218.3164477+481267.88123421*t-0.0015786*t*t,D=297.8501921+445267.1114034*t-0.0018819*t*t,
+M=357.5291092+35999.0502909*t-0.0001536*t*t,Mp=134.9633964+477198.8675055*t+0.0087414*t*t,F=93.2720950+483202.0175233*t-0.0036539*t*t,
+E=1-0.002516*t-0.0000074*t*t,A1=119.75+131.849*t,A2=53.09+479264.290*t,S=0;
+for(var i=0;i<ML.length;i++){var r=ML[i],e=Math.abs(r[1])==1?E:Math.abs(r[1])==2?E*E:1;S+=r[4]*e*s(r[0]*D+r[1]*M+r[2]*Mp+r[3]*F)}
+S+=3958*s(A1)+1962*s(Lp-F)+318*s(A2);var O=125.04-1934.136*t;return n(Lp+S/1e6-0.00478*s(O))}
+function elong(ms){return n(moonLon(ms)-sunLon(ms))}
+/* exact phase moment: q 0=new 1=first quarter 2=full 3=last quarter. Meeus ch.49 then refined on true elongation */
+function phaseAt(k){var t=k/1236.85,J=2451550.09766+29.530588861*k+0.00015437*t*t,ms=(J-2440587.5)*864e5;
+var y=new Date(ms).getUTCFullYear();ms-=dT(y)*1000;var tgt=n((k-Math.floor(k))*360);
+for(var i=0;i<6;i++){var d=n(elong(ms)-tgt);if(d>180)d-=360;ms-=d/12.19075*864e5}return ms}
+function nextPhase(ms,q){var k=Math.floor((new Date(ms).getUTCFullYear()+new Date(ms).getUTCMonth()/12-2000)*12.3685)-2+q/4;
+for(var i=0;i<40;i++){var p=phaseAt(k);if(p>ms)return p;k+=1}}
+var SIGNS=["Aries","Taurus","Gemini","Cancer","Leo","Virgo","Libra","Scorpio","Sagittarius","Capricorn","Aquarius","Pisces"];
+var GLY=["♈","♉","♊","♋","♌","♍","♎","♏","♐","♑","♒","♓"];
+var ELEM=["Fire","Earth","Air","Water"];
+function signOf(l){return Math.floor(l/30)}
+function nextChange(fn,ms,step){var a=signOf(fn(ms)),t=ms;while(signOf(fn(t+step))==a)t+=step;var lo=t,hi=t+step;
+while(hi-lo>30000){var m=(lo+hi)/2;if(signOf(fn(m))==a)lo=m;else hi=m}return hi}
+function illum(ms){var e=elong(ms);return (1-c(e))/2}
+/* local-day phase name: principal phase if its exact moment falls inside the viewer's local calendar day */
+function phaseName(ms){var d=new Date(ms),st=new Date(d.getFullYear(),d.getMonth(),d.getDate()).getTime(),en=st+864e5;
+var names=["New Moon","First Quarter","Full Moon","Last Quarter"];for(var q=0;q<4;q++){var p=nextPhase(st-1,q);if(p<en)return names[q]}
+var e=elong(ms);return e<90?"Waxing Crescent":e<180?"Waxing Gibbous":e<270?"Waning Gibbous":"Waning Crescent"}
+return{sunLon:sunLon,moonLon:moonLon,elong:elong,illum:illum,nextPhase:nextPhase,phaseName:phaseName,signOf:signOf,SIGNS:SIGNS,GLY:GLY,ELEM:ELEM,
+moonSignEnds:function(ms){return nextChange(moonLon,ms,3600e3)},sunSignEnds:function(ms){return nextChange(sunLon,ms,864e5)}};
+})();
+
+
+var ST={g:function(k,d){try{var v=window.localStorage.getItem("astroos."+k);return v===null?d:JSON.parse(v)}catch(e){return d}},
+s:function(k,v){try{window.localStorage.setItem("astroos."+k,JSON.stringify(v))}catch(e){}}};
+function fmtDT(ms,o){try{return new Date(ms).toLocaleString(undefined,o||{weekday:"short",month:"short",day:"numeric",hour:"numeric",minute:"2-digit"})}catch(e){return new Date(ms).toString().slice(0,21)}}
+function tzName(){try{return Intl.DateTimeFormat().resolvedOptions().timeZone||"your time zone"}catch(e){return "your time zone"}}
+function daysTo(ms){var d=(ms-Date.now())/864e5;return d<1?(d<0.05?"now":"in "+Math.max(1,Math.round(d*24))+" hours"):"in "+Math.round(d)+" day"+(Math.round(d)==1?"":"s")}
+
+function moonSVG(k,waxing,south,size){var r=50,rx=Math.abs(1-2*k)*r,flip=(waxing?1:-1)*(south?-1:1);
+var p="M0,-50 A50,50 0 0,1 0,50 A"+rx.toFixed(2)+",50 0 0,"+(k<0.5?0:1)+" 0,-50Z";
+return '<svg width="'+size+'" height="'+size+'" viewBox="-60 -60 120 120" aria-hidden="true"><circle r="57" fill="#E3D6F5" opacity=".55"/><circle r="50" fill="#5B3E8E"/>'
++(k>0.995?'<circle r="50" fill="#F1EAFB"/>':k<0.005?'':'<path d="'+p+'" fill="#F1EAFB" transform="scale('+flip+',1)"/>')+'</svg>'}
+
+
+var name=ST.g("name",""),h24=ST.g("h24",null);
+if(h24===null){try{h24=new Intl.DateTimeFormat(undefined,{hour:"numeric"}).resolvedOptions().hourCycle;h24=(h24=="h23"||h24=="h24")}catch(e){h24=false}}
+function p(n){return n<10?"0"+n:""+n}
+function tick(){var n=new Date(),h=n.getHours(),part=h<5?"Good night":h<12?"Good morning":h<17?"Good afternoon":"Good evening";
+document.getElementById("g").textContent=part+", "+(name||"stargazer");
+document.getElementById("t").textContent=h24?p(h)+":"+p(n.getMinutes()):(h%12||12)+":"+p(n.getMinutes())+(h<12?" am":" pm");
+document.getElementById("d").textContent=n.toLocaleDateString(undefined,{weekday:"long",month:"long",day:"numeric"})}
+function sky(){var now=Date.now(),k=SKY.illum(now),wax=SKY.elong(now)<180;
+document.getElementById("mi").innerHTML=moonSVG(k,wax,ST.g("south",false),26);
+document.getElementById("m").textContent=SKY.phaseName(now)+", "+Math.round(k*100)+"% lit";
+document.getElementById("z").textContent="Sun in "+SKY.SIGNS[SKY.signOf(SKY.sunLon(now))]+"  ·  Moon in "+SKY.SIGNS[SKY.signOf(SKY.moonLon(now))]}
+document.getElementById("t").onclick=function(){h24=!h24;ST.s("h24",h24);tick()};
+document.getElementById("g").onclick=function(){document.getElementById("ed").style.display="block";document.getElementById("nm").value=name;document.getElementById("nm").focus()};
+document.getElementById("nm").onkeydown=function(e){if(e.key=="Enter")saveName()};
+function saveName(){name=document.getElementById("nm").value.trim();ST.s("name",name);document.getElementById("ed").style.display="none";tick()}
+tick();sky();setInterval(tick,1000);setInterval(sky,60000);
+</script></body></html>

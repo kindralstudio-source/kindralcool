@@ -1,0 +1,48 @@
+<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Ritual Timer</title><style>:root{--ink:#3B2A5A;--deep:#5B3E8E;--acc:#8E6CC9;--mid:#C3ADE6;--soft:#E3D6F5;--bg:#F7F2FD;--mute:#6E5A93}
+*{box-sizing:border-box}html,body{margin:0;height:100%;background:var(--bg)}
+body{font-family:Georgia,"Times New Roman",serif;color:var(--ink);display:flex;align-items:center;justify-content:center;-webkit-font-smoothing:antialiased}
+.c{text-align:center;padding:16px;width:100%;max-width:420px}
+.k{font-family:system-ui,-apple-system,"Segoe UI",sans-serif;font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--acc)}
+.s{font-family:system-ui,-apple-system,"Segoe UI",sans-serif;font-size:13px;color:var(--mute);line-height:1.45}
+.xs{font-family:system-ui,-apple-system,"Segoe UI",sans-serif;font-size:11px;color:var(--mute);opacity:.8}
+button{font-family:system-ui,-apple-system,"Segoe UI",sans-serif;font-size:12px;border:1px solid var(--mid);background:#fff;color:var(--deep);border-radius:20px;padding:5px 12px;margin:3px;cursor:pointer}
+button.on{background:var(--acc);color:#fff;border-color:var(--acc)}button:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
+.line{width:40px;height:1px;background:var(--mid);margin:10px auto}
+
+.t{font-size:48px;margin:4px 0 8px;font-variant-numeric:tabular-nums}
+.fl{width:16px;height:26px;margin:0 auto;background:radial-gradient(circle at 50% 70%,#FFE9B0,#F2B94B 60%,transparent 70%);border-radius:50% 50% 50% 50%/60% 60% 40% 40%;opacity:.25;transition:opacity .5s}
+.cw{height:60px;display:flex;align-items:flex-end;justify-content:center;margin-bottom:8px}.cd{width:26px;background:linear-gradient(#EADFF8,#C3ADE6);border-radius:6px;transition:height 1s linear}
+.run .fl{opacity:1;animation:f 1.6s ease-in-out infinite}@keyframes f{50%{transform:scale(1.08) translateY(-1px)}}
+@media (prefers-reduced-motion:reduce){.run .fl{animation:none}.cd{transition:none}}
+</style></head><body><div class="c" id="c"><div class="fl"></div><div class="cw"><div class="cd" id="cd" style="height:60px"></div></div>
+<div class="k" id="l">ritual timer</div><div class="t" id="t" role="timer" aria-live="off">05:00</div>
+<div id="d"></div><div><button id="g" onclick="go()">light</button><button onclick="rs()">reset</button></div><div class="xs" id="n" style="margin-top:8px"></div></div>
+<script>var ST={g:function(k,d){try{var v=window.localStorage.getItem("astroos."+k);return v===null?d:JSON.parse(v)}catch(e){return d}},
+s:function(k,v){try{window.localStorage.setItem("astroos."+k,JSON.stringify(v))}catch(e){}}};
+function fmtDT(ms,o){try{return new Date(ms).toLocaleString(undefined,o||{weekday:"short",month:"short",day:"numeric",hour:"numeric",minute:"2-digit"})}catch(e){return new Date(ms).toString().slice(0,21)}}
+function tzName(){try{return Intl.DateTimeFormat().resolvedOptions().timeZone||"your time zone"}catch(e){return "your time zone"}}
+function daysTo(ms){var d=(ms-Date.now())/864e5;return d<1?(d<0.05?"now":"in "+Math.max(1,Math.round(d*24))+" hours"):"in "+Math.round(d)+" day"+(Math.round(d)==1?"":"s")}
+
+
+var OPT=[3,5,10,20];
+// state: {len: seconds, end: ms timestamp while running, left: ms while paused}
+var S=ST.g("timer",null);if(!S||!S.len)S={len:300,end:null,left:300000};
+var done=ST.g("rituals",0),iv=null,ac=null;
+function save(){ST.s("timer",S)}
+function rem(){return S.end?Math.max(0,S.end-Date.now()):S.left}
+function fmt(ms){var s=Math.ceil(ms/1000),a=Math.floor(s/60),b=s%60;return(a<10?"0":"")+a+":"+(b<10?"0":"")+b}
+function btns(){var h="";OPT.forEach(function(m){h+='<button class="'+(S.len===m*60?"on":"")+'" onclick="pick('+m+')">'+m+' min</button>'});document.getElementById("d").innerHTML=h}
+function sh(){var r=rem();document.getElementById("t").textContent=fmt(r);document.getElementById("cd").style.height=Math.max(8,Math.round(60*r/(S.len*1000)))+"px";
+document.getElementById("c").className="c"+(S.end?" run":"");document.getElementById("g").textContent=S.end?"pause":(S.left<S.len*1000?"resume":"light");
+document.getElementById("n").textContent=done?done+" ritual"+(done==1?"":"s")+" completed":"";
+if(S.end&&r<=0)finish()}
+function loop(){clearInterval(iv);iv=S.end?setInterval(sh,250):null;sh()}
+function pick(m){S={len:m*60,end:null,left:m*60000};save();document.getElementById("l").textContent="ritual timer";btns();loop()}
+function go(){if(S.end){S.left=rem();S.end=null}else{if(S.left<=0)S.left=S.len*1000;S.end=Date.now()+S.left;unlock()}document.getElementById("l").textContent="ritual timer";save();loop()}
+function rs(){S={len:S.len,end:null,left:S.len*1000};save();document.getElementById("l").textContent="ritual timer";loop()}
+function finish(){S={len:S.len,end:null,left:S.len*1000};done++;ST.s("rituals",done);save();document.getElementById("l").textContent="ritual complete";chime();loop()}
+function unlock(){try{if(!ac){var A=window.AudioContext||window.webkitAudioContext;if(A)ac=new A()}if(ac&&ac.state==="suspended")ac.resume()}catch(e){}}
+function chime(){try{if(!ac)return;var t=ac.currentTime;[528,792].forEach(function(f,i){var o=ac.createOscillator(),g=ac.createGain();o.type="sine";o.frequency.value=f;g.gain.setValueAtTime(0,t+i*.35);g.gain.linearRampToValueAtTime(.18,t+i*.35+.02);g.gain.exponentialRampToValueAtTime(.0001,t+i*.35+2.5);o.connect(g);g.connect(ac.destination);o.start(t+i*.35);o.stop(t+i*.35+2.6)})}catch(e){}}
+document.addEventListener("visibilitychange",sh);
+btns();loop();
+</script></body></html>
