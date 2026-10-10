@@ -3,74 +3,172 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Astrology OS</title>
+<title>ADHD Student Planner</title>
 <style>
-  :root{
-    --ink:#3B2A5A; --deep:#5B3E8E; --accent:#8E6CC9; --mid:#C3ADE6;
-    --soft:#E3D6F5; --bg:#F7F2FD; --card:#FFFFFF; --muted:#6F5F8C;
+  :root {
+    --ink: #111111;
+    --muted: #6b6b6b;
+    --line: #e7e7e5;
+    --card: #ffffff;
+    --soft: #f5f5f3;
+    --orange: #D9730D;
+    --orange-strong: #B85F08;
   }
-  @media (prefers-color-scheme: dark){
-    :root{ --ink:#F1EAFB; --deep:#C3ADE6; --accent:#A88BDB; --mid:#6E559A;
-      --soft:#3A2D52; --bg:#221A31; --card:#2A2140; --muted:#B9A9D6; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { background: transparent; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Helvetica, Arial, sans-serif;
+    color: var(--ink);
+    -webkit-font-smoothing: antialiased;
+    padding: 8px;
   }
-  *{box-sizing:border-box;margin:0;padding:0}
-  html,body{background:transparent;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,sans-serif;color:var(--ink)}
-  body{padding:6px}
-  a.card{
-    display:grid;grid-template-columns:0.85fr 1.15fr;align-items:stretch;
-    text-decoration:none;color:inherit;background:var(--card);
-    border:1px solid var(--soft);border-radius:16px;overflow:hidden;
-    box-shadow:0 2px 10px rgba(59,42,90,.07);
-    transition:transform .18s ease, box-shadow .18s ease;
-    max-width:1100px;margin:0 auto;
+
+  /* Whole widget is one link */
+  .w {
+    display: grid;
+    grid-template-columns: 1fr 1fr;   /* left copy and image panel get equal width */
+    align-items: stretch;             /* image panel matches the copy's height */
+    gap: 28px;
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 24px 26px;
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    text-decoration: none;
+    color: inherit;
+    overflow: hidden;
+    transition: box-shadow .25s ease, transform .25s ease;
   }
-  a.card:hover{transform:translateY(-2px);box-shadow:0 10px 26px rgba(91,62,142,.18)}
-  .info{padding:20px 22px;display:flex;flex-direction:column;justify-content:center;gap:10px;
-    background:linear-gradient(160deg,var(--bg),var(--card) 70%)}
-  .pill{align-self:flex-start;display:inline-flex;align-items:center;gap:7px;
-    font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;
-    color:var(--deep);background:var(--soft);padding:5px 10px;border-radius:999px}
-  .dot{width:7px;height:7px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 3px rgba(142,108,201,.25)}
-  h1{font-size:22px;line-height:1.15;font-weight:800;color:var(--ink)}
-  .tag{font-size:13.5px;line-height:1.45;color:var(--muted)}
-  ul{list-style:none;display:flex;flex-direction:column;gap:6px;margin-top:2px}
-  li{display:flex;gap:8px;align-items:flex-start;font-size:13px;line-height:1.35}
-  li svg{flex:none;width:16px;height:16px;margin-top:1px}
-  .cta{align-self:flex-start;margin-top:4px;display:inline-flex;align-items:center;gap:8px;
-    background:var(--deep);color:#fff;font-weight:700;font-size:13.5px;
-    padding:9px 16px;border-radius:10px;transition:background .18s ease}
-  a.card:hover .cta{background:var(--accent)}
-  .cta svg{width:15px;height:15px;transition:transform .18s ease}
-  a.card:hover .cta svg{transform:translateX(3px)}
-  .cover{background:var(--bg);display:flex;align-items:center;justify-content:center;padding:12px;min-height:240px}
-  .cover img{width:100%;height:100%;max-height:340px;object-fit:contain;border-radius:10px;display:block}
-  @media (max-width:640px){
-    a.card{grid-template-columns:1fr}
-    .cover{order:-1;min-height:0}
-    .cover img{max-height:220px}
-    h1{font-size:20px}
+  .w:hover { box-shadow: 0 10px 30px rgba(0,0,0,.08); transform: translateY(-1px); }
+
+  /* Left copy */
+  .eyebrow {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-size: 11px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase;
+    color: var(--muted);
+  }
+  .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--orange); }
+  h2 {
+    font-size: clamp(26px, 2.6vw, 34px);
+    font-weight: 800; letter-spacing: -0.02em; line-height: 1.05;
+    margin-top: 10px;
+  }
+  .sub { font-size: 14px; color: var(--muted); margin-top: 6px; line-height: 1.4; }
+
+  ul { list-style: none; margin-top: 16px; display: grid; gap: 7px; }
+  li { font-size: 13.5px; line-height: 1.35; display: flex; gap: 8px; align-items: flex-start; }
+  li::before {
+    content: ""; flex: 0 0 auto; width: 14px; height: 14px; margin-top: 2px; border-radius: 4px;
+    background: var(--orange);
+    -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M3 8.5l3 3 7-7' stroke='black' stroke-width='2.2' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/contain no-repeat;
+            mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M3 8.5l3 3 7-7' stroke='black' stroke-width='2.2' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/contain no-repeat;
+  }
+
+  .cta-row { display: flex; align-items: center; gap: 14px; margin-top: 20px; flex-wrap: wrap; }
+  .btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--orange); color: #fff;
+    font-size: 14px; font-weight: 700;
+    padding: 11px 18px; border-radius: 999px;
+    transition: gap .2s ease, background .2s ease;
+  }
+  .w:hover .btn { gap: 12px; background: var(--orange-strong); }
+  .note { font-size: 12.5px; color: var(--muted); }
+
+  /* Right: slow constant glide with soft faded edges */
+  .copy { align-self: center; min-width: 0; }
+  .show { display: flex; min-width: 0; }
+  .stage {
+    position: relative;
+    flex: 1;
+    display: flex;
+    align-items: center;
+    container-type: inline-size;      /* slides size off this panel, not the screen */
+    overflow: hidden;
+    border-radius: 14px;
+    background: var(--soft);
+    padding: 14px 0;
+    -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 6%, #000 94%, transparent 100%);
+            mask-image: linear-gradient(90deg, transparent 0, #000 6%, #000 94%, transparent 100%);
+  }
+  .track {
+    display: flex;
+    width: max-content;
+    will-change: transform;
+    animation: glide 72s linear infinite;
+  }
+  .w:hover .track { animation-play-state: paused; }
+  @keyframes glide {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .track { animation: none; }
+  }
+  .slide {
+    flex: 0 0 auto;
+    margin-right: 16px;
+    width: 82cqw;                     /* one slide fills most of the panel, next one peeks in */
+    aspect-ratio: 16 / 9;
+    border-radius: 12px;
+    overflow: hidden;
+    background: #fff;
+    border: 1px solid var(--line);
+    box-shadow: 0 6px 18px rgba(0,0,0,.06);
+  }
+  /* contain = the whole image always shows, nothing cut */
+  .slide img { width: 100%; height: 100%; object-fit: contain; display: block; }
+
+  /* Phone and narrow embeds */
+  @media (max-width: 820px) {
+    .w { grid-template-columns: 1fr; gap: 20px; padding: 20px 18px; }
   }
 </style>
 </head>
 <body>
-<a class="card" href="https://kindral.gumroad.com/l/astrology-os" target="_blank" rel="noopener">
-  <div class="info">
-    <span class="pill"><span class="dot"></span>The full sky</span>
-    <h1>Astrology OS</h1>
-    <p class="tag">You track the Moon here. Astrology OS reads the whole chart, every transit, and your practice in one place.</p>
+
+<a class="w" href="https://notomantra.gumroad.com/l/adhd-student-planner" target="_blank" rel="noopener">
+
+  <div class="copy">
+    <span class="eyebrow"><span class="dot"></span>You're on the free version</span>
+    <h2>ADHD Student Planner</h2>
+    <p class="sub">Your whole term in one calm system that opens to your day, not a menu.</p>
+
     <ul>
-      <li><svg viewBox="0 0 16 16"><circle cx="8" cy="8" r="8" fill="#8E6CC9"/><path d="M4.6 8.2l2.2 2.2 4.6-4.8" stroke="#fff" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>Birth chart, Big Three and every placement, explained</li>
-      <li><svg viewBox="0 0 16 16"><circle cx="8" cy="8" r="8" fill="#8E6CC9"/><path d="M4.6 8.2l2.2 2.2 4.6-4.8" stroke="#fff" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>Moons, eclipses and retrogrades already filled in to 2028</li>
-      <li><svg viewBox="0 0 16 16"><circle cx="8" cy="8" r="8" fill="#8E6CC9"/><path d="M4.6 8.2l2.2 2.2 4.6-4.8" stroke="#fff" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>Journal and rituals linked to your own placements</li>
-      <li><svg viewBox="0 0 16 16"><circle cx="8" cy="8" r="8" fill="#8E6CC9"/><path d="M4.6 8.2l2.2 2.2 4.6-4.8" stroke="#fff" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>Reading studio for clients, plus live sky widgets</li>
+      <li>Today's 3, in progress and a deadline radar up front</li>
+      <li>First Step, Time Estimate and Energy on every task</li>
+      <li>Notes, grades, timetable, habits and money, connected</li>
+      <li>Brain-dump inbox and a built-in focus timer</li>
     </ul>
-    <span class="cta">Get Astrology OS
-      <svg viewBox="0 0 16 16"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
-    </span>
+
+    <div class="cta-row">
+      <span class="btn">Get the full planner <span aria-hidden="true">&rarr;</span></span>
+      <span class="note">One-time. Yours forever.</span>
+    </div>
   </div>
-  <div class="cover">
-    <img src="https://public-files.gumroad.com/2cx558k49zjenkn1e9oi7pi6ymwx" alt="Astrology OS Notion template preview" loading="lazy">
+
+  <div class="show">
+    <div class="stage">
+      <div class="track">
+        <div class="slide"><img src="https://public-files.gumroad.com/e504j0tkn49tg8m48obeqjeu89vr" alt="ADHD Student Planner cover"></div>
+        <div class="slide"><img src="https://public-files.gumroad.com/0jfzj9hp7sko33s8mrkskdkbuqe0" alt="ADHD Student Planner preview 1" loading="lazy"></div>
+        <div class="slide"><img src="https://public-files.gumroad.com/u9o4r5qtuhhaf6v6m3jg6xa9b1zp" alt="ADHD Student Planner preview 2" loading="lazy"></div>
+        <div class="slide"><img src="https://public-files.gumroad.com/os9x6vor8ubwq11wekzt59gvbdvx" alt="ADHD Student Planner preview 3" loading="lazy"></div>
+        <div class="slide"><img src="https://public-files.gumroad.com/mty6428gpgjn0oiiyectj8mm5u9b" alt="ADHD Student Planner preview 4" loading="lazy"></div>
+        <div class="slide"><img src="https://public-files.gumroad.com/yuik6g902l52smw52lcbaiov8d7b" alt="ADHD Student Planner preview 5" loading="lazy"></div>
+        <!-- Same six again, so the loop is seamless -->
+        <div class="slide" aria-hidden="true"><img src="https://public-files.gumroad.com/e504j0tkn49tg8m48obeqjeu89vr" alt="" loading="lazy"></div>
+        <div class="slide" aria-hidden="true"><img src="https://public-files.gumroad.com/0jfzj9hp7sko33s8mrkskdkbuqe0" alt="" loading="lazy"></div>
+        <div class="slide" aria-hidden="true"><img src="https://public-files.gumroad.com/u9o4r5qtuhhaf6v6m3jg6xa9b1zp" alt="" loading="lazy"></div>
+        <div class="slide" aria-hidden="true"><img src="https://public-files.gumroad.com/os9x6vor8ubwq11wekzt59gvbdvx" alt="" loading="lazy"></div>
+        <div class="slide" aria-hidden="true"><img src="https://public-files.gumroad.com/mty6428gpgjn0oiiyectj8mm5u9b" alt="" loading="lazy"></div>
+        <div class="slide" aria-hidden="true"><img src="https://public-files.gumroad.com/yuik6g902l52smw52lcbaiov8d7b" alt="" loading="lazy"></div>
+      </div>
+    </div>
   </div>
+
 </a>
+
 </body>
 </html>
