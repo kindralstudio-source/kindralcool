@@ -1,0 +1,29 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<style>
+:root{--bg:#F6F1FB;--c1:#E8DDF4;--c2:#D8C6EB;--c3:#C0A5DE;--c4:#9F7CC4;--deep:#75549E;--dark:#4F3573;--mid:#7E5CA8;--w:#FCFAFF}
+html,body{margin:0;height:100%;background:var(--bg)}
+body{font-family:Georgia,"Times New Roman",serif;color:var(--dark);display:flex;align-items:center;justify-content:center}
+.c{text-align:center;padding:14px;width:100%;max-width:440px;box-sizing:border-box}
+.k{font-size:11px;letter-spacing:3px;text-transform:uppercase;opacity:.7}
+.big{font-size:46px;margin:2px 0}
+.it{font-style:italic;font-size:16px;color:var(--mid)}
+.line{width:40px;height:1px;background:var(--c3);margin:10px auto}
+input,select{font-family:inherit;font-size:14px;color:var(--dark);background:var(--w);border:1px solid var(--c3);border-radius:14px;padding:6px 10px;margin:3px;max-width:44%}
+button{font-family:inherit;font-size:13px;border:1px solid var(--c3);background:var(--w);color:var(--dark);border-radius:20px;padding:6px 14px;margin:3px;cursor:pointer}
+button.on{background:var(--c4);color:#fff;border-color:var(--c4)}
+.row{display:flex;align-items:center;justify-content:center;gap:8px;flex-wrap:wrap}
+
+</style></head><body><div class="c">
+<div class="k">use-by date</div><div class="big" id="r" style="font-size:34px">--</div><div class="it" id="m">opened date + months shown on the jar icon</div><div class="line"></div>
+<div class="row"><input type="date" id="d" oninput="go()"><select id="p" onchange="go()"><option value="3">3 mo</option><option value="6">6 mo</option><option value="12" selected>12 mo</option><option value="18">18 mo</option><option value="24">24 mo</option></select></div>
+<div class="it" style="font-size:12px;margin-top:8px">find the open-jar symbol on the pack for its months. when unsure, check the brand.</div></div>
+<script>
+function sv(k,v){try{localStorage.setItem(k,v)}catch(e){}}
+function ld(k,d){try{var v=localStorage.getItem(k);return v===null?d:v}catch(e){return d}}
+function p2(n){return n<10?"0"+n:n}
+
+function go(){var v=document.getElementById("d").value;if(!v)return;var e=new Date(v+"T00:00:00");e.setMonth(e.getMonth()+ +document.getElementById("p").value);
+document.getElementById("r").textContent=e.toLocaleDateString(undefined,{month:"short",day:"numeric",year:"numeric"});
+var left=Math.ceil((e-new Date())/864e5);document.getElementById("m").textContent=left<0?"past its date ("+(-left)+" days ago)":left<30?"finish it soon: "+left+" days left":left+" days left";}
+</script></body></html>

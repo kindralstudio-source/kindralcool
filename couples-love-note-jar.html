@@ -1,0 +1,30 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<style>
+:root{--bg:#FDF1F3;--c1:#F9DFE5;--c2:#F4C8D5;--c3:#E9A7BC;--c4:#D5819F;--deep:#A94F78;--dark:#7A3452;--mid:#B5587F;--w:#FFFAFB}
+html,body{margin:0;height:100%;background:var(--bg)}
+body{font-family:Georgia,"Times New Roman",serif;color:var(--dark);display:flex;align-items:center;justify-content:center}
+.c{text-align:center;padding:14px;width:100%;max-width:440px;box-sizing:border-box}
+.k{font-size:11px;letter-spacing:3px;text-transform:uppercase;opacity:.7}
+.big{font-size:46px;margin:2px 0}
+.it{font-style:italic;font-size:16px;color:var(--mid)}
+.line{width:40px;height:1px;background:var(--c3);margin:10px auto}
+input,select{font-family:inherit;font-size:14px;color:var(--dark);background:var(--w);border:1px solid var(--c3);border-radius:14px;padding:6px 10px;margin:3px;max-width:44%}
+button{font-family:inherit;font-size:13px;border:1px solid var(--c3);background:var(--w);color:var(--dark);border-radius:20px;padding:6px 14px;margin:3px;cursor:pointer}
+button.on{background:var(--c4);color:#fff;border-color:var(--c4)}
+.row{display:flex;align-items:center;justify-content:center;gap:8px;flex-wrap:wrap}
+
+</style></head><body><div class="c">
+<div class="k">love note jar</div><div class="it" id="p" style="font-size:20px;line-height:1.45;margin:12px 0 14px;min-height:60px">tap the jar for a note</div>
+<div class="row"><button class="on" onclick="pick()">pull a note 💌</button><button onclick="ownn()">add mine</button></div>
+<div class="it" style="font-size:12px;margin-top:8px" id="s"></div></div>
+<script>
+function sv(k,v){try{localStorage.setItem(k,v)}catch(e){}}
+function ld(k,d){try{var v=localStorage.getItem(k);return v===null?d:v}catch(e){return d}}
+function p2(n){return n<10?"0"+n:n}
+
+var N=["Plan a ten minute no-phone cuddle.","Tell them one thing you noticed today that you loved.","Write a note and hide it in their bag.","Recreate your first date at home.","Cook something neither of you has tried.","Share your favourite memory of the two of you.","Take a slow walk with no destination.","Send a voice note instead of a text.","Say thank you for one small thing they did.","Make a playlist of songs that remind you of them.","Ask: what made you feel loved this week?","Plan a surprise, however small.","Take a photo together and pick a caption.","Dream out loud: where do we live in five years?","Do the dishes together with music on."];
+function mine(){try{return JSON.parse(ld("mynotes","[]"))}catch(e){return []}}
+function pick(){var a=N.concat(mine());document.getElementById("p").textContent="“"+a[Math.floor(Math.random()*a.length)]+"”"}
+function ownn(){var t=prompt("write a love note for the jar");if(t){var a=mine();a.push(t);sv("mynotes",JSON.stringify(a));document.getElementById("s").textContent="added. "+a.length+" of yours in the jar."}}
+</script></body></html>

@@ -1,0 +1,31 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<style>
+:root{--bg:#F6F1FB;--c1:#E8DDF4;--c2:#D8C6EB;--c3:#C0A5DE;--c4:#9F7CC4;--deep:#75549E;--dark:#4F3573;--mid:#7E5CA8;--w:#FCFAFF}
+html,body{margin:0;height:100%;background:var(--bg)}
+body{font-family:Georgia,"Times New Roman",serif;color:var(--dark);display:flex;align-items:center;justify-content:center}
+.c{text-align:center;padding:14px;width:100%;max-width:440px;box-sizing:border-box}
+.k{font-size:11px;letter-spacing:3px;text-transform:uppercase;opacity:.7}
+.big{font-size:46px;margin:2px 0}
+.it{font-style:italic;font-size:16px;color:var(--mid)}
+.line{width:40px;height:1px;background:var(--c3);margin:10px auto}
+input,select{font-family:inherit;font-size:14px;color:var(--dark);background:var(--w);border:1px solid var(--c3);border-radius:14px;padding:6px 10px;margin:3px;max-width:44%}
+button{font-family:inherit;font-size:13px;border:1px solid var(--c3);background:var(--w);color:var(--dark);border-radius:20px;padding:6px 14px;margin:3px;cursor:pointer}
+button.on{background:var(--c4);color:#fff;border-color:var(--c4)}
+.row{display:flex;align-items:center;justify-content:center;gap:8px;flex-wrap:wrap}
+
+</style></head><body><div class="c">
+<div class="k">cost per wear</div><div class="big" id="r">--</div><div class="it" id="m">price ÷ times worn</div><div class="line"></div>
+<div class="row"><input type="number" id="p" placeholder="price" min="0" oninput="go()"><input type="number" id="w" placeholder="wears" min="0" oninput="go()"></div>
+<div class="it" style="font-size:12px;margin-top:8px" id="g">wear it 30 times to make it a good buy</div></div>
+<script>
+function sv(k,v){try{localStorage.setItem(k,v)}catch(e){}}
+function ld(k,d){try{var v=localStorage.getItem(k);return v===null?d:v}catch(e){return d}}
+function p2(n){return n<10?"0"+n:n}
+
+function go(){var p=+document.getElementById("p").value,w=+document.getElementById("w").value;
+if(!p||!w){document.getElementById("r").textContent="--";return}
+var c=p/w;document.getElementById("r").textContent=c.toFixed(2);
+var left=Math.max(0,30-w);document.getElementById("m").textContent=c<=5?"that is a hardworking piece":c<=20?"getting there":"still earning its place";
+document.getElementById("g").textContent=left?left+" more wears to reach 30 (cost "+(p/30).toFixed(2)+" per wear)":"30 wears reached. well played."}
+</script></body></html>
