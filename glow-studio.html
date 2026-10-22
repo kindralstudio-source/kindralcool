@@ -1,0 +1,246 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Glow Studio</title>
+<style>
+:root{--bg:#F6F1FA;--c1:#E9DFF2;--c2:#D8C6E8;--c3:#BCA0D4;--ac:#9B7BBA;--deep:#6F4F8F;--ink:#3F2A56;--mid:#7E6498;--card:#FFFFFF}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:var(--bg);font-family:Georgia,'Times New Roman',serif;color:var(--ink)}
+body{padding:18px 16px 20px;min-height:100vh;position:relative;overflow-x:hidden}
+.arch1,.arch2{position:absolute;bottom:0;border-radius:200px 200px 0 0;z-index:0;opacity:.55}
+.arch1{right:14px;width:92px;height:170px;background:var(--c1)}
+.arch2{right:116px;width:52px;height:96px;background:var(--c2)}
+.wrap{position:relative;z-index:1;max-width:760px;margin:0 auto}
+header{text-align:center;margin-bottom:14px}
+h1{font-style:italic;font-weight:500;font-size:30px;letter-spacing:.2px}
+.sub{font-size:10.5px;letter-spacing:.32em;color:var(--mid);margin-top:5px}
+.rule{width:54px;height:2px;background:var(--c3);margin:10px auto 0;border-radius:2px}
+.spark{color:var(--ac);font-size:13px}
+nav{display:flex;gap:6px;justify-content:center;margin:14px 0 16px;flex-wrap:wrap}
+nav button{font-family:inherit;font-style:italic;font-size:15px;color:var(--deep);background:transparent;border:1.5px solid var(--c2);border-radius:999px;padding:7px 18px;cursor:pointer;transition:.18s}
+nav button:hover{background:var(--c1)}
+nav button.on{background:var(--deep);color:#fff;border-color:var(--deep)}
+.panel{display:none;animation:in .28s ease}
+.panel.on{display:block}
+@keyframes in{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.lab{font-size:10.5px;letter-spacing:.24em;color:var(--mid);margin:12px 0 7px}
+.chips{display:flex;flex-wrap:wrap;gap:7px}
+.chip{font-family:inherit;font-size:14px;color:var(--ink);background:var(--card);border:1.5px solid var(--c2);border-radius:999px;padding:6px 14px;cursor:pointer;transition:.15s}
+.chip:hover{border-color:var(--ac)}
+.chip.on{background:var(--c2);border-color:var(--deep);color:var(--deep);font-weight:bold}
+.result{margin-top:16px;background:var(--card);border:1.5px solid var(--c2);border-radius:22px 22px 22px 6px;padding:16px 16px 14px}
+.rt{font-style:italic;font-size:21px;color:var(--deep);margin-bottom:2px}
+.rs{font-size:12.5px;color:var(--mid);font-style:italic;margin-bottom:10px}
+.row{display:flex;gap:11px;padding:9px 0;border-top:1px dashed var(--c2);align-items:flex-start}
+.row:first-of-type{border-top:0}
+.k{flex:0 0 78px;font-size:10px;letter-spacing:.2em;color:var(--ac);padding-top:3px}
+.v{font-size:15px;line-height:1.4}
+.btn{margin-top:12px;font-family:inherit;font-style:italic;font-size:14.5px;background:var(--c1);color:var(--deep);border:1.5px solid var(--c3);border-radius:999px;padding:7px 18px;cursor:pointer}
+.btn:hover{background:var(--c2)}
+.num{display:flex;align-items:center;gap:10px}
+.num button{width:34px;height:34px;border-radius:50%;border:1.5px solid var(--c3);background:var(--card);color:var(--deep);font-size:18px;cursor:pointer;font-family:inherit}
+.num button:hover{background:var(--c1)}
+.num b{font-size:26px;font-style:italic;min-width:46px;text-align:center;color:var(--deep);font-weight:500}
+.num span{font-size:12.5px;color:var(--mid);font-style:italic}
+.fld{display:flex;flex-wrap:wrap;gap:14px}
+.fld>div{flex:1 1 150px}
+.grid{margin-bottom:8px;display:grid;grid-template-columns:repeat(auto-fit,minmax(104px,1fr));gap:9px;margin-top:6px}
+.tile{background:var(--bg);border:1.5px solid var(--c2);border-radius:60px 60px 14px 14px;text-align:center;padding:14px 6px 11px}
+.tile i{display:block;font-size:30px;color:var(--deep);font-style:normal}
+.tile small{display:block;font-size:11.5px;color:var(--mid);margin-top:2px;font-style:italic}
+.big{font-size:44px;font-style:italic;color:var(--deep);line-height:1}
+.verdict{display:inline-block;margin-top:8px;padding:5px 14px;border-radius:999px;background:var(--c2);color:var(--deep);font-size:14px;font-style:italic;font-weight:bold}
+.note{margin-top:12px;font-size:12px;color:var(--mid);font-style:italic;text-align:center}
+.foot{margin-top:14px;text-align:center;font-size:11px;color:var(--c3);letter-spacing:.2em}
+@media(max-width:420px){h1{font-size:25px}.k{flex-basis:64px}.big{font-size:38px}}
+</style></head><body>
+<div class="arch1"></div><div class="arch2"></div>
+<div class="wrap">
+<header>
+  <div class="spark">✦ &nbsp; ✧ &nbsp; ✦</div>
+  <h1>Glow Studio</h1>
+  <div class="sub">DRESS · SHOP · PACK</div>
+  <div class="rule"></div>
+</header>
+<nav id="nav">
+  <button data-t="dress" class="on">Dress me</button>
+  <button data-t="worth">Worth it?</button>
+  <button data-t="pack">Pack for me</button>
+</nav>
+
+<section class="panel on" id="dress">
+  <div class="lab">THE WEATHER</div><div class="chips" id="c-weather"></div>
+  <div class="lab">THE PLAN</div><div class="chips" id="c-occ"></div>
+  <div class="lab">THE MOOD</div><div class="chips" id="c-mood"></div>
+  <div class="result" id="dr"></div>
+  <div style="text-align:center"><button class="btn" id="shuffle">Show me another ✧</button></div>
+</section>
+
+<section class="panel" id="worth">
+  <div class="fld">
+    <div><div class="lab">PRICE</div><div class="num"><button data-f="price" data-d="-5">−</button><b id="v-price">60</b><button data-f="price" data-d="5">+</button></div><span class="sub" style="letter-spacing:.05em"></span></div>
+    <div><div class="lab">WEARS PER MONTH</div><div class="num"><button data-f="wears" data-d="-1">−</button><b id="v-wears">4</b><button data-f="wears" data-d="1">+</button></div></div>
+    <div><div class="lab">MONTHS YOU WILL KEEP IT</div><div class="num"><button data-f="months" data-d="-3">−</button><b id="v-months">12</b><button data-f="months" data-d="3">+</button></div></div>
+  </div>
+  <div class="lab">BE HONEST</div>
+  <div class="chips" id="c-checks"></div>
+  <div class="result" id="wr"></div>
+</section>
+
+<section class="panel" id="pack">
+  <div class="lab">HOW MANY DAYS</div>
+  <div class="num"><button data-f="days" data-d="-1">−</button><b id="v-days">5</b><button data-f="days" data-d="1">+</button><span>days away</span></div>
+  <div class="lab">THE TRIP</div><div class="chips" id="c-trip"></div>
+  <div class="result" id="pr"></div>
+</section>
+
+<div class="note">Plans and ideas only. Not skincare or medical advice.</div>
+<div class="foot">GLOW &amp; STYLE OS</div>
+</div>
+
+<script>
+(function(){
+  var KEY='glow_studio_v1';
+  var S={tab:'dress',weather:'Mild',occ:'Everyday',mood:'Soft',seed:0,price:60,wears:4,months:12,checks:[],days:5,trip:'City'};
+  try{var raw=localStorage.getItem(KEY);if(raw){var o=JSON.parse(raw);for(var k in o){if(k in S)S[k]=o[k];}}}catch(e){}
+  function save(){try{localStorage.setItem(KEY,JSON.stringify(S));}catch(e){}}
+  function $(id){return document.getElementById(id)}
+  function pick(arr,n){return arr[(n%arr.length+arr.length)%arr.length]}
+
+  var WEATHER=['Hot','Mild','Cold','Rainy'];
+  var OCC=['Everyday','Work','Date','Party','Travel','Lounge'];
+  var MOOD=['Soft','Polished','Bold'];
+
+  var CORE={
+    Everyday:[['fitted tee','straight jeans'],['knit tank','wide trousers'],['loose shirt','denim shorts or midi skirt']],
+    Work:[['crisp shirt','tailored trousers'],['fine knit top','midi skirt'],['shirt dress','a belt to cinch it']],
+    Date:[['silky cami','high waist trousers'],['wrap top','flowy skirt'],['little dress','nothing fussy on top']],
+    Party:[['sequin or satin top','dark straight jeans'],['slip dress','a statement layer on top'],['bodysuit','mini or sharp trousers']],
+    Travel:[['soft tee','stretch trousers'],['knit set','matching top and bottom'],['easy dress','a layer you can tie round your waist']],
+    Lounge:[['oversized tee','soft joggers'],['ribbed set','matching top and bottom'],['big knit','bike shorts']]
+  };
+  var FABRIC={Hot:'Linen, cotton or anything that breathes. Light colours.',Mild:'Cotton, knit or denim. Easy to add or drop a layer.',Cold:'Wool, thick knit or lined fabric. Stay away from thin synthetics.',Rainy:'Fabrics that dry fast. Avoid long hems and suede.'};
+  var LAYER={Hot:['Nothing. Carry a thin scarf for cold shops.','A sheer shirt open over everything.'],Mild:['A light blazer or denim jacket.','A cardigan you can tie round your waist.'],Cold:['A long coat over a knit.','A puffer or wool coat, scarf in the pocket.'],Rainy:['A trench or rain jacket with a hood.','A short mac and a packable umbrella.']};
+  var SHOES={
+    Everyday:{d:['clean white trainers','flat sandals'],Rainy:['waterproof boots','trainers you do not mind soaking']},
+    Work:{d:['loafers','block heel pumps'],Rainy:['water safe loafers','ankle boots']},
+    Date:{d:['strappy heels','ballet flats'],Rainy:['ankle boots with a heel','sleek rain boots']},
+    Party:{d:['heels you can dance in','pointed flats'],Rainy:['black boots','shoes in the bag, boots on']},
+    Travel:{d:['slip on trainers','comfy sandals'],Rainy:['waterproof trainers','light boots']},
+    Lounge:{d:['slides','fluffy socks'],Rainy:['slippers','warm socks']}
+  };
+  var BAG={Everyday:'Crossbody that fits phone, keys and lip balm.',Work:'A structured tote that fits your laptop.',Date:'A small clutch. Phone, card, lip colour.',Party:'A mini bag and a coat you can check in.',Travel:'Zip crossbody for your passport and phone.',Lounge:'No bag. Phone in hand, you are home.'};
+  var COLOUR={
+    Soft:['Tone on tone. Keep it all in one colour family.','Cream, blush and one dusty shade.'],
+    Polished:['Two neutrals plus one accent colour. Stop there.','All dark with one light piece near your face.'],
+    Bold:['One loud piece. Everything else stays quiet.','One bright colour, black or white for the rest.']
+  };
+  var GLOW={
+    Everyday:'Tinted lip, brow gel, hair in a clip.',
+    Work:'Soft skin finish, neat brows, a low bun or sleek ponytail.',
+    Date:'Rosy cheeks, mascara, loose waves or a half up style.',
+    Party:'A bold lip or shimmer lid. Pick one, not both.',
+    Travel:'Tinted balm, braid or claw clip. Nothing that needs a mirror.',
+    Lounge:'Clean face, hair up, your comfiest scrunchie.'
+  };
+  var HAIR={Hot:'Hair off your neck today.',Mild:'Wear your hair however it falls best.',Cold:'Loose hair doubles as a scarf.',Rainy:'Skip heat styling. A braid or a claw clip wins.'};
+
+  function chips(id,list,key,multi){
+    var el=$(id);el.innerHTML='';
+    list.forEach(function(x){
+      var b=document.createElement('button');b.className='chip';b.textContent=x;
+      function on(){return multi?S[key].indexOf(x)>-1:S[key]===x}
+      if(on())b.classList.add('on');
+      b.addEventListener('click',function(){
+        if(multi){var i=S[key].indexOf(x);if(i>-1)S[key].splice(i,1);else S[key].push(x);}
+        else{S[key]=x;S.seed=0;}
+        save();render();
+      });
+      el.appendChild(b);
+    });
+  }
+
+  function row(k,v){return '<div class="row"><div class="k">'+k+'</div><div class="v">'+v+'</div></div>'}
+
+  function renderDress(){
+    chips('c-weather',WEATHER,'weather');chips('c-occ',OCC,'occ');chips('c-mood',MOOD,'mood');
+    var n=S.seed,o=S.occ,w=S.weather,m=S.mood;
+    var core=pick(CORE[o],n);
+    var shoeSet=SHOES[o][w==='Rainy'?'Rainy':'d'];
+    var shoes=pick(shoeSet,n);
+    if(w==='Cold'&&o!=='Lounge'&&w!=='Rainy'){shoes=pick(['ankle boots','chunky loafers with warm socks'],n);}
+    var html='<div class="rt">'+m+' '+o.toLowerCase()+', '+w.toLowerCase()+' day</div><div class="rs">Your outfit in six lines</div>'+
+      row('WEAR',core[0].charAt(0).toUpperCase()+core[0].slice(1)+' with '+core[1]+'.')+
+      row('FABRIC',FABRIC[w])+
+      row('LAYER',pick(LAYER[w],n))+
+      row('SHOES',shoes.charAt(0).toUpperCase()+shoes.slice(1)+'.')+
+      row('BAG',BAG[o])+
+      row('COLOUR',pick(COLOUR[m],n))+
+      row('GLOW',GLOW[o]+' '+HAIR[w]);
+    $('dr').innerHTML=html;
+  }
+
+  var CHECKS=['I need it, not just want it','It goes with 3 pieces I own','I would wear it this month','I still love it after 30 days'];
+  function renderWorth(){
+    $('v-price').textContent=S.price;$('v-wears').textContent=S.wears;$('v-months').textContent=S.months;
+    chips('c-checks',CHECKS,'checks',true);
+    var total=S.wears*S.months;var cpw=total>0?S.price/total:0;
+    var yes=S.checks.length;var vd,msg;
+    if(cpw<=2&&yes>=3){vd='Buy it';msg='Low cost per wear and you are sure. Go.';}
+    else if(cpw<=5&&yes>=3){vd='Probably yes';msg='Fair cost per wear. Sleep on it one more night.';}
+    else if(yes<=1){vd='Skip it';msg='You are not sure about it yet. Add it to your Wishlist and let it cool off.';}
+    else if(cpw>5){vd='Think twice';msg='High cost per wear. Is there something you own that does this job?';}
+    else{vd='Cool it off';msg='It is close. Put it on the Wishlist for 30 days, then decide.';}
+    $('wr').innerHTML='<div class="rs">COST PER WEAR</div><div class="big">$'+(cpw>=10?cpw.toFixed(0):cpw.toFixed(2))+'</div>'+
+      '<div class="rs" style="margin-top:6px">$'+S.price+' over '+total+' wears</div>'+
+      '<div class="verdict">'+vd+'</div><div class="rs" style="margin-top:9px">'+msg+'</div>';
+  }
+
+  var TRIPS=['City','Beach','Cold','Work trip'];
+  function renderPack(){
+    $('v-days').textContent=S.days;
+    chips('c-trip',TRIPS,'trip');
+    var d=S.days,t=S.trip;
+    var tops=Math.min(d,Math.ceil(d*0.6)+1);
+    var bottoms=Math.max(2,Math.ceil(d/3)+1);
+    var dresses=(t==='Beach')?Math.min(3,Math.ceil(d/3)+1):(t==='City'?1:(t==='Work trip'?1:0));
+    var layers=(t==='Cold')?3:(t==='Beach'?1:2);
+    var shoes=d>8?4:(d>3?3:2);
+    var under=d+1;
+    var sleep=d>6?2:1;
+    var extra=(t==='Beach')?'2 swimsuits, 1 cover up, sunglasses':(t==='Cold')?'warm socks, gloves, scarf':(t==='Work trip')?'1 blazer, 1 smart bag':'1 going out outfit';
+    function tile(i,n,l){if(n===1)l=l.replace(/s$/,'').replace('underwear','underwear').replace('dresse','dress');return '<div class="tile"><i>'+n+'</i><small>'+l+'</small></div>'}
+    var html='<div class="rt">'+d+' days, '+t.toLowerCase()+'</div><div class="rs">Pack this much and no more</div><div class="grid">'+
+      tile('',tops,'tops')+tile('',bottoms,'bottoms')+tile('',dresses,'dresses')+tile('',layers,'layers')+tile('',shoes,'shoes')+tile('',under,'underwear')+tile('',sleep,'sleepwear')+'</div>'+
+      row('ALSO',extra+'.')+
+      row('BEAUTY','Travel minis of the products you use every day, a lip colour, and one hair tie that does everything.')+
+      row('RULE','Every top works with every bottom. If it only goes with one thing, leave it.');
+    $('pr').innerHTML=html;
+  }
+
+  function render(){
+    ['dress','worth','pack'].forEach(function(id){
+      $(id).classList.toggle('on',S.tab===id);
+    });
+    var bs=document.querySelectorAll('#nav button');
+    Array.prototype.forEach.call(bs,function(b){b.classList.toggle('on',b.getAttribute('data-t')===S.tab);});
+    if(S.tab==='dress')renderDress();
+    if(S.tab==='worth')renderWorth();
+    if(S.tab==='pack')renderPack();
+  }
+
+  Array.prototype.forEach.call(document.querySelectorAll('#nav button'),function(b){
+    b.addEventListener('click',function(){S.tab=b.getAttribute('data-t');save();render();});
+  });
+  $('shuffle').addEventListener('click',function(){S.seed=S.seed+1;save();render();});
+  Array.prototype.forEach.call(document.querySelectorAll('.num button'),function(b){
+    b.addEventListener('click',function(){
+      var f=b.getAttribute('data-f'),dl=parseInt(b.getAttribute('data-d'),10);
+      var lim={price:[0,5000],wears:[1,60],months:[1,120],days:[1,30]}[f];
+      S[f]=Math.max(lim[0],Math.min(lim[1],S[f]+dl));
+      save();render();
+    });
+  });
+  render();
+})();
+</script>
+</body></html>
