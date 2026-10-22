@@ -16,7 +16,7 @@ h1{font-style:italic;font-weight:500;font-size:30px;letter-spacing:.2px}
 .rule{width:54px;height:2px;background:var(--c3);margin:10px auto 0;border-radius:2px}
 .spark{color:var(--ac);font-size:13px}
 nav{display:flex;gap:6px;justify-content:center;margin:14px 0 16px;flex-wrap:wrap}
-nav button{font-family:inherit;font-style:italic;font-size:15px;color:var(--deep);background:transparent;border:1.5px solid var(--c2);border-radius:999px;padding:7px 18px;cursor:pointer;transition:.18s}
+nav button{font-family:inherit;font-style:italic;font-size:15px;color:var(--deep);background:transparent;border:1.5px solid var(--c2);border-radius:999px;padding:7px 16px;cursor:pointer;transition:.18s}
 nav button:hover{background:var(--c1)}
 nav button.on{background:var(--deep);color:#fff;border-color:var(--deep)}
 .panel{display:none;animation:in .28s ease}
@@ -27,15 +27,18 @@ nav button.on{background:var(--deep);color:#fff;border-color:var(--deep)}
 .chip{font-family:inherit;font-size:14px;color:var(--ink);background:var(--card);border:1.5px solid var(--c2);border-radius:999px;padding:6px 14px;cursor:pointer;transition:.15s}
 .chip:hover{border-color:var(--ac)}
 .chip.on{background:var(--c2);border-color:var(--deep);color:var(--deep);font-weight:bold}
-.result{margin-top:16px;background:var(--card);border:1.5px solid var(--c2);border-radius:22px 22px 22px 6px;padding:16px 16px 14px}
-.rt{font-style:italic;font-size:21px;color:var(--deep);margin-bottom:2px}
+.result{margin-top:16px;background:var(--card);border:1.5px solid var(--c2);border-radius:22px 22px 22px 6px;padding:16px 16px 14px;animation:in .3s ease}
+.rt{font-style:italic;font-size:22px;color:var(--deep);margin-bottom:2px}
 .rs{font-size:12.5px;color:var(--mid);font-style:italic;margin-bottom:10px}
 .row{display:flex;gap:11px;padding:9px 0;border-top:1px dashed var(--c2);align-items:flex-start}
 .row:first-of-type{border-top:0}
 .k{flex:0 0 78px;font-size:10px;letter-spacing:.2em;color:var(--ac);padding-top:3px}
 .v{font-size:15px;line-height:1.4}
-.btn{margin-top:12px;font-family:inherit;font-style:italic;font-size:14.5px;background:var(--c1);color:var(--deep);border:1.5px solid var(--c3);border-radius:999px;padding:7px 18px;cursor:pointer}
+.btns{text-align:center;margin-top:4px}
+.btn{margin:12px 4px 0;font-family:inherit;font-style:italic;font-size:14.5px;background:var(--c1);color:var(--deep);border:1.5px solid var(--c3);border-radius:999px;padding:7px 18px;cursor:pointer}
 .btn:hover{background:var(--c2)}
+.btn.solid{background:var(--deep);color:#fff;border-color:var(--deep)}
+.btn.solid:hover{background:var(--ink)}
 .num{display:flex;align-items:center;gap:10px}
 .num button{width:34px;height:34px;border-radius:50%;border:1.5px solid var(--c3);background:var(--card);color:var(--deep);font-size:18px;cursor:pointer;font-family:inherit}
 .num button:hover{background:var(--c1)}
@@ -43,26 +46,29 @@ nav button.on{background:var(--deep);color:#fff;border-color:var(--deep)}
 .num span{font-size:12.5px;color:var(--mid);font-style:italic}
 .fld{display:flex;flex-wrap:wrap;gap:14px}
 .fld>div{flex:1 1 150px}
-.grid{margin-bottom:8px;display:grid;grid-template-columns:repeat(auto-fit,minmax(104px,1fr));gap:9px;margin-top:6px}
+.grid{margin-bottom:8px;display:grid;grid-template-columns:repeat(auto-fit,minmax(98px,1fr));gap:9px;margin-top:6px}
 .tile{background:var(--bg);border:1.5px solid var(--c2);border-radius:60px 60px 14px 14px;text-align:center;padding:14px 6px 11px}
 .tile i{display:block;font-size:30px;color:var(--deep);font-style:normal}
 .tile small{display:block;font-size:11.5px;color:var(--mid);margin-top:2px;font-style:italic}
 .big{font-size:44px;font-style:italic;color:var(--deep);line-height:1}
 .verdict{display:inline-block;margin-top:8px;padding:5px 14px;border-radius:999px;background:var(--c2);color:var(--deep);font-size:14px;font-style:italic;font-weight:bold}
+.pal{display:flex;gap:6px;margin-top:4px}
+.pal span{width:34px;height:34px;border-radius:50%;border:1.5px solid var(--c2)}
 .note{margin-top:12px;font-size:12px;color:var(--mid);font-style:italic;text-align:center}
 .foot{margin-top:14px;text-align:center;font-size:11px;color:var(--c3);letter-spacing:.2em}
-@media(max-width:420px){h1{font-size:25px}.k{flex-basis:64px}.big{font-size:38px}}
+@media(max-width:420px){h1{font-size:25px}.k{flex-basis:64px}.big{font-size:38px}nav button{padding:7px 12px;font-size:14px}}
 </style></head><body>
 <div class="arch1"></div><div class="arch2"></div>
 <div class="wrap">
 <header>
   <div class="spark">✦ &nbsp; ✧ &nbsp; ✦</div>
   <h1>Glow Studio</h1>
-  <div class="sub">DRESS · SHOP · PACK</div>
+  <div class="sub">DRESS · FEEL · SHOP · PACK</div>
   <div class="rule"></div>
 </header>
 <nav id="nav">
   <button data-t="dress" class="on">Dress me</button>
+  <button data-t="mood">My mood</button>
   <button data-t="worth">Worth it?</button>
   <button data-t="pack">Pack for me</button>
 </nav>
@@ -72,12 +78,19 @@ nav button.on{background:var(--deep);color:#fff;border-color:var(--deep)}
   <div class="lab">THE PLAN</div><div class="chips" id="c-occ"></div>
   <div class="lab">THE MOOD</div><div class="chips" id="c-mood"></div>
   <div class="result" id="dr"></div>
-  <div style="text-align:center"><button class="btn" id="shuffle">Show me another ✧</button></div>
+  <div class="btns"><button class="btn solid" id="shuffle">Show me another ✧</button><button class="btn" id="surprise">Surprise me</button></div>
+</section>
+
+<section class="panel" id="mood">
+  <div class="lab">HOW ARE YOU FEELING TODAY</div><div class="chips" id="c-feel"></div>
+  <div class="result" id="mr"></div>
+  <div class="btns"><button class="btn solid" id="mshuffle">Another take ✧</button></div>
 </section>
 
 <section class="panel" id="worth">
+  <div class="lab">WHAT IS IT</div><div class="chips" id="c-cat"></div>
   <div class="fld">
-    <div><div class="lab">PRICE</div><div class="num"><button data-f="price" data-d="-5">−</button><b id="v-price">60</b><button data-f="price" data-d="5">+</button></div><span class="sub" style="letter-spacing:.05em"></span></div>
+    <div><div class="lab">PRICE</div><div class="num"><button data-f="price" data-d="-5">−</button><b id="v-price">60</b><button data-f="price" data-d="5">+</button></div></div>
     <div><div class="lab">WEARS PER MONTH</div><div class="num"><button data-f="wears" data-d="-1">−</button><b id="v-wears">4</b><button data-f="wears" data-d="1">+</button></div></div>
     <div><div class="lab">MONTHS YOU WILL KEEP IT</div><div class="num"><button data-f="months" data-d="-3">−</button><b id="v-months">12</b><button data-f="months" data-d="3">+</button></div></div>
   </div>
@@ -90,7 +103,9 @@ nav button.on{background:var(--deep);color:#fff;border-color:var(--deep)}
   <div class="lab">HOW MANY DAYS</div>
   <div class="num"><button data-f="days" data-d="-1">−</button><b id="v-days">5</b><button data-f="days" data-d="1">+</button><span>days away</span></div>
   <div class="lab">THE TRIP</div><div class="chips" id="c-trip"></div>
+  <div class="lab">HOW YOU TRAVEL</div><div class="chips" id="c-bag"></div>
   <div class="result" id="pr"></div>
+  <div class="btns"><button class="btn solid" id="pshuffle">Another palette ✧</button></div>
 </section>
 
 <div class="note">Plans and ideas only. Not skincare or medical advice.</div>
@@ -99,131 +114,337 @@ nav button.on{background:var(--deep);color:#fff;border-color:var(--deep)}
 
 <script>
 (function(){
-  var KEY='glow_studio_v1';
-  var S={tab:'dress',weather:'Mild',occ:'Everyday',mood:'Soft',seed:0,price:60,wears:4,months:12,checks:[],days:5,trip:'City'};
+  var KEY='glow_studio_v2';
+  var S={tab:'dress',weather:'Mild',occ:'Everyday',mood:'Soft',feel:'Main character',cat:'Top',price:60,wears:4,months:12,checks:[],days:5,trip:'City',bag:'Carry on only'};
+  var R={seed:Math.floor(Date.now()/864e5),mseed:Math.floor(Date.now()/864e5)+7,pseed:Math.floor(Date.now()/864e5)+13};
   try{var raw=localStorage.getItem(KEY);if(raw){var o=JSON.parse(raw);for(var k in o){if(k in S)S[k]=o[k];}}}catch(e){}
   function save(){try{localStorage.setItem(KEY,JSON.stringify(S));}catch(e){}}
   function $(id){return document.getElementById(id)}
-  function pick(arr,n){return arr[(n%arr.length+arr.length)%arr.length]}
+  function mk(seed){return function(){seed|=0;seed=seed+0x6D2B79F5|0;var t=Math.imul(seed^seed>>>15,1|seed);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
+  function pickR(arr,seed,salt){var r=mk(seed*7919+salt*104729+arr.length*31);r();return arr[Math.floor(r()*arr.length)]}
+  function cap(s){return s.charAt(0).toUpperCase()+s.slice(1)}
+  function rnd(){return Math.floor(Math.random()*1e6)}
 
-  var WEATHER=['Hot','Mild','Cold','Rainy'];
-  var OCC=['Everyday','Work','Date','Party','Travel','Lounge'];
-  var MOOD=['Soft','Polished','Bold'];
+  var WEATHER=['Hot','Humid','Mild','Cold','Rainy'];
+  var OCC=['Everyday','Work','Interview','Errands','Brunch','Date','Night out','Party','Wedding guest','Travel','Gym','Lounge'];
+  var MOOD=['Soft','Polished','Bold','Cozy','Romantic','Edgy','Playful','Low effort','Main character'];
 
   var CORE={
-    Everyday:[['fitted tee','straight jeans'],['knit tank','wide trousers'],['loose shirt','denim shorts or midi skirt']],
-    Work:[['crisp shirt','tailored trousers'],['fine knit top','midi skirt'],['shirt dress','a belt to cinch it']],
-    Date:[['silky cami','high waist trousers'],['wrap top','flowy skirt'],['little dress','nothing fussy on top']],
-    Party:[['sequin or satin top','dark straight jeans'],['slip dress','a statement layer on top'],['bodysuit','mini or sharp trousers']],
-    Travel:[['soft tee','stretch trousers'],['knit set','matching top and bottom'],['easy dress','a layer you can tie round your waist']],
-    Lounge:[['oversized tee','soft joggers'],['ribbed set','matching top and bottom'],['big knit','bike shorts']]
+    'Everyday':[['fitted tee','straight jeans'],['knit tank','wide trousers'],['loose shirt','denim shorts or a midi skirt'],['striped long sleeve','relaxed cargo trousers'],['cropped cardigan','high waist jeans'],['boxy tee','a pleated skirt']],
+    'Work':[['crisp shirt','tailored trousers'],['fine knit top','a midi skirt'],['shirt dress','a slim belt'],['silk blouse','straight leg trousers'],['sleeveless shell top','a pencil skirt'],['knit polo','wide leg trousers']],
+    'Interview':[['crisp white shirt','tailored trousers in navy or black'],['a plain knit top','a structured blazer and straight trousers'],['a simple sheath dress','a blazer on top'],['a soft blouse','a knee length skirt']],
+    'Errands':[['plain tee','joggers that look like trousers'],['oversized shirt','bike shorts'],['soft knit','straight jeans'],['a tank','relaxed linen trousers'],['a zip hoodie','leggings']],
+    'Brunch':[['puff sleeve top','light wash jeans'],['a floaty midi dress','a denim jacket'],['ribbed tank','a satin skirt'],['a linen shirt','tailored shorts'],['a wrap top','wide trousers']],
+    'Date':[['silky cami','high waist trousers'],['wrap top','a flowy skirt'],['a little dress','nothing fussy on top'],['off shoulder top','dark jeans'],['a fitted bodysuit','a long skirt with a slit']],
+    'Night out':[['a satin top','leather look trousers'],['a corset style top','straight jeans'],['a mini dress','a sharp jacket'],['a halter top','tailored black trousers'],['a sheer top over a bralette','a slip skirt']],
+    'Party':[['a sequin top','dark straight jeans'],['a slip dress','a statement layer on top'],['a bodysuit','a mini skirt or sharp trousers'],['a metallic mini dress','nothing else'],['a velvet top','a satin skirt']],
+    'Wedding guest':[['a midi wrap dress','a pashmina or light shawl'],['a silk co ord set','delicate jewellery'],['a long satin dress','a small clutch'],['a printed maxi dress','a light jacket for the evening'],['a structured dress','a thin belt']],
+    'Travel':[['soft tee','stretch trousers'],['a knit set','matching top and bottom'],['an easy dress','a layer you can tie round your waist'],['a long sleeve top','wide leg joggers'],['a shirt dress','leggings underneath if it is cold']],
+    'Gym':[['a fitted sports top','high waist leggings'],['a racerback tank','bike shorts'],['a long sleeve zip top','sports leggings'],['a cropped tee','running shorts']],
+    'Lounge':[['an oversized tee','soft joggers'],['a ribbed set','matching top and bottom'],['a big knit','bike shorts'],['a long cotton nightshirt','thick socks'],['a hoodie','pyjama bottoms']]
   };
-  var FABRIC={Hot:'Linen, cotton or anything that breathes. Light colours.',Mild:'Cotton, knit or denim. Easy to add or drop a layer.',Cold:'Wool, thick knit or lined fabric. Stay away from thin synthetics.',Rainy:'Fabrics that dry fast. Avoid long hems and suede.'};
-  var LAYER={Hot:['Nothing. Carry a thin scarf for cold shops.','A sheer shirt open over everything.'],Mild:['A light blazer or denim jacket.','A cardigan you can tie round your waist.'],Cold:['A long coat over a knit.','A puffer or wool coat, scarf in the pocket.'],Rainy:['A trench or rain jacket with a hood.','A short mac and a packable umbrella.']};
+  var FABRIC={
+    Hot:['Linen, cotton or anything that breathes. Light colours.','Loose cuts, open weave, nothing clingy.','Cotton and viscose. Skip anything synthetic and tight.'],
+    Humid:['Fast drying cotton blends. Loose, nothing that sticks.','Linen, light cotton, and dark colours that hide sweat.','Skip silk. Choose breathable and washable.'],
+    Mild:['Cotton, knit or denim. Easy to add or drop a layer.','Mid weight fabrics you can wear all day.','Anything with a bit of stretch for the day ahead.'],
+    Cold:['Wool, thick knit or lined fabric. Stay away from thin synthetics.','Layer thin warm fabrics instead of one thick one.','Brushed cotton, fleece lining, wool blends.'],
+    Rainy:['Fabrics that dry fast. Avoid long hems and suede.','Dark colours that do not show splashes.','Nothing delicate. Wear what you can wash tonight.']
+  };
+  var LAYER={
+    Hot:['Nothing. Carry a thin scarf for cold shops.','A sheer shirt open over everything.','A light kimono for the evening.','A thin cotton shirt tied at your waist.'],
+    Humid:['Nothing. Carry a thin scarf for cold shops.','A thin linen shirt for the air conditioning.','A cotton shrug you can pocket.','Nothing. Keep it light.'],
+    Mild:['A light blazer or denim jacket.','A cardigan you can tie round your waist.','An unlined trench.','An overshirt in a soft colour.'],
+    Cold:['A long coat over a knit.','A puffer or wool coat, scarf in the pocket.','A chunky cardigan under a coat.','A teddy or wool jacket with a thin scarf.'],
+    Rainy:['A trench or rain jacket with a hood.','A short mac and a packable umbrella.','A water resistant jacket in a bright colour.','A hooded raincoat, belt it at the waist.']
+  };
   var SHOES={
-    Everyday:{d:['clean white trainers','flat sandals'],Rainy:['waterproof boots','trainers you do not mind soaking']},
-    Work:{d:['loafers','block heel pumps'],Rainy:['water safe loafers','ankle boots']},
-    Date:{d:['strappy heels','ballet flats'],Rainy:['ankle boots with a heel','sleek rain boots']},
-    Party:{d:['heels you can dance in','pointed flats'],Rainy:['black boots','shoes in the bag, boots on']},
-    Travel:{d:['slip on trainers','comfy sandals'],Rainy:['waterproof trainers','light boots']},
-    Lounge:{d:['slides','fluffy socks'],Rainy:['slippers','warm socks']}
+    'Everyday':['clean white trainers','flat sandals','canvas sneakers','simple slides','chunky loafers'],
+    'Work':['loafers','block heel pumps','pointed flats','low block sandals','ankle boots'],
+    'Interview':['closed toe low heels','polished loafers','clean pointed flats','low block pumps'],
+    'Errands':['slip on trainers','comfy sandals','canvas sneakers','clean slides'],
+    'Brunch':['white sneakers','flat sandals','block heel mules','ballet flats'],
+    'Date':['strappy heels','ballet flats','block heel sandals','sleek ankle boots'],
+    'Night out':['heels you can actually stand in','chunky boots','pointed ankle boots','platform sandals'],
+    'Party':['heels you can dance in','pointed flats','glossy boots','metallic sandals'],
+    'Wedding guest':['block heel sandals','low kitten heels','embellished flats','wedge sandals for grass'],
+    'Travel':['slip on trainers','comfy sandals','sturdy walking sneakers','clean trainers'],
+    'Gym':['cushioned trainers','training shoes','running shoes'],
+    'Lounge':['slides','fluffy socks','slipper socks','bare feet and warm socks']
   };
-  var BAG={Everyday:'Crossbody that fits phone, keys and lip balm.',Work:'A structured tote that fits your laptop.',Date:'A small clutch. Phone, card, lip colour.',Party:'A mini bag and a coat you can check in.',Travel:'Zip crossbody for your passport and phone.',Lounge:'No bag. Phone in hand, you are home.'};
+  var RAIN_SHOES=['waterproof boots','trainers you do not mind soaking','sleek rain boots','leather boots with a grip sole','shoes in your bag, boots on your feet'];
+  var COLD_SHOES=['ankle boots','chunky loafers with warm socks','knee high boots','leather trainers with thick socks','lined boots'];
+  var BAG={
+    'Everyday':['Crossbody that fits phone, keys and lip balm.','A slouchy shoulder bag.','A small tote.'],
+    'Work':['A structured tote that fits your laptop.','A top handle bag with a zip.','A slim backpack in leather or nylon.'],
+    'Interview':['A tidy tote with your folder and a spare pen.','A small structured bag. Nothing slouchy.','A slim portfolio bag.'],
+    'Errands':['A canvas tote.','A zip crossbody so your hands stay free.','A small backpack.'],
+    'Brunch':['A mini shoulder bag.','A woven basket bag.','A small tote with a book in it.'],
+    'Date':['A small clutch. Phone, card, lip colour.','A tiny shoulder bag.','A mini bag on a chain.'],
+    'Night out':['A tiny zip bag. Hands free for dancing.','A small crossbody you can keep on you all night.','A clutch with a wrist strap.'],
+    'Party':['A mini bag and a coat you can check in.','A sparkly clutch.','A micro bag on a chain.'],
+    'Wedding guest':['A small clutch with a strap.','A satin pouch.','An embellished mini bag.'],
+    'Travel':['Zip crossbody for your passport and phone.','A belt bag worn in front.','A lightweight tote that zips closed.'],
+    'Gym':['A duffel with a shoe pocket.','A drawstring bag.','A small gym tote.'],
+    'Lounge':['No bag. Phone in hand, you are home.','Just your phone and a blanket.','No bag needed.']
+  };
+  var EXTRA={
+    'Soft':['Small pearl studs.','A thin gold chain.','A silk scrunchie on your wrist.','A soft knit scarf.'],
+    'Polished':['A slim watch.','Small gold hoops.','A leather belt that matches your bag.','One clean ring, nothing else.'],
+    'Bold':['Chunky earrings.','A bright scarf in your hair or on your bag.','Stacked rings.','Oversized sunglasses.'],
+    'Cozy':['A big soft scarf.','Thick socks, even if nobody sees them.','A beanie.','Warm hand cream in your pocket.'],
+    'Romantic':['Delicate drop earrings.','A ribbon in your hair.','A small pendant.','A light spritz of a soft perfume.'],
+    'Edgy':['Silver chain and chunky ring.','Leather cuff.','Dark sunglasses.','A thick belt.'],
+    'Playful':['Colourful clips in your hair.','A charm on your bag.','Mismatched earrings.','Bright socks.'],
+    'Low effort':['One good pair of sunglasses and nothing else.','A claw clip.','Your favourite cap.','Nothing. The outfit is enough.'],
+    'Main character':['Statement earrings.','A scarf trailing from your bag.','Dark glasses and a confident walk.','A red lip. Done.']
+  };
   var COLOUR={
-    Soft:['Tone on tone. Keep it all in one colour family.','Cream, blush and one dusty shade.'],
-    Polished:['Two neutrals plus one accent colour. Stop there.','All dark with one light piece near your face.'],
-    Bold:['One loud piece. Everything else stays quiet.','One bright colour, black or white for the rest.']
+    'Soft':['Tone on tone. Keep it all in one colour family.','Cream, blush and one dusty shade.','Pastels with a neutral base.','Warm whites and beige.'],
+    'Polished':['Two neutrals plus one accent colour. Stop there.','All dark with one light piece near your face.','Navy, white and a touch of camel.','Black and white with one metal accent.'],
+    'Bold':['One loud piece. Everything else stays quiet.','One bright colour, black or white for the rest.','Two colours that clash a little on purpose.','A rich jewel tone with black.'],
+    'Cozy':['Oatmeal, brown and cream.','Warm greys and one muted rust.','Forest green with soft white.','Chocolate and caramel.'],
+    'Romantic':['Blush, cream and a touch of wine.','Soft lilac with white.','Rose with warm gold jewellery.','Burgundy and ivory.'],
+    'Edgy':['Black on black with one metallic.','Charcoal and deep red.','Dark denim and leather.','Black, silver and a pop of acid green.'],
+    'Playful':['Two brights with a white base.','Pastel pink and cherry red.','Checks or stripes in two colours.','Yellow with soft blue.'],
+    'Low effort':['One neutral head to toe.','Black or grey, done.','Denim with a white top.','Same colour top and bottom.'],
+    'Main character':['One saturated colour, head to toe.','Red or cobalt with simple jewellery.','Black with one dramatic accent.','All white with gold.']
   };
   var GLOW={
-    Everyday:'Tinted lip, brow gel, hair in a clip.',
-    Work:'Soft skin finish, neat brows, a low bun or sleek ponytail.',
-    Date:'Rosy cheeks, mascara, loose waves or a half up style.',
-    Party:'A bold lip or shimmer lid. Pick one, not both.',
-    Travel:'Tinted balm, braid or claw clip. Nothing that needs a mirror.',
-    Lounge:'Clean face, hair up, your comfiest scrunchie.'
+    'Everyday':['Tinted lip, brow gel, hair in a clip.','A bit of cream blush and mascara.','Just lip balm and a ponytail.'],
+    'Work':['Soft skin finish, neat brows, a low bun or sleek ponytail.','Neutral lip, light mascara, hair down and tidy.','A tidy braid and a soft pink lip.'],
+    'Interview':['Even skin, neat brows, a calm lip colour. Hair off your face.','Light makeup that does not smudge. Hair neat and back.','A sleek ponytail and a natural lip.'],
+    'Errands':['Sunscreen, lip balm, hair in a clip.','Just a ponytail. Let the day find you.','Tinted balm and a scarf in your hair.'],
+    'Brunch':['A fresh dewy finish and a peachy blush.','Mascara, glossy lip, loose waves.','A half up twist and shimmer on your lids.'],
+    'Date':['Rosy cheeks, mascara, loose waves or a half up style.','Soft smoky eye and a nude lip.','Glossy lips and a relaxed low bun.'],
+    'Night out':['A smoky eye or a bold lip. Not both.','Glitter in the corners of your eyes.','Sleek back hair and a deep lip.'],
+    'Party':['A bold lip or shimmer lid. Pick one, not both.','Glitter liner and waves.','A glossy red lip and a high pony.'],
+    'Wedding guest':['Soft glam that lasts all day. Set it well.','A soft updo and a rosy lip.','Shimmery eyes and a clean low bun.'],
+    'Travel':['Tinted balm, braid or claw clip. Nothing that needs a mirror.','Sunscreen and a soft braid.','Lip balm and a scarf on your head.'],
+    'Gym':['Hair tied firmly back. Clean face.','A high ponytail and sunscreen.','A braid and nothing on your skin.'],
+    'Lounge':['Clean face, hair up, your comfiest scrunchie.','A face mask and a messy bun.','Hair in a claw clip and lip balm.']
   };
-  var HAIR={Hot:'Hair off your neck today.',Mild:'Wear your hair however it falls best.',Cold:'Loose hair doubles as a scarf.',Rainy:'Skip heat styling. A braid or a claw clip wins.'};
+  var HAIR={
+    Hot:['Hair off your neck today.','A high bun or a braid.','Wet look slick back keeps you cool.'],
+    Humid:['Hair up in a claw clip, frizz is not invited.','A tight braid beats loose hair in this air.','Tie it up and skip the blow dry.'],
+    Mild:['Wear your hair however it falls best.','Loose waves or a soft ponytail.','Half up with a clip.'],
+    Cold:['Loose hair doubles as a scarf.','A low bun under a beanie.','Hair down inside your collar.'],
+    Rainy:['Skip heat styling. A braid or a claw clip wins.','A tight bun that ignores the damp.','A hat or a hood keeps your hair in order.']
+  };
+  var ADJ={
+    'Soft':['Dreamy','Hushed','Pillowy','Powdery'],
+    'Polished':['Sharp','Clean','Tailored','Crisp'],
+    'Bold':['Loud','Fearless','Electric','Unapologetic'],
+    'Cozy':['Warm','Snug','Blanketed','Mellow'],
+    'Romantic':['Velvet','Wistful','Rosy','Candlelit'],
+    'Edgy':['Moody','Midnight','Smoky','Rebel'],
+    'Playful':['Sunny','Giddy','Bubbly','Cheeky'],
+    'Low effort':['Easy','Barely There','Effortless','Unfussy'],
+    'Main character':['Cinematic','Starring','Golden Hour','Headline']
+  };
+  var NOUN={
+    'Everyday':['Daydreamer','Wanderer','City Girl','Regular'],
+    'Work':['Boss','Strategist','Closer','Executive'],
+    'Interview':['Candidate','Hire','Standout','Professional'],
+    'Errands':['Runner','Multitasker','Quick Stop','Weekday'],
+    'Brunch':['Muse','Mimosa','Table for Two','Sunday Girl'],
+    'Date':['Charmer','Leading Lady','Plus One','Heartbreaker'],
+    'Night out':['Nightcrawler','Dancefloor','After Dark','Last Call'],
+    'Party':['Guest of Honour','Showstopper','Afterparty','Spotlight'],
+    'Wedding guest':['Bouquet Catcher','Dancer','Plus Guest','Front Row'],
+    'Travel':['Explorer','Passport','Window Seat','Wanderer'],
+    'Gym':['Warrior','Reps','Sweat Session','Cooldown'],
+    'Lounge':['Couch Queen','Blanket Fort','Slow Morning','Night In']
+  };
+  var MANTRA={
+    'Soft':['Take it slowly. Nothing is late.','Gentle is allowed.','You are allowed to take up soft space.'],
+    'Polished':['You walk in like you belong.','Neat is a kind of confidence.','Decide, then carry it.'],
+    'Bold':['Be seen on purpose.','Loud is a choice you can make.','Take the compliment.'],
+    'Cozy':['Warm hands, warm heart.','Make the day smaller and kinder.','Comfort is a plan too.'],
+    'Romantic':['Wear it like it is a love letter.','Soft light, soft heart.','Today is made for details.'],
+    'Edgy':['Mystery is a good accessory.','Dark colours, steady mind.','Own the quiet look.'],
+    'Playful':['Today does not have to make sense.','Wear the fun thing.','Joy is a valid outfit.'],
+    'Low effort':['Showing up counts.','Easy is also stylish.','Minimum effort, maximum comfort.'],
+    'Main character':['This is your scene.','Walk like the music is playing.','You are the plot.']
+  };
+
+  var FEEL=['Low battery','Main character','Need a hug','Sharp and focused','Hot girl','Unbothered','Nostalgic','Chaotic good'];
+  var FEELDATA={
+    'Low battery':{t:'Soft landing day',l:'You do not need to impress anyone today. You need to get through it comfortably.',
+      w:['Your softest knit set and a clean pair of trainers.','Wide joggers, a fitted tee and a long cardigan.','A cotton dress that needs no thought.','Your favourite hoodie with straight jeans.'],
+      b:['Sunscreen, lip balm, done.','Wash your face, brush your hair, claw clip.','Tinted balm and brow gel only.'],
+      s:['Slow acoustic and soft piano.','Lo fi beats with a coffee.','Warm indie and rain sounds.'],
+      d:['Drink a full glass of water before you leave.','Pick one thing to finish today and ignore the rest.','Take a ten minute walk without your phone.'],
+      x:['Tight shoes.','Anything that itches.','Anything that needs ironing.']},
+    'Main character':{t:'Cinematic energy',l:'The day is a scene and you are the lead. Dress for the close up.',
+      w:['A tailored blazer over a slip dress and boots.','All one colour, head to toe, with sunglasses.','A trench, white tee and straight jeans with heels.','A satin shirt tucked into wide trousers and a red lip.'],
+      b:['A bold lip and clean skin.','Glossy lids, mascara and a sleek ponytail.','Sculpted brows and a bright blush.'],
+      s:['Cinematic synths and a strong bassline.','Big orchestral pop.','Confident hip hop and a slow walk.'],
+      d:['Put your phone away and walk with your head up.','Take one photo of the outfit before you leave.','Compliment someone out loud.'],
+      x:['Safe grey.','Hiding in the back.','Apologising for taking space.']},
+    'Need a hug':{t:'Wrapped up warm',l:'Dress like a hug. Soft layers, warm colours, nothing sharp.',
+      w:['An oversized knit, soft leggings and thick socks.','A long cardigan, tee and loose trousers.','A fleece set in a warm colour.','A cosy dress with tights and boots.'],
+      b:['Hand cream, lip balm, hair down.','A face mask while you get ready.','A rosy blush and soft brows.'],
+      s:['Gentle piano and soft vocals.','Old favourites you know every word of.','Folk with a slow guitar.'],
+      d:['Text one friend something kind.','Make yourself a warm drink on purpose.','Get a hug from someone, or hug a pillow.'],
+      x:['Scratchy fabric.','Skipping lunch.','Scrolling for an hour.']},
+    'Sharp and focused':{t:'Clean lines day',l:'You have things to do. Dress in a way that makes decisions easy.',
+      w:['A crisp white shirt, tailored trousers and loafers.','A fitted knit and a straight skirt.','A blazer, plain tee and dark jeans.','A shirt dress and a belt.'],
+      b:['Neat brows, light mascara, sleek hair.','Matte skin finish and a nude lip.','A tight low bun and a soft pink lip.'],
+      s:['Instrumental focus music.','Deep house at low volume.','A steady playlist with no lyrics.'],
+      d:['Write your top three tasks on paper.','Clear your desk before you start.','Do the hardest thing first.'],
+      x:['Wrinkled shirts.','Opening ten tabs.','Saying yes to everything.']},
+    'Hot girl':{t:'Heat advisory',l:'The mirror agrees. Wear the thing that makes you stand taller.',
+      w:['A fitted corset top, low rise trousers and heels.','A mini dress, a leather jacket and boots.','A bodysuit, a long skirt with a slit and sandals.','A halter top, tailored trousers and gold jewellery.'],
+      b:['Bronzed cheeks and a glossy lip.','A winged liner and long lashes.','Glitter on the lids and a berry lip.'],
+      s:['Pop with a heavy bassline.','Dance anthems.','R and B slow jams.'],
+      d:['Take the photo.','Wear the good perfume.','Walk in like you own the room.'],
+      x:['Overthinking your outfit.','Hiding the thing you love.','Asking for permission.']},
+    'Unbothered':{t:'Quiet confidence',l:'Nothing is getting to you today. Keep the outfit calm and the walk steady.',
+      w:['A plain tee, relaxed trousers and clean sneakers.','A neutral knit set and a long coat.','Straight jeans, a white shirt and loafers.','A linen set in a neutral colour.'],
+      b:['Skin, brow gel and a nude balm.','Mascara and nothing else.','A swipe of cream blush.'],
+      s:['Mellow soul and jazz.','Slow reggae.','Ambient music with soft guitar.'],
+      d:['Mute one notification you always check.','Say no to one thing you do not want.','Take your lunch outside.'],
+      x:['Replying fast to everything.','Comparing your day to anyone else.','Extra layers of stress.']},
+    'Nostalgic':{t:'Old film energy',l:'Wear something that feels like a memory. Vintage mood, modern fit.',
+      w:['A vintage tee, high waist jeans and old school trainers.','A floral midi dress and a cardigan.','A denim jacket, a white tee and a pleated skirt.','A knit vest over a collared shirt and straight trousers.'],
+      b:['A soft eye, brown liner and a glossy lip.','Rosy cheeks and a bit of shimmer.','Loose waves and a hair clip.'],
+      s:['Songs from your school years.','Old film soundtracks.','Throwback pop on shuffle.'],
+      d:['Look through old photos for five minutes.','Call someone you have not spoken to in a while.','Cook something from your childhood.'],
+      x:['Scrolling other people\'s highlights.','Forcing it to be perfect.','Staying inside all day.']},
+    'Chaotic good':{t:'Mismatch magic',l:'The rules are optional. Clashing is the plan today.',
+      w:['A striped top with a floral skirt and bright socks.','A bold print shirt, cargo trousers and chunky trainers.','A sequin top with denim and a baseball cap.','A mismatched set with a statement jacket.'],
+      b:['Bright eyeliner and a clear lip.','Glitter on the cheekbones.','Pink blush on the nose and cheeks.'],
+      s:['Upbeat pop punk.','Silly disco.','A random playlist on shuffle.'],
+      d:['Wear two colours that should not work.','Try a new route to work.','Do one thing you have been putting off.'],
+      x:['Matching every item.','Taking it too seriously.','Waiting for a perfect moment.']}
+  };
+
+  var CATS={'Top':1.5,'Jeans':2,'Dress':3,'Coat':3,'Shoes':2.5,'Bag':4,'Jewellery':1,'Beauty':0.8};
+  var CATLIST=['Top','Jeans','Dress','Coat','Shoes','Bag','Jewellery','Beauty'];
+  var CHECKS=['I need it, not just want it','It goes with 3 pieces I own','I would wear it this month','I still love it after 30 days','I have the right shoes for it','It fits me now','I have a real place to wear it','I am not buying it because it is on sale'];
+  var VERDICT={
+    buy:[['Buy it','Low cost per wear and you are sure. Go.'],['Yes, buy it','The numbers and your gut agree.'],['Treat yourself','It earns its place. Do not look back.']],
+    maybe:[['Probably yes','Fair cost per wear. Sleep on it one more night.'],['Almost there','Wait a few days. If you still think of it, buy it.'],['Likely a yes','Check the sizing and the return policy first.']],
+    skip:[['Skip it','You are not sure about it yet. Add it to your Wishlist and let it cool off.'],['Not yet','Put it down. If you still want it in 30 days, come back.'],['Walk away','You do not love it enough yet.']],
+    think:[['Think twice','High cost per wear. Is there something you own that does this job?'],['Pricey per wear','Could you wear it twice as often? If not, skip.'],['Tough call','It costs more per wear than the rest of your closet.']],
+    cool:[['Cool it off','It is close. Put it on the Wishlist for 30 days, then decide.'],['Hold on','Almost there. Give it a week.'],['Pause','Come back after payday and look again.']]
+  };
+
+  var TRIPS=['City','Beach','Cold','Work trip','Wedding','Hiking','Weekend away'];
+  var BAGS=['Carry on only','Checked bag','Backpack'];
+  var PAL=[['#2F3E56','#F2EDE4','#C9A27E'],['#1F1F1F','#F4F1EC','#B8503E'],['#4A5D4B','#EFE8DA','#C2A15B'],['#3B3552','#E8DFF2','#B79BD0'],['#7A4B3A','#F5E9DC','#C9A27E'],['#222B38','#DDE3EA','#8FA6BF'],['#5B6B5C','#F3EFE6','#B87C5E'],['#2E2E2E','#FFFFFF','#D4B483']];
+  var DONT={
+    'City':['A portable phone charger.','Comfortable walking shoes for the second day.','A tote that folds flat.'],
+    'Beach':['Reef safe sunscreen.','A hat and sunglasses.','A bag for wet swimwear.'],
+    'Cold':['Thermal layers.','Lip balm and hand cream.','Spare warm socks.'],
+    'Work trip':['Phone and laptop chargers.','A spare shirt in your carry on.','Business cards or a charger for the meeting.'],
+    'Wedding':['Double sided tape and safety pins.','Spare tights or socks.','Comfortable shoes for the dance floor.'],
+    'Hiking':['Broken in shoes, not new ones.','Blister plasters.','A water bottle and a rain layer.'],
+    'Weekend away':['A tiny bottle of your favourite perfume.','A spare outfit for spills.','A lightweight sleep set.']
+  };
 
   function chips(id,list,key,multi){
     var el=$(id);el.innerHTML='';
     list.forEach(function(x){
       var b=document.createElement('button');b.className='chip';b.textContent=x;
-      function on(){return multi?S[key].indexOf(x)>-1:S[key]===x}
-      if(on())b.classList.add('on');
+      var on=multi?S[key].indexOf(x)>-1:S[key]===x;
+      if(on)b.classList.add('on');
       b.addEventListener('click',function(){
         if(multi){var i=S[key].indexOf(x);if(i>-1)S[key].splice(i,1);else S[key].push(x);}
-        else{S[key]=x;S.seed=0;}
+        else{S[key]=x;}
         save();render();
       });
       el.appendChild(b);
     });
   }
-
   function row(k,v){return '<div class="row"><div class="k">'+k+'</div><div class="v">'+v+'</div></div>'}
 
   function renderDress(){
     chips('c-weather',WEATHER,'weather');chips('c-occ',OCC,'occ');chips('c-mood',MOOD,'mood');
-    var n=S.seed,o=S.occ,w=S.weather,m=S.mood;
-    var core=pick(CORE[o],n);
-    var shoeSet=SHOES[o][w==='Rainy'?'Rainy':'d'];
-    var shoes=pick(shoeSet,n);
-    if(w==='Cold'&&o!=='Lounge'&&w!=='Rainy'){shoes=pick(['ankle boots','chunky loafers with warm socks'],n);}
-    var html='<div class="rt">'+m+' '+o.toLowerCase()+', '+w.toLowerCase()+' day</div><div class="rs">Your outfit in six lines</div>'+
-      row('WEAR',core[0].charAt(0).toUpperCase()+core[0].slice(1)+' with '+core[1]+'.')+
-      row('FABRIC',FABRIC[w])+
-      row('LAYER',pick(LAYER[w],n))+
-      row('SHOES',shoes.charAt(0).toUpperCase()+shoes.slice(1)+'.')+
-      row('BAG',BAG[o])+
-      row('COLOUR',pick(COLOUR[m],n))+
-      row('GLOW',GLOW[o]+' '+HAIR[w]);
+    var n=R.seed,o=S.occ,w=S.weather,m=S.mood;
+    var core=pickR(CORE[o],n,1);
+    var shoes;
+    if(w==='Rainy'&&o!=='Lounge'&&o!=='Gym')shoes=pickR(RAIN_SHOES,n,4);
+    else if(w==='Cold'&&o!=='Lounge'&&o!=='Gym')shoes=pickR(COLD_SHOES,n,4);
+    else shoes=pickR(SHOES[o],n,4);
+    var name='The '+pickR(ADJ[m],n,9)+' '+pickR(NOUN[o],n,10);
+    var html='<div class="rt">'+name+'</div><div class="rs">'+m+' mood, '+o.toLowerCase()+', '+w.toLowerCase()+' day</div>'+
+      row('WEAR',cap(core[0])+' with '+core[1]+'.')+
+      row('FABRIC',pickR(FABRIC[w],n,2))+
+      row('LAYER',pickR(LAYER[w],n,3))+
+      row('SHOES',cap(shoes)+'.')+
+      row('BAG',pickR(BAG[o],n,5))+
+      row('EXTRA',pickR(EXTRA[m],n,6))+
+      row('COLOUR',pickR(COLOUR[m],n,7))+
+      row('GLOW',pickR(GLOW[o],n,8)+' '+pickR(HAIR[w],n,11))+
+      row('MANTRA','<i>'+pickR(MANTRA[m],n,12)+'</i>');
     $('dr').innerHTML=html;
   }
 
-  var CHECKS=['I need it, not just want it','It goes with 3 pieces I own','I would wear it this month','I still love it after 30 days'];
+  function renderMood(){
+    chips('c-feel',FEEL,'feel');
+    var f=FEELDATA[S.feel],n=R.mseed;
+    var html='<div class="rt">'+f.t+'</div><div class="rs">'+f.l+'</div>'+
+      row('WEAR',pickR(f.w,n,1))+
+      row('BEAUTY',pickR(f.b,n,2))+
+      row('SOUND',pickR(f.s,n,3))+
+      row('DO',pickR(f.d,n,4))+
+      row('SKIP',pickR(f.x,n,5));
+    $('mr').innerHTML=html;
+  }
+
   function renderWorth(){
+    chips('c-cat',CATLIST,'cat');
     $('v-price').textContent=S.price;$('v-wears').textContent=S.wears;$('v-months').textContent=S.months;
     chips('c-checks',CHECKS,'checks',true);
     var total=S.wears*S.months;var cpw=total>0?S.price/total:0;
-    var yes=S.checks.length;var vd,msg;
-    if(cpw<=2&&yes>=3){vd='Buy it';msg='Low cost per wear and you are sure. Go.';}
-    else if(cpw<=5&&yes>=3){vd='Probably yes';msg='Fair cost per wear. Sleep on it one more night.';}
-    else if(yes<=1){vd='Skip it';msg='You are not sure about it yet. Add it to your Wishlist and let it cool off.';}
-    else if(cpw>5){vd='Think twice';msg='High cost per wear. Is there something you own that does this job?';}
-    else{vd='Cool it off';msg='It is close. Put it on the Wishlist for 30 days, then decide.';}
+    var yes=S.checks.length;var target=CATS[S.cat];
+    var key;
+    if(cpw<=target&&yes>=5)key='buy';
+    else if(cpw<=target*2&&yes>=4)key='maybe';
+    else if(yes<=2)key='skip';
+    else if(cpw>target*2)key='think';
+    else key='cool';
+    var v=pickR(VERDICT[key],S.price+S.wears+yes,1);
     $('wr').innerHTML='<div class="rs">COST PER WEAR</div><div class="big">$'+(cpw>=10?cpw.toFixed(0):cpw.toFixed(2))+'</div>'+
-      '<div class="rs" style="margin-top:6px">$'+S.price+' over '+total+' wears</div>'+
-      '<div class="verdict">'+vd+'</div><div class="rs" style="margin-top:9px">'+msg+'</div>';
+      '<div class="rs" style="margin-top:6px">$'+S.price+' over '+total+' wears. A good '+S.cat.toLowerCase()+' lands near $'+target.toFixed(target<1?1:(target%1?1:0))+' a wear or less.</div>'+
+      '<div class="verdict">'+v[0]+'</div><div class="rs" style="margin-top:9px">'+v[1]+'</div>'+
+      '<div class="rs" style="margin-top:2px">You ticked '+yes+' of '+CHECKS.length+' honest checks.</div>';
   }
 
-  var TRIPS=['City','Beach','Cold','Work trip'];
   function renderPack(){
     $('v-days').textContent=S.days;
-    chips('c-trip',TRIPS,'trip');
-    var d=S.days,t=S.trip;
+    chips('c-trip',TRIPS,'trip');chips('c-bag',BAGS,'bag');
+    var d=S.days,t=S.trip,co=S.bag==='Carry on only';
     var tops=Math.min(d,Math.ceil(d*0.6)+1);
     var bottoms=Math.max(2,Math.ceil(d/3)+1);
-    var dresses=(t==='Beach')?Math.min(3,Math.ceil(d/3)+1):(t==='City'?1:(t==='Work trip'?1:0));
-    var layers=(t==='Cold')?3:(t==='Beach'?1:2);
+    var dressMap={'Beach':Math.min(3,Math.ceil(d/3)+1),'City':1,'Work trip':1,'Wedding':2,'Hiking':0,'Cold':0,'Weekend away':1};
+    var dresses=dressMap[t];
+    var layers=(t==='Cold'||t==='Hiking')?3:(t==='Beach'?1:2);
     var shoes=d>8?4:(d>3?3:2);
-    var under=d+1;
+    if(co){shoes=Math.min(shoes,2);layers=Math.max(1,layers-1);tops=Math.min(tops,6);bottoms=Math.min(bottoms,3);}
+    var under=co?Math.min(d+1,7):d+1;
     var sleep=d>6?2:1;
-    var extra=(t==='Beach')?'2 swimsuits, 1 cover up, sunglasses':(t==='Cold')?'warm socks, gloves, scarf':(t==='Work trip')?'1 blazer, 1 smart bag':'1 going out outfit';
-    function tile(i,n,l){if(n===1)l=l.replace(/s$/,'').replace('underwear','underwear').replace('dresse','dress');return '<div class="tile"><i>'+n+'</i><small>'+l+'</small></div>'}
-    var html='<div class="rt">'+d+' days, '+t.toLowerCase()+'</div><div class="rs">Pack this much and no more</div><div class="grid">'+
-      tile('',tops,'tops')+tile('',bottoms,'bottoms')+tile('',dresses,'dresses')+tile('',layers,'layers')+tile('',shoes,'shoes')+tile('',under,'underwear')+tile('',sleep,'sleepwear')+'</div>'+
-      row('ALSO',extra+'.')+
+    var extraMap={'Beach':'2 swimsuits, 1 cover up, sunglasses','Cold':'warm socks, gloves, scarf','Work trip':'1 blazer, 1 smart bag','Wedding':'1 formal outfit, shoes you can dance in, a small clutch','Hiking':'hiking shoes, quick dry tops, a rain layer','City':'1 going out outfit','Weekend away':'1 nicer outfit for dinner'};
+    function tile(n,l){if(n===1)l=l.replace(/s$/,'').replace('dresse','dress');return '<div class="tile"><i>'+n+'</i><small>'+l+'</small></div>'}
+    var p=pickR(PAL,R.pseed,1);
+    var pal='<div class="pal">'+p.map(function(c){return '<span style="background:'+c+'"></span>'}).join('')+'</div>';
+    var tip=co?'Wear your bulkiest shoes and coat on the journey. Roll, do not fold.':'Pack one bag for wet or dirty things. Leave space for what you buy.';
+    var html='<div class="rt">'+d+' days, '+t.toLowerCase()+'</div><div class="rs">'+S.bag+'. Pack this much and no more</div><div class="grid">'+
+      tile(tops,'tops')+tile(bottoms,'bottoms')+tile(dresses,'dresses')+tile(layers,'layers')+tile(shoes,'shoes')+tile(under,'underwear')+tile(sleep,'sleepwear')+'</div>'+
+      row('ALSO',extraMap[t]+'.')+
+      row('PALETTE',pal+'<div style="margin-top:6px;font-size:13px;color:var(--mid);font-style:italic">Stick to these three colours and everything mixes.</div>')+
       row('BEAUTY','Travel minis of the products you use every day, a lip colour, and one hair tie that does everything.')+
-      row('RULE','Every top works with every bottom. If it only goes with one thing, leave it.');
+      row('DO NOT FORGET',pickR(DONT[t],R.pseed,2))+
+      row('RULE','Every top works with every bottom. '+tip);
     $('pr').innerHTML=html;
   }
 
   function render(){
-    ['dress','worth','pack'].forEach(function(id){
-      $(id).classList.toggle('on',S.tab===id);
-    });
-    var bs=document.querySelectorAll('#nav button');
-    Array.prototype.forEach.call(bs,function(b){b.classList.toggle('on',b.getAttribute('data-t')===S.tab);});
+    ['dress','mood','worth','pack'].forEach(function(id){$(id).classList.toggle('on',S.tab===id);});
+    Array.prototype.forEach.call(document.querySelectorAll('#nav button'),function(b){b.classList.toggle('on',b.getAttribute('data-t')===S.tab);});
     if(S.tab==='dress')renderDress();
+    if(S.tab==='mood')renderMood();
     if(S.tab==='worth')renderWorth();
     if(S.tab==='pack')renderPack();
   }
@@ -231,7 +452,16 @@ nav button.on{background:var(--deep);color:#fff;border-color:var(--deep)}
   Array.prototype.forEach.call(document.querySelectorAll('#nav button'),function(b){
     b.addEventListener('click',function(){S.tab=b.getAttribute('data-t');save();render();});
   });
-  $('shuffle').addEventListener('click',function(){S.seed=S.seed+1;save();render();});
+  $('shuffle').addEventListener('click',function(){R.seed=rnd();render();});
+  $('surprise').addEventListener('click',function(){
+    var r=mk(rnd());
+    S.weather=WEATHER[Math.floor(r()*WEATHER.length)];
+    S.occ=OCC[Math.floor(r()*OCC.length)];
+    S.mood=MOOD[Math.floor(r()*MOOD.length)];
+    R.seed=rnd();save();render();
+  });
+  $('mshuffle').addEventListener('click',function(){R.mseed=rnd();render();});
+  $('pshuffle').addEventListener('click',function(){R.pseed=rnd();render();});
   Array.prototype.forEach.call(document.querySelectorAll('.num button'),function(b){
     b.addEventListener('click',function(){
       var f=b.getAttribute('data-f'),dl=parseInt(b.getAttribute('data-d'),10);
