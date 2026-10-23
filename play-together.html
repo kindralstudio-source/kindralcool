@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Play Together</title>
+<style>
+  :root{--bg:#FFF7FA;--card:#FFFFFF;--line:#F5C6D6;--soft:#F9DCE6;--mid:#EFA9C1;--acc:#E07FA2;--deep:#C25A84;--ink:#8E3B5E;--muted:#B0577C}
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{background:transparent;font-family:Georgia,"Times New Roman",serif;color:var(--ink)}
+  .wrap{max-width:760px;margin:0 auto;padding:14px;background:var(--bg);border:1px solid var(--line);border-radius:18px}
+  .top{display:flex;align-items:baseline;justify-content:space-between;gap:8px;margin-bottom:10px}
+  h1{font-size:22px;font-style:italic;font-weight:500}
+  .sub{font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--muted)}
+  .tabs{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px}
+  .tab{font:inherit;font-size:13px;padding:6px 12px;border-radius:999px;border:1px solid var(--line);background:var(--card);color:var(--ink);cursor:pointer}
+  .tab.on{background:var(--acc);border-color:var(--acc);color:#fff}
+  .stage{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:22px 18px;min-height:200px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:14px}
+  .kicker{font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--muted)}
+  .big{font-size:22px;font-style:italic;line-height:1.35;max-width:560px}
+  .pair{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;width:100%}
+  .opt{flex:1 1 200px;max-width:280px;font:inherit;font-size:16px;padding:14px 12px;border-radius:14px;border:1px solid var(--line);background:var(--bg);color:var(--ink);cursor:pointer;transition:transform .15s}
+  .opt:hover{transform:translateY(-2px)}
+  .opt.pick{background:var(--soft);border-color:var(--acc)}
+  .or{align-self:center;font-size:12px;letter-spacing:2px;color:var(--muted)}
+  .dice{display:grid;grid-template-columns:2fr 1fr 1fr;gap:8px;width:100%;max-width:560px}
+  .die{background:var(--bg);border:1px solid var(--line);border-radius:14px;padding:12px 8px}
+  .die b{display:block;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);font-weight:400;margin-bottom:6px}
+  .die span{font-size:15px;font-style:italic}
+  .row{display:flex;gap:8px;justify-content:center;flex-wrap:wrap}
+  .btn{font:inherit;font-size:14px;padding:9px 18px;border-radius:999px;border:none;background:var(--deep);color:#fff;cursor:pointer}
+  .btn.ghost{background:transparent;color:var(--deep);border:1px solid var(--mid)}
+  .note{font-size:12px;color:var(--muted);font-style:italic}
+  .score{font-size:13px;color:var(--muted)}
+  @media (max-width:480px){.big{font-size:19px}.dice{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top"><h1>Play Together</h1><div class="sub">tap, laugh, repeat</div></div>
+  <div class="tabs" id="tabs"></div>
+  <div class="stage" id="stage"></div>
+</div>
+<script>
+var WYR=[["Breakfast in bed every Sunday","A surprise date every month"],["A cabin in the snow","A villa by the sea"],["Relive our first date","Skip ahead to our 50th anniversary"],["Cook together every night","Never cook again, takeout forever"],["Slow dance in the kitchen","Sing badly in the car"],["A road trip with no plan","A trip planned to the minute"],["Read each other's minds for a day","Swap bodies for a day"],["Matching pajamas","Matching tattoos"],["One perfect day","One perfect week of ordinary"],["A love letter by post","A playlist made just for me"],["Stargazing on the roof","Sunrise on a mountain"],["A pet together","A garden together"],["Live in the city we met in","Move somewhere new together"],["Always pick the movie","Always pick the restaurant"],["A handwritten note every week","A small gift every month"],["Get lost in Paris","Get lost in Tokyo"],["Dance class together","Cooking class together"],["Know every memory I have","Know every dream I have"],["A quiet night in","A loud night out"],["Rain on the window and a book","Sun on the beach and a nap"]];
+var TOT=[["Coffee","Tea"],["Mountains","Beach"],["Sunrise","Sunset"],["Pizza night","Taco night"],["Big wedding","Tiny elopement"],["Dogs","Cats"],["Early bird","Night owl"],["Text","Call"],["Sweet","Salty"],["Planner","Go with the flow"],["Comedy","Horror"],["Window seat","Aisle seat"],["Hugs","Kisses"],["Books","Movies"],["Summer","Winter"],["Cozy socks","Bare feet"],["Breakfast date","Dinner date"],["Little spoon","Big spoon"],["Road trip","Flight"],["Candles","Fairy lights"]];
+var ASK=["What is a small thing I do that makes you feel loved?","When did you first know you liked me?","What is a memory of us you replay in your head?","What is one dream you have not told me yet?","What song makes you think of us?","What do you want us to be doing in five years?","What is something you are proud of me for?","What is the best gift I have ever given you?","Where would you take me for a perfect day?","What is a tradition you want us to start?","What is one thing you want to learn together?","What did you think of me the first time we met?","What is your favorite way to spend a lazy Sunday with me?","What is something you have always wanted to ask me?","What makes you feel most at home with me?","What is a habit of mine you secretly love?","What is the funniest moment we have shared?","What is one thing I could do more of?","What place do you want us to see together?","What is a small win from this week you want to celebrate?","What do you love most about our life right now?","If our story were a movie, what would it be called?","What is a moment you felt really understood by me?","What is the sweetest thing someone has said about us?"];
+var DARE=["Give a 20-second hug, no letting go early","Slow dance to the next song that plays","Write a three-word love note and hide it","Do your best impression of me","Feed each other one bite of dessert","Say three things you love about me, fast","Plan our next date in under a minute","Hold hands for the next ten minutes","Send me a voice note of a love song","Make me laugh in under 30 seconds","Recreate our first photo together","Give me a nickname for tonight only","Tell me a secret wish, however small","Cook me something with three random ingredients","Draw my portrait in one minute","Read a page of any book in your most dramatic voice","Make a toast to us, right now","Kiss my hand like a royal","Choose a song that describes us and play it","Teach me something in two minutes"];
+var D1=["Picnic in the park","Cook a recipe neither of you knows","Build a blanket fort","Stargaze from the roof or yard","Bake something from scratch","Take a long walk with no map","Dance in the living room","Watch the sunset somewhere new","Try a new cafe","Paint each other's portraits","Play a board game","Visit a bookstore and swap picks","Make homemade pizza","Have a spa night at home","Go to a farmers market","Recreate your first date"],D2=["cozy","silly","fancy","adventurous","nostalgic","romantic","lazy","competitive"],D3=["phones off","in our pajamas","with a playlist","dessert first","with a dress code","budget under $20","10 minutes in silence","with candles","say yes to everything","take one photo only"];
+var TABS=[["wyr","Would you rather"],["tot","This or that"],["ask","Ask me"],["dare","Cute dares"],["dice","Date dice"]];
+var cur="wyr",seen={},picks=0,match=0,side=0;
+function rnd(a,k){var key=k||"x";seen[key]=seen[key]||[];if(seen[key].length>=a.length)seen[key]=[];var i;do{i=Math.floor(Math.random()*a.length)}while(seen[key].indexOf(i)>-1);seen[key].push(i);return a[i]}
+function esc(s){return s.replace(/&/g,"&amp;").replace(/</g,"&lt;")}
+function tabs(){var h="";TABS.forEach(function(t){h+='<button class="tab'+(t[0]==cur?' on':'')+'" data-t="'+t[0]+'">'+t[1]+'</button>'});var el=document.getElementById("tabs");el.innerHTML=h;el.querySelectorAll(".tab").forEach(function(b){b.onclick=function(){cur=b.dataset.t;picks=0;match=0;tabs();draw()}})}
+function draw(){var s=document.getElementById("stage"),h="";
+ if(cur=="wyr"){var q=rnd(WYR,"wyr");h='<div class="kicker">would you rather</div><div class="pair"><button class="opt">'+esc(q[0])+'</button><span class="or">OR</span><button class="opt">'+esc(q[1])+'</button></div><div class="note">Both pick out loud on three. Explain your answer.</div><div class="row"><button class="btn" id="nx">Next one</button></div>'}
+ else if(cur=="tot"){var p=rnd(TOT,"tot");h='<div class="kicker">'+(side?'partner two':'partner one')+' picks</div><div class="pair"><button class="opt" data-v="0">'+esc(p[0])+'</button><span class="or">OR</span><button class="opt" data-v="1">'+esc(p[1])+'</button></div><div class="score">Matches so far: '+match+' of '+Math.floor(picks/2)+'</div><div class="row"><button class="btn ghost" id="nx">Skip</button></div>'}
+ else if(cur=="ask"){h='<div class="kicker">ask each other</div><div class="big">'+esc(rnd(ASK,"ask"))+'</div><div class="note">Take turns. No phones while the other one answers.</div><div class="row"><button class="btn" id="nx">Another question</button></div>'}
+ else if(cur=="dare"){h='<div class="kicker">tiny dare</div><div class="big">'+esc(rnd(DARE,"dare"))+'</div><div class="row"><button class="btn" id="nx">Next dare</button></div>'}
+ else{h='<div class="kicker">roll for tonight</div><div class="dice"><div class="die"><b>do</b><span>'+rnd(D1,"d1")+'</span></div><div class="die"><b>vibe</b><span>'+rnd(D2,"d2")+'</span></div><div class="die"><b>twist</b><span>'+rnd(D3,"d3")+'</span></div></div><div class="note">Roll once. No re-rolls unless you both agree.</div><div class="row"><button class="btn" id="nx">Roll again</button></div>'}
+ s.innerHTML=h;var nx=document.getElementById("nx");if(nx)nx.onclick=draw;
+ if(cur=="tot"){var last=null;s.querySelectorAll(".opt").forEach(function(b){b.onclick=function(){b.classList.add("pick");picks++;if(side==0){window._first=b.dataset.v;side=1;setTimeout(function(){redrawSame(p)},350)}else{if(window._first==b.dataset.v)match++;side=0;setTimeout(draw,450)}}})}
+ if(cur=="wyr"){s.querySelectorAll(".opt").forEach(function(b){b.onclick=function(){s.querySelectorAll(".opt").forEach(function(x){x.classList.remove("pick")});b.classList.add("pick")}})}
+}
+function redrawSame(p){var s=document.getElementById("stage");s.innerHTML='<div class="kicker">partner two picks</div><div class="pair"><button class="opt" data-v="0">'+esc(p[0])+'</button><span class="or">OR</span><button class="opt" data-v="1">'+esc(p[1])+'</button></div><div class="score">No peeking at what they chose</div>';s.querySelectorAll(".opt").forEach(function(b){b.onclick=function(){b.classList.add("pick");picks++;if(window._first==b.dataset.v){match++;s.querySelector(".score").textContent="It's a match!"}else{s.querySelector(".score").textContent="Opposites attract"}side=0;setTimeout(draw,900)}})}
+tabs();draw();
+</script>
+</body>
+</html>
