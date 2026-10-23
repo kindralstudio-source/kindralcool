@@ -1,0 +1,37 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Welcome</title><style>
+:root{--bg:#F7F1FB;--c1:#EEE2F7;--c2:#DCC6EE;--c3:#C4A3E0;--acc:#9A6BC4;--deep:#7A4CA6;--ink:#4E2E6E;--mid:#8C66AE}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;background:transparent}
+body{font-family:Georgia,"Times New Roman",serif;color:var(--ink);overflow:hidden}
+a{color:inherit;text-decoration:none}
+
+.bar{position:relative;display:flex;align-items:center;gap:clamp(12px,2.4vw,34px);height:100vh;min-height:84px;padding:clamp(8px,1.6vh,16px) clamp(14px,2.6vw,34px);background:var(--bg);border-radius:20px;overflow:hidden;container-type:inline-size}
+.arch{position:relative;flex:0 0 auto;height:78%;aspect-ratio:3/4;max-height:96px;border-radius:999px 999px 10px 10px;background:var(--c2);display:flex;align-items:center;justify-content:center;color:#fff;font-size:clamp(16px,2vw,26px)}
+.hi{flex:0 0 auto;display:flex;flex-direction:column;gap:2px}
+.greet{font-size:clamp(9px,1vw,11px);letter-spacing:.3em;text-transform:uppercase;color:var(--mid)}
+.hi h1{font-weight:400;font-style:italic;font-size:clamp(17px,2.4vw,30px);white-space:nowrap}
+.hi h1 em{color:var(--deep)}
+.steps{flex:1 1 auto;min-width:0;display:flex;gap:clamp(8px,1.4vw,18px);justify-content:center}
+.st{display:flex;align-items:center;gap:8px;font-size:clamp(11px,1.15vw,13.5px);min-width:0}
+.st b{flex:0 0 auto;width:clamp(20px,2vw,26px);height:clamp(20px,2vw,26px);border-radius:50%;background:#fff;border:1px solid var(--c3);display:flex;align-items:center;justify-content:center;font-weight:400;font-style:italic;color:var(--deep)}
+.st span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.dv{width:1px;align-self:stretch;margin:14% 0;background:var(--c2)}
+.up{margin-left:auto;flex:0 0 auto;display:flex;flex-direction:column;align-items:flex-end;gap:5px;text-align:right;max-width:22%}
+.up p{font-size:clamp(10px,1.05vw,12.5px);font-style:italic;color:var(--mid);line-height:1.3}
+.pill{font-size:clamp(11px,1.15vw,13px);padding:6px 14px;border-radius:999px;border:1px solid var(--acc);color:var(--deep);white-space:nowrap;display:inline-flex;align-items:center;gap:7px;transition:background .2s,color .2s}
+.pill:hover{background:var(--deep);color:#fff;border-color:var(--deep)}
+.dot{width:6px;height:6px;border-radius:50%;background:var(--acc);animation:pu 2.2s ease-in-out infinite}
+@keyframes pu{50%{opacity:.3;transform:scale(.7)}}
+@container (max-width:980px){.st:nth-child(5){display:none}.dv:nth-child(4){display:none}}
+@container (max-width:780px){.steps{display:none}.up{max-width:none}}
+@container (max-width:480px){.arch,.up p{display:none}}
+@media (prefers-reduced-motion:reduce){.dot{animation:none}}
+</style></head><body>
+<div class="bar">
+<div class="arch">&#10022;</div>
+<div class="hi"><div class="greet" id="g">hello there</div><h1>welcome in, <em>gorgeous</em></h1></div>
+<div class="steps"><div class="st"><b>1</b><span>Clear the samples</span></div><div class="dv"></div><div class="st"><b>2</b><span>Add your first pieces</span></div><div class="dv"></div><div class="st"><b>3</b><span>Come back daily</span></div></div>
+<div class="up"><p>Want skincare, hair and budget too?</p><a class="pill" href="https://kindral.gumroad.com/l/wardrobe-skincare-beauty-planner" target="_blank" rel="noopener"><span class="dot"></span>See the full system</a></div>
+</div>
+<script>try{var h=new Date().getHours();document.getElementById("g").textContent=h<5?"up late? hello":h<12?"good morning":h<17?"good afternoon":"good evening"}catch(e){}</script>
+</body></html>
