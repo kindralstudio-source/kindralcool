@@ -5,15 +5,15 @@ html,body{height:100%;background:transparent}
 body{font-family:Georgia,"Times New Roman",serif;color:var(--ink);overflow:hidden}
 a{color:inherit;text-decoration:none}
 
-.card{position:relative;display:flex;align-items:center;gap:clamp(12px,2.5vw,36px);height:100vh;min-height:120px;padding:clamp(10px,2.2vh,22px) clamp(14px,3vw,40px);background:var(--bg);border-radius:22px;overflow:hidden;container-type:inline-size}
+.card{position:relative;display:flex;align-items:center;max-height:260px;margin:auto;top:50%;transform:translateY(-50%);gap:clamp(12px,2.5vw,36px);height:100vh;min-height:120px;padding:clamp(10px,2.2vh,22px) clamp(14px,3vw,40px);background:var(--bg);border-radius:22px;overflow:hidden;container-type:inline-size}
 .card:before,.card:after{content:"";position:absolute;bottom:0;border-radius:999px 999px 0 0;z-index:0}
 .card:before{right:6%;width:clamp(60px,9vw,130px);height:78%;background:var(--c1)}
 .card:after{right:calc(6% + clamp(66px,10vw,142px));width:clamp(30px,4vw,60px);height:46%;background:var(--c2)}
-.art{position:relative;z-index:1;flex:0 0 auto;height:86%;aspect-ratio:4/3;border-radius:70px 70px 16px 16px;overflow:hidden;background:var(--c2);box-shadow:0 8px 24px -14px var(--deep)}
-.art img{width:100%;height:100%;object-fit:cover;display:block}
+.art{position:relative;z-index:1;flex:0 0 auto;height:min(86%,180px);aspect-ratio:3/4;border-radius:999px 999px 16px 16px;border:3px solid #fff;overflow:hidden;background:var(--c2);box-shadow:0 8px 24px -14px var(--deep)}
+.art img{width:100%;height:100%;object-fit:cover;object-position:100% 50%;display:block;transform:scale(1.3);transform-origin:88% 50%}
 .copy{position:relative;z-index:1;flex:1 1 auto;min-width:0;display:flex;flex-direction:column;justify-content:center;gap:clamp(4px,1vh,10px)}
 .eb{font-size:clamp(9px,1.1vw,11px);letter-spacing:.32em;text-transform:uppercase;color:var(--mid)}
-h1{font-weight:400;font-size:clamp(18px,3vw,38px);line-height:1.1}
+h1{font-weight:400;font-size:clamp(18px,min(3vw,15vh),36px);line-height:1.1}
 h1 em{color:var(--deep)}
 .sub{font-style:italic;font-size:clamp(11px,1.35vw,15px);color:var(--mid);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .track{overflow:hidden;-webkit-mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent);mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent)}
