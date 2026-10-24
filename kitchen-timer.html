@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Kitchen Timer</title>
+<style>
+:root{--bg:#F5EEE6;--card:#FFF9F3;--line:#E3CDB8;--mid:#C8A98B;--acc:#B08968;--deep:#8A6A4F;--ink:#6F4E37;--sub:#9C6644;--done:#B5523B}
+@media (prefers-color-scheme:dark){:root:not(.light){--bg:#2A221C;--card:#352A22;--line:#4A3B30;--mid:#6E5848;--acc:#C8A98B;--deep:#E3CDB8;--ink:#F1E6DA;--sub:#D9C2A7;--done:#E08A6F}}
+:root.dark{--bg:#2A221C;--card:#352A22;--line:#4A3B30;--mid:#6E5848;--acc:#C8A98B;--deep:#E3CDB8;--ink:#F1E6DA;--sub:#D9C2A7;--done:#E08A6F}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--ink);font-family:Georgia,"Times New Roman",serif}
+body{padding:14px}
+.top{display:flex;align-items:baseline;justify-content:space-between;gap:8px;flex-wrap:wrap}
+.h{font-style:italic;font-size:20px}
+.k{font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--sub)}
+.tools{display:flex;gap:6px;flex-wrap:wrap}
+button,input{font-family:inherit;color:var(--ink)}
+button{font-size:13px;border:1px solid var(--mid);background:var(--card);border-radius:20px;padding:5px 12px;cursor:pointer}
+button:hover{border-color:var(--acc)}
+button.p{background:var(--acc);border-color:var(--acc);color:#fff}
+button.on{background:var(--deep);border-color:var(--deep);color:var(--bg)}
+.add{margin:12px 0;padding:12px;border:1px solid var(--line);border-radius:16px;background:var(--card)}
+.row{display:flex;gap:6px;align-items:center;flex-wrap:wrap}
+input{background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:6px 8px;font-size:14px}
+input.n{width:54px;text-align:center}
+input.name{flex:1;min-width:120px}
+.lbl{font-size:12px;color:var(--sub)}
+.chips{margin-top:8px}
+.chips button{font-size:12px;padding:3px 10px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:10px}
+.t{border:1px solid var(--line);border-radius:18px;background:var(--card);padding:12px;text-align:center;position:relative}
+.t .nm{font-style:italic;font-size:16px;margin-right:18px;margin-left:18px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.t .x{position:absolute;top:8px;right:10px;border:none;background:none;font-size:16px;padding:2px 6px;color:var(--sub)}
+.t .tm{font-size:40px;letter-spacing:1px;margin:4px 0 2px;font-variant-numeric:tabular-nums}
+.t .st{font-size:11px;letter-spacing:2px;text-transform:lowercase;color:var(--sub);margin-bottom:6px}
+.bar{height:5px;border-radius:5px;background:var(--line);overflow:hidden;margin:0 6px 8px}
+.bar i{display:block;height:100%;background:var(--acc);width:0}
+.t .row{justify-content:center}
+.t .row button{padding:4px 10px;font-size:12px}
+.t.done{border-color:var(--done);animation:fl 1s steps(2) infinite}
+.t.done .tm{color:var(--done)}
+@keyframes fl{50%{background:var(--line)}}
+.empty{text-align:center;font-style:italic;color:var(--sub);padding:18px}
+.foot{margin-top:10px;font-size:11px;color:var(--sub);text-align:center;letter-spacing:1px}
+</style></head>
+<body>
+<div class="top">
+  <div><div class="k">kitchen timer</div><div class="h">every pot, on time</div></div>
+  <div class="tools">
+    <button id="awake" title="Keep the screen on while you cook">screen awake: off</button>
+    <button id="theme" title="Switch light or dark">theme</button>
+    <button id="pop" title="Open in its own tab, the most reliable way to cook">pop out ↗</button>
+  </div>
+</div>
+
+<div class="add">
+  <div class="row">
+    <input class="name" id="nm" placeholder="What is cooking? e.g. Rice" maxlength="30">
+    <input class="n" id="hh" type="number" min="0" max="23" placeholder="h" aria-label="hours">
+    <span class="lbl">h</span>
+    <input class="n" id="mm" type="number" min="0" max="59" placeholder="min" aria-label="minutes">
+    <span class="lbl">m</span>
+    <input class="n" id="ss" type="number" min="0" max="59" placeholder="sec" aria-label="seconds">
+    <span class="lbl">s</span>
+    <button class="p" id="addb">add + start</button>
+  </div>
+  <div class="row chips" id="chips"></div>
+</div>
+
+<div class="grid" id="grid"></div>
+<div class="foot">runs on your clock, so a slow tab never drifts · keep this page open while timers run</div>
+
+<script>
+(function(){
+var timers=[],uid=0,actx=null,beepIv=null,lock=null,baseTitle=document.title;
+function $(id){return document.getElementById(id)}
+function pad(n){return n<10?"0"+n:""+n}
+function fmt(ms){var s=Math.max(0,Math.ceil(ms/1000)),h=Math.floor(s/3600),m=Math.floor(s%3600/60),x=s%60;return h?h+":"+pad(m)+":"+pad(x):pad(m)+":"+pad(x)}
+function esc(t){return String(t).replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;"}[c]})}
+
+function audio(){try{if(!actx)actx=new (window.AudioContext||window.webkitAudioContext)();if(actx.state==="suspended")actx.resume();}catch(e){}}
+function beep(){if(!actx)return;try{var t=actx.currentTime;[0,0.25,0.5].forEach(function(d){var o=actx.createOscillator(),g=actx.createGain();o.type="sine";o.frequency.value=880;g.gain.setValueAtTime(0.0001,t+d);g.gain.exponentialRampToValueAtTime(0.5,t+d+0.02);g.gain.exponentialRampToValueAtTime(0.0001,t+d+0.2);o.connect(g);g.connect(actx.destination);o.start(t+d);o.stop(t+d+0.22);});}catch(e){}}
+function alarmCheck(){var any=timers.some(function(t){return t.state==="done"});if(any&&!beepIv){beep();beepIv=setInterval(beep,1500);if(navigator.vibrate)navigator.vibrate([300,150,300]);}if(!any&&beepIv){clearInterval(beepIv);beepIv=null;}}
+
+function add(name,ms,start){if(ms<1000)return;var t={id:++uid,name:name||("Timer "+uid),total:ms,left:ms,endAt:0,state:"ready"};timers.push(t);if(start)run(t);render();}
+function run(t){audio();t.endAt=Date.now()+t.left;t.state="running";}
+function pause(t){t.left=Math.max(0,t.endAt-Date.now());t.state="paused";}
+function reset(t){t.left=t.total;t.state="ready";}
+function adjust(t,d){if(t.state==="running"){t.endAt=Math.max(Date.now()+1000,t.endAt+d);t.total=Math.max(1000,t.total+d);}else{t.left=Math.max(1000,t.left+d);t.total=Math.max(t.left,t.total+d);if(t.state==="done"){t.state="paused";}}}
+function find(id){for(var i=0;i<timers.length;i++)if(timers[i].id==id)return timers[i]}
+
+function render(){var g=$("grid");if(!timers.length){g.innerHTML='<div class="empty">No timers yet. Type a time above, or tap a quick one.</div>';return;}
+g.innerHTML=timers.map(function(t){var main=t.state==="running"?"pause":t.state==="done"?"stop":(t.state==="paused"?"resume":"start");
+return '<div class="t" id="t'+t.id+'"><button class="x" data-a="del" data-id="'+t.id+'" title="Remove">×</button><div class="nm">'+esc(t.name)+'</div><div class="tm" id="tm'+t.id+'">'+fmt(t.left)+'</div><div class="st" id="st'+t.id+'">'+t.state+'</div><div class="bar"><i id="b'+t.id+'"></i></div><div class="row"><button class="p" data-a="main" data-id="'+t.id+'">'+main+'</button><button data-a="reset" data-id="'+t.id+'">reset</button></div><div class="row" style="margin-top:6px"><button data-a="m1" data-id="'+t.id+'">−1m</button><button data-a="p1" data-id="'+t.id+'">+1m</button><button data-a="p5" data-id="'+t.id+'">+5m</button></div></div>';}).join("");tick();}
+
+function tick(){var now=Date.now(),soonest=null,changed=false;
+timers.forEach(function(t){if(t.state==="running"){t.left=t.endAt-now;if(t.left<=0){t.left=0;t.state="done";changed=true;}}
+var tm=$("tm"+t.id),st=$("st"+t.id),b=$("b"+t.id),card=$("t"+t.id);if(tm){tm.textContent=t.state==="done"?"done!":fmt(t.left);st.textContent=t.state==="done"?"time is up":t.state;b.style.width=(100-100*t.left/t.total)+"%";card.className="t"+(t.state==="done"?" done":"");}
+if(t.state==="running"&&(!soonest||t.left<soonest.left))soonest=t;});
+var done=timers.filter(function(t){return t.state==="done"});
+document.title=done.length?"⏰ "+done[0].name+" is done":soonest?fmt(soonest.left)+" · "+soonest.name:baseTitle;
+if(changed)render();alarmCheck();}
+
+$("grid").addEventListener("click",function(e){var b=e.target.closest("button");if(!b)return;var t=find(b.getAttribute("data-id"));if(!t)return;var a=b.getAttribute("data-a");
+if(a==="del"){timers=timers.filter(function(x){return x!==t});}
+else if(a==="main"){if(t.state==="running")pause(t);else if(t.state==="done")reset(t);else run(t);}
+else if(a==="reset")reset(t);else if(a==="m1")adjust(t,-60000);else if(a==="p1")adjust(t,60000);else if(a==="p5")adjust(t,300000);
+render();});
+
+function num(id){var v=parseInt($(id).value,10);return isNaN(v)?0:v}
+$("addb").onclick=function(){var ms=((num("hh")*60+num("mm"))*60+num("ss"))*1000;if(ms<1000){$("mm").focus();return;}add($("nm").value.trim(),ms,true);$("nm").value="";$("hh").value="";$("mm").value="";$("ss").value="";};
+["nm","hh","mm","ss"].forEach(function(id){$(id).addEventListener("keydown",function(e){if(e.key==="Enter")$("addb").click();});});
+
+var Q=[1,3,5,8,10,15,20,30,45,60];
+$("chips").innerHTML='<span class="lbl" style="margin-right:4px">quick:</span>'+Q.map(function(m){return '<button data-m="'+m+'">'+(m<60?m+" min":"1 hr")+'</button>'}).join("");
+$("chips").addEventListener("click",function(e){var b=e.target.closest("button");if(!b)return;var m=+b.getAttribute("data-m");add($("nm").value.trim()||(m<60?m+" min":"1 hr"),m*60000,true);$("nm").value="";});
+
+/* presets from the link: ?t=Rice:18,Sauce:10,Bread:1h5m,Eggs:6m30s */
+function parseDur(s){s=String(s).trim().toLowerCase();if(/^\d+(\.\d+)?$/.test(s))return parseFloat(s)*60000;var ms=0,m,re=/(\d+)\s*(h|m|s)/g,hit=false;while((m=re.exec(s))){hit=true;ms+=+m[1]*(m[2]==="h"?3600000:m[2]==="m"?60000:1000);}return hit?ms:0;}
+try{var q=new URLSearchParams(location.search).get("t");if(q){q.split(",").forEach(function(p){var i=p.lastIndexOf(":");var name=i>0?decodeURIComponent(p.slice(0,i)):"";var d=parseDur(i>0?p.slice(i+1):p);if(d>0)add(name,d,false);});}}catch(e){}
+
+/* screen awake */
+function setAwake(on){var b=$("awake");if(!("wakeLock" in navigator)){b.textContent="screen awake: not supported here";return;}
+if(on){navigator.wakeLock.request("screen").then(function(l){lock=l;b.textContent="screen awake: on";b.className="on";l.addEventListener("release",function(){if(lock===l){lock=null;b.textContent="screen awake: off";b.className="";}});}).catch(function(){b.textContent="screen awake: pop out to use";});}
+else if(lock){var l=lock;lock=null;l.release();b.textContent="screen awake: off";b.className="";}}
+$("awake").onclick=function(){setAwake(!lock)};
+document.addEventListener("visibilitychange",function(){if(document.visibilityState==="visible"&&$("awake").className==="on"&&!lock)setAwake(true);});
+
+/* theme */
+$("theme").onclick=function(){var r=document.documentElement,dark=r.classList.contains("dark")||(!r.classList.contains("light")&&matchMedia("(prefers-color-scheme: dark)").matches);r.classList.remove("dark","light");r.classList.add(dark?"light":"dark");};
+
+/* pop out, keeping current timers as presets */
+$("pop").onclick=function(){var list=timers.filter(function(t){return t.state!=="done"}).map(function(t){var left=t.state==="running"?Math.max(0,t.endAt-Date.now()):t.left;return encodeURIComponent(t.name.replace(/[,:]/g," "))+":"+Math.round(left/1000)+"s";});
+var u=location.href.split("?")[0]+(list.length?"?t="+list.join(","):"");var w=window.open(u,"_blank");if(!w){location.href=u;}};
+
+setInterval(tick,250);render();
+})();
+</script>
+</body></html>
