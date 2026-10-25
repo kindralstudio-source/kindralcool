@@ -1,0 +1,60 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Welcome</title><style>
+:root{--bg:#F7F1EA;--c1:#EFE3D6;--c2:#E0CBB5;--c3:#C9A989;--acc:#B08968;--deep:#8A6248;--ink:#4E3530;--mid:#8A6A5F}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;background:transparent}
+body{font-family:Georgia,"Times New Roman",serif;color:var(--ink);overflow:hidden}
+a{color:inherit;text-decoration:none}
+.bar{position:relative;display:flex;align-items:stretch;height:100vh;min-height:84px;background:var(--bg);border-radius:20px;overflow:hidden;container-type:inline-size}
+.side{position:relative;display:flex;align-items:center;gap:clamp(12px,2.2vw,30px);min-width:0;padding:clamp(8px,1.6vh,16px) clamp(14px,2.6vw,34px);cursor:pointer;transition:background .25s}
+.side:hover,.side:focus-visible{background:var(--c1);outline:none}
+.l{flex:1.15 1 0}.r{flex:1 1 0;justify-content:flex-end;text-align:right}
+.solo{flex:1 1 auto}
+.arch{flex:0 0 auto;height:78%;aspect-ratio:3/4;max-height:96px;border-radius:999px 999px 10px 10px;background:var(--c2);display:flex;align-items:center;justify-content:center;color:#fff;font-size:clamp(16px,2vw,26px);transition:background .25s}
+.side:hover .arch{background:var(--c3)}
+.hi{flex:1 1 auto;min-width:0;display:flex;flex-direction:column;gap:3px}
+.greet{font-size:clamp(9px,1vw,11px);letter-spacing:.3em;text-transform:uppercase;color:var(--mid)}
+.hi h1{font-weight:400;font-style:italic;font-size:clamp(17px,2.4vw,30px);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.hi h1 em{color:var(--deep)}
+.hi .pill{align-self:flex-start}
+.sub{font-size:clamp(10px,1.05vw,12.5px);font-style:italic;color:var(--mid);line-height:1.3;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.rt{display:flex;flex-direction:column;align-items:flex-end;gap:5px;min-width:0}
+.kick{font-size:clamp(9px,1vw,11px);letter-spacing:.3em;text-transform:uppercase;color:var(--mid)}
+.tip{font-size:clamp(12px,1.3vw,15px);font-style:italic;line-height:1.35;max-width:44ch;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.pill{font-size:clamp(11px,1.15vw,13px);padding:6px 14px;border-radius:999px;border:1px solid var(--acc);color:var(--deep);white-space:nowrap;display:inline-flex;align-items:center;gap:7px;margin-top:3px;transition:background .2s,color .2s,border-color .2s;max-width:100%;overflow:hidden;text-overflow:ellipsis}
+.side:hover .pill{background:var(--deep);color:#fff;border-color:var(--deep)}
+.ar{transition:transform .2s}.side:hover .ar{transform:translateX(3px)}
+.dot{width:6px;height:6px;border-radius:50%;background:var(--acc);flex:none;animation:pu 2.2s ease-in-out infinite}
+.side:hover .dot{background:#fff}
+@keyframes pu{50%{opacity:.3;transform:scale(.7)}}
+.dv{flex:0 0 1px;margin:14px 0;background:var(--c2)}
+.steps{flex:1 1 auto;min-width:0;display:flex;gap:clamp(8px,1.4vw,18px);justify-content:center}
+.st{display:flex;align-items:center;gap:8px;font-size:clamp(11px,1.15vw,13.5px);min-width:0}
+.st b{flex:0 0 auto;width:clamp(20px,2vw,26px);height:clamp(20px,2vw,26px);border-radius:50%;background:#fff;border:1px solid var(--c3);display:flex;align-items:center;justify-content:center;font-weight:400;font-style:italic;color:var(--deep)}
+.st span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sv{width:1px;align-self:stretch;margin:14% 0;background:var(--c2)}
+.up{margin-left:auto;flex:0 0 auto;display:flex;flex-direction:column;align-items:flex-end;gap:5px;text-align:right;max-width:24%}
+.up p{font-size:clamp(10px,1.05vw,12.5px);font-style:italic;color:var(--mid);line-height:1.3}
+@container (max-width:900px){.tip{-webkit-line-clamp:1}.st:nth-child(5),.sv:nth-child(4){display:none}}
+@container (max-width:720px){.tip,.kick{display:none}.steps{display:none}.up{max-width:none}}
+@container (max-width:520px){.arch,.sub,.up p{display:none}.side{padding:8px 12px}.greet{letter-spacing:.2em}}
+@container (max-width:380px){.hi h1{font-size:16px}.pill{padding:5px 10px}}
+@media (prefers-reduced-motion:reduce){.dot,.ar{animation:none;transition:none}}
+</style></head><body>
+<div class="bar">
+<a class="side l" href="https://kindral.gumroad.com/l/aesthetic-life-planner-for-girls" target="_blank" rel="noopener">
+<div class="arch">&#10022;</div>
+<div class="hi"><div class="greet" id="g">hello there</div><h1>welcome in, <em>gorgeous</em></h1><div class="sub">Planner, journal, money, goals and home in one calm space.</div>
+<span class="pill"><span class="dot"></span>Get My Life Planner<span class="ar">&rarr;</span></span></div>
+</a>
+<div class="dv"></div>
+<a class="side r" href="https://kindral.gumroad.com/l/complete-collection-for-women" target="_blank" rel="noopener">
+<div class="rt"><div class="kick" id="k">a little tip</div><div class="tip" id="t">Three priorities, not ten. Write them down.</div>
+<span class="pill"><span class="dot"></span>See the complete collection<span class="ar">&rarr;</span></span></div>
+</a>
+</div>
+
+<script>try{var h=new Date().getHours(),T=[["Light off soon? Jot one line about today first.", "Late nights steal tomorrow's glow. Rest counts."], ["Three priorities, not ten. Write them down.", "Open the curtains. Daylight is a mood booster.", "Make the bed. Small win, calm room."], ["Halfway there. Cross off one thing, then breathe.", "A ten-minute walk beats a third coffee.", "Check your water. Your skin will thank you."], ["Log what you spent today while it's fresh.", "Set out tomorrow's outfit. Morning-you says thanks.", "One gratitude line before dinner."], ["Skincare, then screens off.", "Read a few pages instead of scrolling."]],s=h<5?0:h<12?1:h<17?2:h<21?3:4;
+document.getElementById("g").textContent=["up late? hello","good morning","good afternoon","good evening","winding down"][s];
+var k=document.getElementById("k");if(k)k.textContent=["for tonight","for this morning","for this afternoon","for this evening","for tonight"][s];
+var t=document.getElementById("t");if(t){var a=T[s],d=Math.floor((new Date()-new Date(new Date().getFullYear(),0,0))/864e5);t.textContent=a[d%a.length]}}catch(e){}</script>
+</body></html>
