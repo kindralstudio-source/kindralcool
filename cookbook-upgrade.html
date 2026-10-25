@@ -3,103 +3,97 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>The Complete Collection for Women · Kindral Studio</title>
+<title>Cookbook OS · Kindral Studio</title>
 <style>
   :root{
-    --bg:#F7F1EA; --card:#FFFBF7; --line:#E6D8CB; --ink:#4E3530; --soft:#8A6A5F;
-    --life:#B08968; --glow:#9B72C2; --adhd:#C2577F; --couples:#DB7FA2; --cook:#9C6644;
+    --bg:#F5EEE6; --card:#FFF9F3; --c1:#E3CDB8; --c2:#D9C2A7; --c3:#C8A98B; --c4:#B08968;
+    --deep:#8A6A4F; --dark:#6F4E37; --mid:#9C6644;
   }
   *{box-sizing:border-box;margin:0;padding:0}
   html,body{height:100%;background:transparent}
-  body{font-family:Georgia,"Times New Roman",serif;color:var(--ink);padding:6px;container-type:inline-size}
+  body{font-family:Georgia,"Times New Roman",serif;color:var(--dark);padding:6px;container-type:inline-size}
   a.card{
-    display:flex;align-items:stretch;height:100%;min-height:170px;
-    background:var(--bg);border:1px solid var(--line);border-radius:18px;overflow:hidden;
+    display:flex;align-items:stretch;gap:0;height:100%;min-height:150px;
+    background:var(--bg);border:1px solid var(--c1);border-radius:18px;overflow:hidden;
     text-decoration:none;color:inherit;position:relative;
     transition:box-shadow .2s ease, transform .2s ease;
   }
-  a.card:hover{box-shadow:0 8px 24px rgba(78,53,48,.12);transform:translateY(-1px)}
-
-  /* ---------- moving, fading screenshots ---------- */
-  .stage{flex:0 0 38%;max-width:500px;position:relative;overflow:hidden;background:#F1E8DF}
-  .slide{position:absolute;inset:12px;display:flex;align-items:center;justify-content:center;
-    opacity:0;animation:fade 25s infinite;z-index:1}
-  .slide img{max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain;display:block;
-    border-radius:10px;box-shadow:0 6px 18px rgba(78,53,48,.14)}
-  .s1{animation-delay:0s}.s2{animation-delay:5s}.s3{animation-delay:10s}.s4{animation-delay:15s}.s5{animation-delay:20s}
-  /* each cover: fades in, rests about 4 seconds while drifting very slightly, fades out */
-  @keyframes fade{
-    0%{opacity:0;transform:scale(.985)}
-    4%{opacity:1}
-    20%{opacity:1;transform:scale(1)}
-    24%{opacity:0;transform:scale(1)}
-    100%{opacity:0}
+  a.card:hover{box-shadow:0 8px 24px rgba(111,78,55,.12);transform:translateY(-1px)}
+  /* image panel: whole image, never cropped */
+  .shot{
+    flex:0 0 34%;max-width:440px;background:var(--c1);
+    display:flex;align-items:center;justify-content:center;padding:14px;position:relative;
   }
-  @media (prefers-reduced-motion:reduce){.slide{animation:none}.s1{opacity:1}}
-
-  /* ---------- text + button ---------- */
+  .shot::before{ /* soft arch behind the image */
+    content:"";position:absolute;left:50%;bottom:0;transform:translateX(-50%);
+    width:62%;height:82%;background:var(--c2);border-radius:999px 999px 0 0;
+  }
+  .shot img{
+    position:relative;max-width:100%;max-height:100%;width:auto;height:auto;
+    object-fit:contain;border-radius:10px;box-shadow:0 6px 18px rgba(111,78,55,.18);display:block;
+  }
   .body{flex:1;display:flex;align-items:center;gap:28px;padding:18px 30px;min-width:0}
   .text{flex:1;min-width:0}
-  .eyebrow{font-size:11px;letter-spacing:.32em;color:var(--soft);text-transform:uppercase}
-  h1{font-style:italic;font-weight:400;font-size:clamp(22px,3.1vw,38px);line-height:1.1;margin:6px 0 6px}
-  .line{font-size:clamp(13px,1.35vw,16px);color:var(--soft);line-height:1.45;max-width:64ch}
+  .eyebrow{font-size:11px;letter-spacing:.32em;color:var(--mid);text-transform:uppercase}
+  h1{font-style:italic;font-weight:400;font-size:clamp(22px,3.2vw,38px);line-height:1.1;margin:6px 0 6px}
+  .line{font-size:clamp(13px,1.35vw,16px);color:var(--deep);line-height:1.45;max-width:62ch}
   .chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px}
-  .chip{font-size:12px;padding:4px 10px 4px 8px;border-radius:999px;background:var(--card);border:1px solid var(--line);
-    color:var(--ink);white-space:nowrap;display:inline-flex;align-items:center;gap:6px}
-  .chip i{width:7px;height:7px;border-radius:50%;display:block}
+  .chip{font-size:12px;padding:4px 10px;border-radius:999px;background:var(--card);border:1px solid var(--c1);color:var(--deep);white-space:nowrap}
   .cta{flex:0 0 auto;display:flex;flex-direction:column;align-items:center;gap:8px}
-  .btn{font-family:Georgia,serif;font-size:15px;letter-spacing:.04em;white-space:nowrap;
-    background:var(--ink);color:var(--card);padding:13px 24px;border-radius:999px;transition:background .2s ease}
-  a.card:hover .btn{background:#7A4E5C}
-  .note{font-size:11px;color:#B39B8C;font-style:italic;white-space:nowrap}
-  .spark{position:absolute;width:14px;height:14px;right:18px;top:14px}
-
-  @container (max-width:980px){
-    .chips{display:none}
-    .eyebrow{letter-spacing:.22em}
+  .btn{
+    font-family:Georgia,serif;font-size:15px;letter-spacing:.04em;white-space:nowrap;
+    background:var(--dark);color:var(--card);padding:13px 24px;border-radius:999px;
+    transition:background .2s ease;
+  }
+  a.card:hover .btn{background:var(--mid)}
+  .note{font-size:11px;color:var(--c4);font-style:italic;white-space:nowrap}
+  .spark{position:absolute;width:14px;height:14px;fill:var(--c4)}
+  /* shrink: medium widths */
+  @container (max-width:820px){
+    .chips .chip:nth-child(n+4){display:none}
     .body{gap:18px;padding:14px 20px}
-    .stage{flex-basis:38%}
+    .shot{flex-basis:30%}
   }
-  @container (max-width:620px){
+  /* shrink: narrow widths, stack text and button, keep image */
+  @container (max-width:600px){
     .body{flex-direction:column;align-items:flex-start;gap:12px}
-    .chips,.note{display:none}
-    .stage{flex-basis:40%}
+    .chips{display:none}
+    .shot{flex-basis:36%;padding:10px}
+    .note{display:none}
   }
-  @container (max-width:430px){
+  @container (max-width:420px){
     a.card{flex-direction:column;height:auto}
-    .stage{flex-basis:auto;max-width:none;height:190px}
-    .cta{align-self:stretch}.btn{text-align:center}
+    .shot{flex-basis:auto;max-width:none;height:150px}
+    .cta{align-self:stretch}
+    .btn{text-align:center}
   }
 </style>
 </head>
 <body>
-<a class="card" href="https://kindral.gumroad.com/l/complete-collection-for-women" target="_blank" rel="noopener">
-  <div class="stage" aria-hidden="true">
-    <div class="slide s1"><img src="https://public-files.gumroad.com/p2hmqnczl8d1sjcymgzn5rh4drbg" alt=""></div>
-    <div class="slide s2"><img src="https://public-files.gumroad.com/3114jzohnf4jzxxcbwb9f5bmdqa5" alt=""></div>
-    <div class="slide s3"><img src="https://public-files.gumroad.com/4gy8tlx9tm499c5a8gaw80znsaq4" alt=""></div>
-    <div class="slide s4"><img src="https://public-files.gumroad.com/ks09fj4zguezsq44971e1qsqezi7" alt=""></div>
-    <div class="slide s5"><img src="https://public-files.gumroad.com/fvc8hciwm6fkwwyvg7mrobdrcvnt" alt=""></div>
+<a class="card" href="https://kindral.gumroad.com/l/cookbook-meal-planner" target="_blank" rel="noopener">
+  <div class="shot">
+    <img src="https://public-files.gumroad.com/p2hmqnczl8d1sjcymgzn5rh4drbg" alt="Cookbook OS preview">
   </div>
   <div class="body">
     <div class="text">
-      <div class="eyebrow">Kindral Studio · The Complete Collection</div>
-      <h1>Want all five? Get the Complete Collection</h1>
-      <p class="line">Five complete Notion systems for her whole life, in one download. Each one works on its own.</p>
+      <div class="eyebrow">Kindral Studio · The full kitchen</div>
+      <h1>Ready for more? Get Cookbook OS</h1>
+      <p class="line">Your recipes, meal plan, grocery list and pantry in one place, with a built-in kitchen timer.</p>
       <div class="chips">
-        <span class="chip"><i style="background:var(--life)"></i>My Life Planner</span>
-        <span class="chip"><i style="background:var(--glow)"></i>Glow &amp; Style OS</span>
-        <span class="chip"><i style="background:var(--adhd)"></i>ADHD Girl OS</span>
-        <span class="chip"><i style="background:var(--couples)"></i>Couples OS</span>
-        <span class="chip"><i style="background:var(--cook)"></i>Cookbook OS</span>
+        <span class="chip">Recipe Book</span>
+        <span class="chip">Grocery List</span>
+        <span class="chip">Pantry</span>
+        <span class="chip">Cooking Log</span>
+        <span class="chip">Dine-Out Book</span>
+        <span class="chip">Multi-timer</span>
       </div>
     </div>
     <div class="cta">
-      <span class="btn">See the Collection &rarr;</span>
-      <span class="note">5 templates · instant Notion download</span>
+      <span class="btn">See Cookbook OS &rarr;</span>
+      <span class="note">instant Notion download</span>
     </div>
   </div>
-  <svg class="spark" viewBox="0 0 16 16"><path d="M8 0l2 6 6 2-6 2-2 6-2-6-6-2 6-2z" fill="#D4A9B5"/></svg>
+  <svg class="spark" style="right:18px;top:14px" viewBox="0 0 16 16"><path d="M8 0l2 6 6 2-6 2-2 6-2-6-6-2 6-2z"/></svg>
 </a>
 </body>
 </html>
