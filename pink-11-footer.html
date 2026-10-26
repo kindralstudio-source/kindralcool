@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Soft Days</title>
+<style>
+:root{--g:#d4708f;--g2:#f8d9e2;--bg:#fff8f9;--ink:#5b3a45;color-scheme:light}
+*{box-sizing:border-box}
+html,body{margin:0;background:transparent}
+body{padding:6px}
+.scene{position:relative;width:100%;height:clamp(150px,19vw,270px);border-radius:22px;overflow:hidden;background:linear-gradient(180deg,var(--bg) 0%,color-mix(in srgb,var(--g2) 55%,var(--bg)) 100%);border:1px solid color-mix(in srgb,var(--g) 25%,transparent)}
+svg{position:absolute;inset:0;width:100%;height:100%;display:block}
+.c1{animation:drift 70s ease-in-out infinite alternate}
+.c2{animation:drift 95s ease-in-out infinite alternate-reverse}
+@keyframes drift{from{transform:translateX(-40px)}to{transform:translateX(60px)}}
+.sway{transform-box:fill-box;transform-origin:50% 100%;animation:sway 6s ease-in-out infinite alternate}
+@keyframes sway{from{transform:rotate(-3deg)}to{transform:rotate(3deg)}}
+.txt{position:absolute;left:clamp(16px,3.5vw,48px);top:clamp(14px,3vw,38px);color:var(--ink);font-family:Georgia,"Iowan Old Style","Palatino Linotype",serif}
+.txt .k{font:600 clamp(9px,.9vw,11.5px)/1 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;letter-spacing:.22em;text-transform:uppercase;color:var(--g);opacity:.85}
+.txt .t{font-style:italic;font-size:clamp(19px,2.6vw,34px);line-height:1.15;margin-top:6px}
+.txt .t em{color:var(--g)}
+@media (prefers-reduced-motion:reduce){.c1,.c2,.sway{animation:none}}
+</style></head>
+<body>
+<div class="scene">
+<svg viewBox="0 0 1600 300" preserveAspectRatio="xMidYMax slice" aria-hidden="true">
+ <defs>
+  <radialGradient id="glow" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="var(--g2)" stop-opacity=".95"/><stop offset="1" stop-color="var(--g2)" stop-opacity="0"/></radialGradient>
+ </defs>
+ <circle cx="1210" cy="150" r="150" fill="url(#glow)"/>
+ <circle cx="1210" cy="150" r="58" fill="color-mix(in srgb,var(--g2) 70%,#fff)" stroke="color-mix(in srgb,var(--g) 30%,transparent)" stroke-width="1.5"/>
+ <g class="c1" fill="#fff" opacity=".9"><path d="M820 92c0-14 14-24 28-20 6-14 30-16 38-2 16-4 28 8 24 22z"/><path d="M1380 70c0-11 11-19 22-16 5-11 24-12 30-1 12-3 22 6 19 17z"/></g>
+ <g class="c2" fill="#fff" opacity=".75"><path d="M690 58c0-10 10-17 20-14 4-10 21-11 27-1 11-3 20 6 17 15z"/></g>
+ <g fill="none" stroke="var(--g)" stroke-width="2" stroke-linecap="round" opacity=".55"><path d="M980 82q7-7 14 0q7-7 14 0"/><path d="M1030 64q5-5 10 0q5-5 10 0"/></g>
+ <path d="M0 196 C 140 160, 260 150, 400 172 S 640 210, 800 178 S 1060 128, 1240 160 S 1480 196, 1600 170 V300 H0Z" fill="color-mix(in srgb,var(--g2) 60%,#fff)"/>
+ <path d="M0 226 C 180 196, 330 196, 480 214 S 760 246, 940 216 S 1220 178, 1400 206 S 1560 226, 1600 218 V300 H0Z" fill="var(--g2)"/>
+ <path d="M0 262 C 200 236, 380 244, 560 256 S 880 270, 1080 248 S 1420 236, 1600 254 V300 H0Z" fill="color-mix(in srgb,var(--g) 38%,var(--g2))"/>
+ <path d="M660 300 C 700 280, 760 268, 840 262 S 960 258, 1010 252" fill="none" stroke="#fff" stroke-width="6" stroke-linecap="round" opacity=".55"/>
+ <g id="fl"></g>
+</svg>
+<div class="txt"><div class="k">until tomorrow</div><div class="t">Soft days, <em>kept gently.</em></div></div>
+</div>
+<script>
+const ACC={blush:['#d4708f','#f8d9e2','#fff8f9'],rose:['#b4566f','#f1cdd6','#fff7f8'],berry:['#9c4a6c','#ecc9d8','#fdf6f9'],lilac:['#9277bd','#e4d9f3','#fbf8fe'],peach:['#d9805f','#f9dccf','#fff9f6'],butter:['#c49a3c','#f4e5bd','#fffcf3'],sage:['#76997e','#d8e8db','#f8fbf8'],sky:['#6f93c2','#d7e4f4','#f7fafd'],mocha:['#977262','#ead9cf','#fcf8f6']};
+function apply(){let a='blush';try{a=(JSON.parse(localStorage.getItem('nm_pink_look'))||{}).accent||'blush'}catch(e){}const c=ACC[a]||ACC.blush,r=document.documentElement.style;r.setProperty('--g',c[0]);r.setProperty('--g2',c[1]);r.setProperty('--bg',c[2])}
+apply();addEventListener('storage',e=>{if(e.key==='nm_pink_look')apply()});
+// little flowers and grass along the front hill
+const g=document.getElementById('fl');let h='';
+const spots=[60,130,210,300,350,450,520,610,1120,1190,1260,1330,1400,1470,1540];
+spots.forEach((x,i)=>{const y=262+Math.sin(x/90)*5+((i*37)%9),s=.7+((i*53)%5)/10,big=i%3===0;
+ h+=`<g class="sway" style="animation-delay:-${(i*.7)%6}s"><path d="M${x} ${y+16}V${y}" stroke="color-mix(in srgb,var(--g) 55%,#7a9a7e)" stroke-width="1.6" stroke-linecap="round"/>`;
+ if(big){for(let k=0;k<5;k++){const a=k*72*Math.PI/180;h+=`<circle cx="${x+Math.cos(a)*5*s}" cy="${y+Math.sin(a)*5*s}" r="${3.6*s}" fill="#fff" stroke="var(--g)" stroke-width="1"/>`}h+=`<circle cx="${x}" cy="${y}" r="${2.4*s}" fill="var(--g)"/>`}
+ else h+=`<circle cx="${x}" cy="${y}" r="${3.2*s}" fill="${i%2?'#fff':'var(--g)'}" opacity=".9"/>`;
+ h+='</g>';
+ h+=`<path d="M${x+14} ${y+18}q2-9 5-12M${x+18} ${y+18}q-1-7 2-10" fill="none" stroke="color-mix(in srgb,var(--g) 40%,#7a9a7e)" stroke-width="1.2" stroke-linecap="round" opacity=".7"/>`});
+g.innerHTML=h;
+</script>
+</body></html>
