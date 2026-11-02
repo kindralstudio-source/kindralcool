@@ -1,0 +1,42 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<style>
+html,body{margin:0;height:100%;background:#EEF3F8}
+body{font-family:Georgia,"Times New Roman",serif;color:#3F5A75;display:flex;align-items:center;justify-content:center}
+.c{text-align:center;padding:14px;max-width:360px;width:100%;box-sizing:border-box}
+.l{font-style:italic;font-size:15px;opacity:.85}
+.t{font-size:46px;margin:2px 0 6px;line-height:1.1}
+.s{font-size:13px;opacity:.8;margin:2px 0 8px}
+button{font-family:inherit;font-size:14px;border:1px solid #AFC5DA;background:#FFFDFB;color:#3F5A75;border-radius:20px;padding:6px 14px;margin:3px;cursor:pointer}
+button.on{background:#7F9DBB;color:#fff;border-color:#7F9DBB}
+input{font-family:inherit;font-size:14px;color:#3F5A75;border:1px solid #AFC5DA;background:#FFFDFB;border-radius:12px;padding:6px 10px;width:100%;box-sizing:border-box;margin:3px 0}
+input[type=checkbox]{width:auto;accent-color:#7F9DBB;margin:0 8px 0 0}
+.row{display:flex;gap:6px;align-items:center}
+.m{font-size:12px;letter-spacing:2px;text-transform:lowercase;opacity:.7;margin-top:8px}
+.bar{height:8px;border-radius:8px;background:#FFFDFB;border:1px solid #AFC5DA;overflow:hidden;margin:6px 0}
+.fill{height:100%;width:0;background:#7F9DBB;transition:width .4s}
+ul{list-style:none;padding:0;margin:6px 0;text-align:left}
+li{padding:4px 2px;font-size:14px;display:flex;align-items:center}
+li.done span{text-decoration:line-through;opacity:.55}
+</style></head>
+<body><div class="c">
+<div class="l" id="l">lock in softly</div>
+<div class="t" id="d">0</div>
+<div class="s">days left in your winter arc</div>
+<div id="h"></div>
+<div class="m" id="sc">today: 0 of 4</div>
+</div>
+<script>
+function sv(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}
+function ld(k,d){try{var v=localStorage.getItem(k);return v?JSON.parse(v):d}catch(e){return d}}
+function today(){var d=new Date();return d.getFullYear()+"-"+(d.getMonth()+1)+"-"+d.getDate()}
+
+var H=["workout","read 10","skincare","no phone am"],k="arc-"+today(),st=ld(k,[0,0,0,0]);
+function dl(){var n=new Date(),e=new Date(n.getFullYear(),11,31);return Math.max(0,Math.ceil((e-n)/864e5));}
+function draw(){var h=document.getElementById("h");h.innerHTML="";var c=0;
+H.forEach(function(x,i){var b=document.createElement("button");b.textContent=x;if(st[i]){b.className="on";c++;}
+b.onclick=function(){st[i]=st[i]?0:1;sv(k,st);draw();};h.appendChild(b);});
+document.getElementById("sc").textContent="today: "+c+" of 4";
+document.getElementById("l").textContent=c==4?"fully locked in. proud of you.":c>=2?"strong day, keep going":"lock in softly";}
+document.getElementById("d").textContent=dl();draw();
+</script></body></html>
