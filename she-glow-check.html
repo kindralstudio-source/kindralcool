@@ -1,0 +1,39 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<style>
+html,body{margin:0;height:100%;background:#F4F0F8}
+body{font-family:Georgia,"Times New Roman",serif;color:#56406E;display:flex;align-items:center;justify-content:center}
+.c{text-align:center;padding:14px;max-width:360px;width:100%;box-sizing:border-box}
+.l{font-style:italic;font-size:15px;opacity:.85}
+.t{font-size:46px;margin:2px 0 6px;line-height:1.1}
+.s{font-size:13px;opacity:.8;margin:2px 0 8px}
+button{font-family:inherit;font-size:14px;border:1px solid #C5B0D8;background:#FFFDFB;color:#56406E;border-radius:20px;padding:6px 14px;margin:3px;cursor:pointer}
+button.on{background:#9C82B8;color:#fff;border-color:#9C82B8}
+input{font-family:inherit;font-size:14px;color:#56406E;border:1px solid #C5B0D8;background:#FFFDFB;border-radius:12px;padding:6px 10px;width:100%;box-sizing:border-box;margin:3px 0}
+input[type=checkbox]{width:auto;accent-color:#9C82B8;margin:0 8px 0 0}
+.row{display:flex;gap:6px;align-items:center}
+.m{font-size:12px;letter-spacing:2px;text-transform:lowercase;opacity:.7;margin-top:8px}
+.bar{height:8px;border-radius:8px;background:#FFFDFB;border:1px solid #C5B0D8;overflow:hidden;margin:6px 0}
+.fill{height:100%;width:0;background:#9C82B8;transition:width .4s}
+ul{list-style:none;padding:0;margin:6px 0;text-align:left}
+li{padding:4px 2px;font-size:14px;display:flex;align-items:center}
+li.done span{text-decoration:line-through;opacity:.55}
+</style></head>
+<body><div class="c">
+<div class="l">today's affirmation</div>
+<div class="t" style="font-size:22px;font-style:italic;margin:8px 0 10px" id="a"></div>
+<div id="h"></div>
+<div class="m" id="sc">glow check: 0 of 3</div>
+</div>
+<script>
+function sv(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}
+function ld(k,d){try{var v=localStorage.getItem(k);return v?JSON.parse(v):d}catch(e){return d}}
+function today(){var d=new Date();return d.getFullYear()+"-"+(d.getMonth()+1)+"-"+d.getDate()}
+
+var A=["I am becoming her, one soft habit at a time.","I do not rush. I bloom.","My calm is my power.","I keep small promises to myself.","I am allowed to take up space.","Soft and strong can live together.","Today I choose me, gently.","I am exactly where I need to be.","Rest is part of the plan.","I glow from the inside out."];
+var n=new Date(),i=(n.getFullYear()*372+n.getMonth()*31+n.getDate())%A.length;document.getElementById("a").textContent=A[i];
+var H=["water","move","glow"],k="glow-"+today(),st=ld(k,[0,0,0]);
+function draw(){var h=document.getElementById("h");h.innerHTML="";var c=0;H.forEach(function(x,j){var b=document.createElement("button");b.textContent=x;if(st[j]){b.className="on";c++;}
+b.onclick=function(){st[j]=st[j]?0:1;sv(k,st);draw();};h.appendChild(b);});
+document.getElementById("sc").textContent=c==3?"all three. main character energy.":"glow check: "+c+" of 3";}draw();
+</script></body></html>

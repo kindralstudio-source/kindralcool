@@ -1,0 +1,41 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<style>
+html,body{margin:0;height:100%;background:#FAF6E8}
+body{font-family:Georgia,"Times New Roman",serif;color:#6E5A2A;display:flex;align-items:center;justify-content:center}
+.c{text-align:center;padding:14px;max-width:360px;width:100%;box-sizing:border-box}
+.l{font-style:italic;font-size:15px;opacity:.85}
+.t{font-size:46px;margin:2px 0 6px;line-height:1.1}
+.s{font-size:13px;opacity:.8;margin:2px 0 8px}
+button{font-family:inherit;font-size:14px;border:1px solid #E2CF96;background:#FFFDFB;color:#6E5A2A;border-radius:20px;padding:6px 14px;margin:3px;cursor:pointer}
+button.on{background:#C8AF6A;color:#fff;border-color:#C8AF6A}
+input{font-family:inherit;font-size:14px;color:#6E5A2A;border:1px solid #E2CF96;background:#FFFDFB;border-radius:12px;padding:6px 10px;width:100%;box-sizing:border-box;margin:3px 0}
+input[type=checkbox]{width:auto;accent-color:#C8AF6A;margin:0 8px 0 0}
+.row{display:flex;gap:6px;align-items:center}
+.m{font-size:12px;letter-spacing:2px;text-transform:lowercase;opacity:.7;margin-top:8px}
+.bar{height:8px;border-radius:8px;background:#FFFDFB;border:1px solid #E2CF96;overflow:hidden;margin:6px 0}
+.fill{height:100%;width:0;background:#C8AF6A;transition:width .4s}
+ul{list-style:none;padding:0;margin:6px 0;text-align:left}
+li{padding:4px 2px;font-size:14px;display:flex;align-items:center}
+li.done span{text-decoration:line-through;opacity:.55}
+</style></head>
+<body><div class="c">
+<div class="l">how are you feeling today?</div>
+<div id="h"></div>
+<div class="t" style="font-size:21px;font-style:italic;margin:12px 0 8px" id="p"></div>
+<button id="n">new prompt</button>
+<div class="m" id="mm">dear diary</div>
+</div>
+<script>
+function sv(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}
+function ld(k,d){try{var v=localStorage.getItem(k);return v?JSON.parse(v):d}catch(e){return d}}
+function today(){var d=new Date();return d.getFullYear()+"-"+(d.getMonth()+1)+"-"+d.getDate()}
+
+var P=["What made you smile today, even a little?","What is one thing you are proud of this week?","Who made your day easier, and how?","What do you need more of right now?","What would you tell yourself one year ago?","What is weighing on you that you can let go of?","Describe a small moment you want to remember.","What does a perfect slow Sunday look like?","What are you looking forward to?","What did you learn about yourself today?","Name three things you are grateful for.","What would make tomorrow feel lighter?"];
+var M=["glowing","happy","okay","low"],k="mood-"+today(),mood=ld(k,""),n=new Date(),i=(n.getFullYear()*372+n.getMonth()*31+n.getDate())%P.length;
+function show(){document.getElementById("p").textContent=P[i];}
+function draw(){var h=document.getElementById("h");h.innerHTML="";M.forEach(function(x){var b=document.createElement("button");b.textContent=x;if(mood==x)b.className="on";
+b.onclick=function(){mood=mood==x?"":x;sv(k,mood);draw();};h.appendChild(b);});
+document.getElementById("mm").textContent=mood?"today felt "+mood:"dear diary";}
+document.getElementById("n").onclick=function(){i=(i+1)%P.length;show();};show();draw();
+</script></body></html>

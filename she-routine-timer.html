@@ -1,0 +1,50 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<style>
+html,body{margin:0;height:100%;background:#FBF3EC}
+body{font-family:Georgia,"Times New Roman",serif;color:#7A4E33;display:flex;align-items:center;justify-content:center}
+.c{text-align:center;padding:14px;max-width:360px;width:100%;box-sizing:border-box}
+.l{font-style:italic;font-size:15px;opacity:.85}
+.t{font-size:46px;margin:2px 0 6px;line-height:1.1}
+.s{font-size:13px;opacity:.8;margin:2px 0 8px}
+button{font-family:inherit;font-size:14px;border:1px solid #E6B99A;background:#FFFDFB;color:#7A4E33;border-radius:20px;padding:6px 14px;margin:3px;cursor:pointer}
+button.on{background:#CF9673;color:#fff;border-color:#CF9673}
+input{font-family:inherit;font-size:14px;color:#7A4E33;border:1px solid #E6B99A;background:#FFFDFB;border-radius:12px;padding:6px 10px;width:100%;box-sizing:border-box;margin:3px 0}
+input[type=checkbox]{width:auto;accent-color:#CF9673;margin:0 8px 0 0}
+.row{display:flex;gap:6px;align-items:center}
+.m{font-size:12px;letter-spacing:2px;text-transform:lowercase;opacity:.7;margin-top:8px}
+.bar{height:8px;border-radius:8px;background:#FFFDFB;border:1px solid #E6B99A;overflow:hidden;margin:6px 0}
+.fill{height:100%;width:0;background:#CF9673;transition:width .4s}
+ul{list-style:none;padding:0;margin:6px 0;text-align:left}
+li{padding:4px 2px;font-size:14px;display:flex;align-items:center}
+li.done span{text-decoration:line-through;opacity:.55}
+</style></head>
+<body><div class="c">
+<div class="l" id="l">slow mornings, soft nights</div>
+<div class="t" id="t">0:00</div>
+<div class="s" id="cur">add your steps below</div>
+<ul id="u"></ul>
+<div><button id="go">start</button><button id="rs">reset</button></div>
+<div class="m" id="tot">total: 0 min</div>
+</div>
+<script>
+function sv(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}
+function ld(k,d){try{var v=localStorage.getItem(k);return v?JSON.parse(v):d}catch(e){return d}}
+function today(){var d=new Date();return d.getFullYear()+"-"+(d.getMonth()+1)+"-"+d.getDate()}
+
+var st=ld("routine",[{n:"lemon water",m:3},{n:"skincare",m:8},{n:"stretch",m:5},{n:"",m:0},{n:"",m:0}]),i=-1,left=0,iv=null;
+function steps(){return st.filter(function(x){return x.n&&x.m>0});}
+function fmt(s){return Math.floor(s/60)+":"+("0"+s%60).slice(-2);}
+function draw(){var u=document.getElementById("u");u.innerHTML="";var tot=0;st.forEach(function(x,j){var li=document.createElement("li");
+var a=document.createElement("input");a.value=x.n;a.placeholder="step "+(j+1);a.oninput=function(){x.n=a.value;sv("routine",st);tot2();};
+var b=document.createElement("input");b.type="number";b.min=0;b.value=x.m||"";b.placeholder="min";b.style.width="70px";b.oninput=function(){x.m=+b.value||0;sv("routine",st);tot2();};
+li.appendChild(a);li.appendChild(b);u.appendChild(li);});tot2();}
+function tot2(){var t=0;st.forEach(function(x){if(x.n)t+=x.m});document.getElementById("tot").textContent="total: "+t+" min";}
+function next(){var s=steps();i++;if(i>=s.length){stop();document.getElementById("l").textContent="routine done. well done, lovely.";document.getElementById("cur").textContent="";i=-1;return;}
+left=s[i].m*60;document.getElementById("cur").textContent="now: "+s[i].n+" ("+(i+1)+" of "+s.length+")";document.getElementById("t").textContent=fmt(left);}
+function stop(){clearInterval(iv);iv=null;document.getElementById("go").textContent="start";}
+document.getElementById("go").onclick=function(){if(iv){stop();return;}if(i<0)next();if(i<0)return;document.getElementById("go").textContent="pause";
+iv=setInterval(function(){left--;document.getElementById("t").textContent=fmt(Math.max(0,left));if(left<=0)next();},1000);};
+document.getElementById("rs").onclick=function(){stop();i=-1;document.getElementById("t").textContent="0:00";document.getElementById("cur").textContent="ready when you are";document.getElementById("l").textContent="slow mornings, soft nights";};
+draw();
+</script></body></html>

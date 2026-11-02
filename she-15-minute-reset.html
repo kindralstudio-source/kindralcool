@@ -1,0 +1,52 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<style>
+html,body{margin:0;height:100%;background:#F4F4F2}
+body{font-family:Georgia,"Times New Roman",serif;color:#4A4845;display:flex;align-items:center;justify-content:center}
+.c{text-align:center;padding:14px;max-width:360px;width:100%;box-sizing:border-box}
+.l{font-style:italic;font-size:15px;opacity:.85}
+.t{font-size:46px;margin:2px 0 6px;line-height:1.1}
+.s{font-size:13px;opacity:.8;margin:2px 0 8px}
+button{font-family:inherit;font-size:14px;border:1px solid #C6C4C0;background:#FFFDFB;color:#4A4845;border-radius:20px;padding:6px 14px;margin:3px;cursor:pointer}
+button.on{background:#9E9B96;color:#fff;border-color:#9E9B96}
+input{font-family:inherit;font-size:14px;color:#4A4845;border:1px solid #C6C4C0;background:#FFFDFB;border-radius:12px;padding:6px 10px;width:100%;box-sizing:border-box;margin:3px 0}
+input[type=checkbox]{width:auto;accent-color:#9E9B96;margin:0 8px 0 0}
+.row{display:flex;gap:6px;align-items:center}
+.m{font-size:12px;letter-spacing:2px;text-transform:lowercase;opacity:.7;margin-top:8px}
+.bar{height:8px;border-radius:8px;background:#FFFDFB;border:1px solid #C6C4C0;overflow:hidden;margin:6px 0}
+.fill{height:100%;width:0;background:#9E9B96;transition:width .4s}
+ul{list-style:none;padding:0;margin:6px 0;text-align:left}
+li{padding:4px 2px;font-size:14px;display:flex;align-items:center}
+li.done span{text-decoration:line-through;opacity:.55}
+</style></head>
+<body><div class="c">
+<div class="l" id="l">a calm home, a clear mind</div>
+<div id="r"></div>
+<div class="t" id="t">15:00</div>
+<ul id="u"></ul>
+<div><button id="go">start</button><button id="rs">reset</button></div>
+<div class="m" id="sc">pick a room</div>
+</div>
+<script>
+function sv(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}
+function ld(k,d){try{var v=localStorage.getItem(k);return v?JSON.parse(v):d}catch(e){return d}}
+function today(){var d=new Date();return d.getFullYear()+"-"+(d.getMonth()+1)+"-"+d.getDate()}
+
+var R={"kitchen":["clear the counters","load the dishwasher","wipe the stove","take out the trash","sweep the floor"],
+"bathroom":["wipe the sink and mirror","scrub the toilet","swap the towels","wipe the counter","empty the bin"],
+"bedroom":["make the bed","put clothes away","clear the nightstand","open a window","quick vacuum"],
+"living room":["fold the throw blanket","fluff the cushions","clear the coffee table","dust surfaces","quick vacuum"]};
+var room="kitchen",done=[0,0,0,0,0],left=900,iv=null;
+function fmt(s){return Math.floor(s/60)+":"+("0"+s%60).slice(-2);}
+function draw(){var r=document.getElementById("r");r.innerHTML="";Object.keys(R).forEach(function(x){var b=document.createElement("button");b.textContent=x;if(x==room)b.className="on";
+b.onclick=function(){room=x;done=[0,0,0,0,0];draw();};r.appendChild(b);});
+var u=document.getElementById("u");u.innerHTML="";var c=0;R[room].forEach(function(x,i){var li=document.createElement("li");if(done[i]){li.className="done";c++;}
+var cb=document.createElement("input");cb.type="checkbox";cb.checked=!!done[i];cb.onchange=function(){done[i]=cb.checked?1:0;draw();};
+var s=document.createElement("span");s.textContent=x;li.appendChild(cb);li.appendChild(s);u.appendChild(li);});
+document.getElementById("sc").textContent=c==5?room+" reset. so calm.":c+" of 5 done";}
+function stop(){clearInterval(iv);iv=null;document.getElementById("go").textContent="start";}
+document.getElementById("go").onclick=function(){if(iv){stop();return;}document.getElementById("go").textContent="pause";
+iv=setInterval(function(){left--;document.getElementById("t").textContent=fmt(Math.max(0,left));if(left<=0){stop();document.getElementById("l").textContent="time. look how much you did.";left=900;}},1000);};
+document.getElementById("rs").onclick=function(){stop();left=900;done=[0,0,0,0,0];document.getElementById("t").textContent="15:00";document.getElementById("l").textContent="a calm home, a clear mind";draw();};
+draw();
+</script></body></html>

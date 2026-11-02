@@ -1,0 +1,40 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<style>
+html,body{margin:0;height:100%;background:#F0F5EF}
+body{font-family:Georgia,"Times New Roman",serif;color:#45604A;display:flex;align-items:center;justify-content:center}
+.c{text-align:center;padding:14px;max-width:360px;width:100%;box-sizing:border-box}
+.l{font-style:italic;font-size:15px;opacity:.85}
+.t{font-size:46px;margin:2px 0 6px;line-height:1.1}
+.s{font-size:13px;opacity:.8;margin:2px 0 8px}
+button{font-family:inherit;font-size:14px;border:1px solid #B4CBB1;background:#FFFDFB;color:#45604A;border-radius:20px;padding:6px 14px;margin:3px;cursor:pointer}
+button.on{background:#89A886;color:#fff;border-color:#89A886}
+input{font-family:inherit;font-size:14px;color:#45604A;border:1px solid #B4CBB1;background:#FFFDFB;border-radius:12px;padding:6px 10px;width:100%;box-sizing:border-box;margin:3px 0}
+input[type=checkbox]{width:auto;accent-color:#89A886;margin:0 8px 0 0}
+.row{display:flex;gap:6px;align-items:center}
+.m{font-size:12px;letter-spacing:2px;text-transform:lowercase;opacity:.7;margin-top:8px}
+.bar{height:8px;border-radius:8px;background:#FFFDFB;border:1px solid #B4CBB1;overflow:hidden;margin:6px 0}
+.fill{height:100%;width:0;background:#89A886;transition:width .4s}
+ul{list-style:none;padding:0;margin:6px 0;text-align:left}
+li{padding:4px 2px;font-size:14px;display:flex;align-items:center}
+li.done span{text-decoration:line-through;opacity:.55}
+</style></head>
+<body><div class="c">
+<div class="l">this week, just three things</div>
+<ul id="u"></ul>
+<div class="bar"><div class="fill" id="f"></div></div>
+<div class="m" id="sc">0 of 3 done</div>
+</div>
+<script>
+function sv(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}
+function ld(k,d){try{var v=localStorage.getItem(k);return v?JSON.parse(v):d}catch(e){return d}}
+function today(){var d=new Date();return d.getFullYear()+"-"+(d.getMonth()+1)+"-"+d.getDate()}
+
+function wk(){var d=new Date(),j=new Date(d.getFullYear(),0,1);return d.getFullYear()+"-w"+Math.ceil(((d-j)/864e5+j.getDay()+1)/7);}
+var k="top3-"+wk(),st=ld(k,[{t:"",d:0},{t:"",d:0},{t:"",d:0}]);
+function draw(){var u=document.getElementById("u");u.innerHTML="";var c=0;st.forEach(function(x,i){var li=document.createElement("li");if(x.d){li.className="done";c++;}
+var cb=document.createElement("input");cb.type="checkbox";cb.checked=!!x.d;cb.onchange=function(){x.d=cb.checked?1:0;sv(k,st);draw();};
+var inp=document.createElement("input");inp.value=x.t;inp.placeholder="focus "+(i+1);inp.oninput=function(){x.t=inp.value;sv(k,st);};
+li.appendChild(cb);li.appendChild(inp);u.appendChild(li);});
+document.getElementById("f").style.width=(c/3*100)+"%";document.getElementById("sc").textContent=c==3?"all done. rest well.":c+" of 3 done";}draw();
+</script></body></html>

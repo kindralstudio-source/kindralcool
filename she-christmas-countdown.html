@@ -1,0 +1,41 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<style>
+html,body{margin:0;height:100%;background:#FAF0F2}
+body{font-family:Georgia,"Times New Roman",serif;color:#7A4656;display:flex;align-items:center;justify-content:center}
+.c{text-align:center;padding:14px;max-width:360px;width:100%;box-sizing:border-box}
+.l{font-style:italic;font-size:15px;opacity:.85}
+.t{font-size:46px;margin:2px 0 6px;line-height:1.1}
+.s{font-size:13px;opacity:.8;margin:2px 0 8px}
+button{font-family:inherit;font-size:14px;border:1px solid #E4B5C2;background:#FFFDFB;color:#7A4656;border-radius:20px;padding:6px 14px;margin:3px;cursor:pointer}
+button.on{background:#C98A9C;color:#fff;border-color:#C98A9C}
+input{font-family:inherit;font-size:14px;color:#7A4656;border:1px solid #E4B5C2;background:#FFFDFB;border-radius:12px;padding:6px 10px;width:100%;box-sizing:border-box;margin:3px 0}
+input[type=checkbox]{width:auto;accent-color:#C98A9C;margin:0 8px 0 0}
+.row{display:flex;gap:6px;align-items:center}
+.m{font-size:12px;letter-spacing:2px;text-transform:lowercase;opacity:.7;margin-top:8px}
+.bar{height:8px;border-radius:8px;background:#FFFDFB;border:1px solid #E4B5C2;overflow:hidden;margin:6px 0}
+.fill{height:100%;width:0;background:#C98A9C;transition:width .4s}
+ul{list-style:none;padding:0;margin:6px 0;text-align:left}
+li{padding:4px 2px;font-size:14px;display:flex;align-items:center}
+li.done span{text-decoration:line-through;opacity:.55}
+</style></head>
+<body><div class="c">
+<div class="l">until christmas morning</div>
+<div class="t" id="d">0</div>
+<div class="s">days to go</div>
+<div class="row"><input id="b" type="number" min="0" placeholder="gift budget $"><input id="sp" type="number" min="0" placeholder="spent so far $"></div>
+<div class="bar"><div class="fill" id="f"></div></div>
+<div class="m" id="left">add your budget</div>
+</div>
+<script>
+function sv(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}
+function ld(k,d){try{var v=localStorage.getItem(k);return v?JSON.parse(v):d}catch(e){return d}}
+function today(){var d=new Date();return d.getFullYear()+"-"+(d.getMonth()+1)+"-"+d.getDate()}
+
+var s=ld("xmas",{b:"",sp:""}),B=document.getElementById("b"),S=document.getElementById("sp");B.value=s.b;S.value=s.sp;
+function dl(){var n=new Date(),y=n.getMonth()==11&&n.getDate()>25?n.getFullYear()+1:n.getFullYear();return Math.max(0,Math.ceil((new Date(y,11,25)-n)/864e5));}
+function calc(){var b=+B.value||0,p=+S.value||0;sv("xmas",{b:B.value,sp:S.value});
+document.getElementById("f").style.width=(b?Math.min(100,p/b*100):0)+"%";
+document.getElementById("left").textContent=!b?"add your budget":p>b?"over budget by $"+(p-b):"$"+(b-p)+" left to spend";}
+B.oninput=calc;S.oninput=calc;document.getElementById("d").textContent=dl();calc();
+</script></body></html>
